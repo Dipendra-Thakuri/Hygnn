@@ -1,5 +1,6 @@
 // src/components/ContactSection.js
 import React from "react";
+import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 const Section = styled.section`
@@ -144,7 +145,7 @@ const Caption = styled.p`
     theme.background === "#ffffff" ? "#6b7280" : "#9ca3af"};
 `;
 
-const CTAButton = styled.a`
+const CTAButton = styled(Link)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -155,16 +156,14 @@ const CTAButton = styled.a`
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  border: none;
 
   background: linear-gradient(180deg, #ffffff, #dfe3e8);
   color: #000000;
 
-  /* Heavy shadow only in dark mode */
   box-shadow: ${({ theme }) =>
     theme.background === "#ffffff"
       ? "none"
-      : "0 18px 35px rgba(15, 23, 42, 0.55)"} ;
+      : "0 18px 35px rgba(15, 23, 42, 0.55)"};
 
   transition: 0.2s ease;
 
@@ -262,7 +261,7 @@ const ContactSection = () => {
           Hygnn integrates with your favourite communication channels.
         </Caption>
 
-        <CTAButton href="mailto:hello@hygnn.com">Contact Hygnn</CTAButton>
+        <CTAButton to="/contact">Contact Hygnn</CTAButton>
       </Container>
     </Section>
   );

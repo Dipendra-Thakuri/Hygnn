@@ -1,8 +1,5 @@
 // src/pages/LandingPage.js
-import styled, { ThemeProvider } from "styled-components";
-import { useState } from "react";
-import { lightTheme, darkTheme } from "../theme";
-
+import styled from "styled-components";
 import HeroSection from "../components/HeroSection";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -21,24 +18,20 @@ const LandingMain = styled.div`
   transition: background 0.3s ease, color 0.3s ease;
 `;
 
-const LandingPage = () => {
-  const [isDark, setIsDark] = useState(true);
-
+const LandingPage = ({ isDark, setIsDark }) => {
   return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <LandingMain>
-        <Header isDark={isDark} setIsDark={setIsDark} />
-        <HeroSection />
-        <ProblemsSection />
-        <AboutUsSection />
-        <KitchenSkillsSection />
-        <WhyUsSection />
-        <HygieneLevelSection />
-        <ContactSection />
-        <FAQSection />
-        <Footer isDark={isDark} />
-      </LandingMain>
-    </ThemeProvider>
+    <LandingMain id="landingpage">
+      <Header isDark={isDark} setIsDark={setIsDark} />
+      <HeroSection />
+      <ProblemsSection />
+      <AboutUsSection />
+      <KitchenSkillsSection />
+      <WhyUsSection />
+      <HygieneLevelSection />
+      <ContactSection />
+      <FAQSection />
+      <Footer isDark={isDark} />
+    </LandingMain>
   );
 };
 

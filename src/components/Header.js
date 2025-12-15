@@ -1,5 +1,6 @@
 // src/components/Header.js
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const storageKey = "theme-preference";
@@ -40,7 +41,11 @@ const HeaderNav = styled.nav`
   align-items: center;
 `;
 
-const NavLink = styled.a`
+const NavLink = styled.button`
+  background: transparent;
+  border: none;
+  padding: 0;
+
   color: ${({ theme }) => theme.text};
   font-size: 18px;
   font-family: "KentledgeBold";
@@ -152,6 +157,8 @@ const injectRuntimeThemeCss = () => {
   document.head.appendChild(style);
 };
 
+
+
 const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) => {
   const [isDark, setIsDark] = useState(() => {
     try {
@@ -160,6 +167,24 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
     } catch (e) {}
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
+
+  const navigate = useNavigate();
+const location = useLocation();
+
+const goToSection = (id) => {
+  if (location.pathname !== "/") {
+    navigate("/");
+
+    // wait for LandingPage to render
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }, 50);
+  } else {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
   const mountedRef = useRef(false);
 
@@ -234,9 +259,17 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
         </LogoLink>
 
         <HeaderNav>
-          <NavLink href="#about-us">Hygiene Partner</NavLink>
-          <NavLink href="#why-us">Why Us</NavLink>
-          <NavLink href="#contact-us">Contact Us</NavLink>
+          <NavLink as="button" onClick={() => goToSection("about-us")}>
+  Hygiene Partner
+</NavLink>
+
+<NavLink as="button" onClick={() => goToSection("why-us")}>
+  Why Us
+</NavLink>
+
+<NavLink as="button" onClick={() => navigate("/contact")}>
+  Contact Us
+</NavLink>
 
           <ThemeToggle
             id="theme-toggle"
