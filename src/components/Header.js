@@ -1,322 +1,289 @@
 // src/components/Header.js
-import React, { useEffect, useState, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback
+} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const storageKey = "theme-preference";
 
+/* ------------------ Layout ------------------ */
+
 const HeaderMain = styled.header`
   width: 100%;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
+  position: relative;
+  z-index: 1000;
 `;
 
 const HeaderWrapper = styled.div`
-  width: 90%;
   max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 2.5rem 0rem 3.5rem;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-const LogoLink = styled.a`
-  display: inline-flex;
+const LogoButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
   align-items: center;
-  text-decoration: none;
 `;
 
 const HeaderLogo = styled.img`
-  width: 160px;
-  cursor: pointer;
-  padding: 10px;
-`;
-
-const HeaderNav = styled.nav`
-  display: flex;
-  gap: 40px;
-  align-items: center;
+  width: clamp(110px, 22vw, 160px);
 `;
 
 const NavLink = styled.button`
-  background: transparent;
+  background: none;
   border: none;
   padding: 0;
-
-  color: ${({ theme }) => theme.text};
-  font-size: 18px;
-  font-family: "KentledgeBold";
   cursor: pointer;
-  font-weight: 500;
-  transition: 0.3s;
-  text-decoration: none;
+
+  font-size: clamp(0.95rem, 3vw, 1.125rem);
+  font-family: "KentledgeBold";
+  color: ${({ theme }) => theme.text};
+
+  transition: color 0.25s ease;
 
   &:hover {
     color: #00eaff;
   }
 `;
 
-const ThemeToggle = styled.button`
-  --icon-fill: ${({ theme }) => theme.text};
-  --icon-fill-hover: ${({ theme }) => theme.text};
-  padding: 8px 12px;
-  display: inline-flex;
+const DesktopNav = styled.div`
+  display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: ${({ theme }) => theme.cardBackground};
-  color: ${({ theme }) => theme.text};
-  cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.15s ease;
-  line-height: 0;
-  min-width: 48px;
-  min-height: 48px;
+  gap: clamp(1rem, 3vw, 2.5rem);
 
-  &:hover {
-    opacity: 0.9;
-  }
-
-  &:active {
-    transform: translateY(1px);
-  }
-
-  &:focus-visible {
-    outline: 3px solid rgba(0, 234, 255, 0.15);
-    outline-offset: 3px;
-  }
-
-  .sun-and-moon > :is(.moon, .sun, .sun-beams) {
-    transform-origin: center;
-  }
-
-  .sun-and-moon > :is(.moon, .sun) {
-    fill: var(--icon-fill);
-  }
-
-  &:is(:hover, :focus-visible) > .sun-and-moon > :is(.moon, .sun) {
-    fill: var(--icon-fill-hover);
-  }
-
-  .sun-and-moon > .sun-beams {
-    stroke: var(--icon-fill);
-    stroke-width: 2px;
-  }
-
-  &:is(:hover, :focus-visible) .sun-and-moon > .sun-beams {
-    stroke: var(--icon-fill-hover);
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
-const injectRuntimeThemeCss = () => {
-  const id = "header-theme-toggle-runtime-css";
-  if (document.getElementById(id)) return;
+/* ------------------ Hamburger ------------------ */
 
-  const css = `
-    [data-theme="dark"] .sun-and-moon > .sun { transform: scale(1.75); }
-    [data-theme="dark"] .sun-and-moon > .sun-beams { opacity: 0; transform: rotateZ(-25deg); }
-    [data-theme="dark"] .sun-and-moon > .moon > circle { transform: translateX(-7px); }
+const Hamburger = styled.button`
+  width: 42px;
+  height: 42px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: relative;
+  display: none;
 
-    @media (prefers-reduced-motion: no-preference) {
-      .sun-and-moon > .sun {
-        transition: transform .5s cubic-bezier(.6,1.5,.7,1);
-      }
-      .sun-and-moon > .sun-beams {
-        transition: transform .5s cubic-bezier(.3,.7,.2,1), opacity .5s ease;
-      }
-      .sun-and-moon .moon > circle {
-        transition: transform .25s ease-out;
-      }
-      @supports (cx: 1) {
-        .sun-and-moon .moon > circle {
-          transition: cx .25s ease-out;
-        }
-      }
-      [data-theme="dark"] .sun-and-moon > .sun {
-        transition-timing-function: ease;
-        transition-duration: .25s;
-        transform: scale(1.75);
-      }
-      [data-theme="dark"] .sun-and-moon > .sun-beams {
-        transition-duration: .15s;
-        transform: rotateZ(-25deg);
-      }
-      [data-theme="dark"] .sun-and-moon > .moon > circle {
-        transition-duration: .5s;
-        transition-delay: .25s;
-      }
-    }
-  `;
+  @media (max-width: 768px) {
+    display: block;
+  }
 
-  const style = document.createElement("style");
-  style.id = id;
-  style.innerHTML = css;
-  document.head.appendChild(style);
-};
+  span {
+    position: absolute;
+    left: 8px;
+    width: 26px;
+    height: 2px;
+    background: ${({ theme }) => theme.text};
+    transition: transform 0.3s ease, opacity 0.25s ease;
+  }
 
+  span:nth-child(1) {
+    top: 14px;
+    transform: ${({ open }) =>
+      open ? "rotate(45deg) translateY(6px)" : "none"};
+  }
 
+  span:nth-child(2) {
+    top: 20px;
+    opacity: ${({ open }) => (open ? 0 : 1)};
+  }
+
+  span:nth-child(3) {
+    top: 26px;
+    transform: ${({ open }) =>
+      open ? "rotate(-45deg) translateY(-6px)" : "none"};
+  }
+`;
+
+/* ------------------ Overlay + Menu ------------------ */
+
+const Backdrop = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  opacity: ${({ open }) => (open ? 1 : 0)};
+  pointer-events: ${({ open }) => (open ? "auto" : "none")};
+  transition: opacity 0.25s ease;
+  z-index: 999;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
+const MobileMenu = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+
+  background: ${({ theme }) => theme.background};
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+
+  transform: translateY(${({ open }) => (open ? "0" : "-100%")});
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  z-index: 1000;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
+/* ------------------ Theme Toggle ------------------ */
+
+const ThemeToggle = styled.button`
+  padding: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: ${({ theme }) => theme.cardBackground};
+  cursor: pointer;
+`;
+
+/* ------------------ Component ------------------ */
 
 const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const menuRef = useRef(null);
+  const startYRef = useRef(0);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(() => {
-    try {
-      const stored = localStorage.getItem(storageKey);
-      if (stored === "dark" || stored === "light") return stored === "dark";
-    } catch (e) {}
-    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const saved = localStorage.getItem(storageKey);
+    if (saved) return saved === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
 
-  const navigate = useNavigate();
-const location = useLocation();
-
-const goToSection = (id) => {
-  if (location.pathname !== "/") {
-    navigate("/");
-
-    // wait for LandingPage to render
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    }, 50);
-  } else {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  }
-};
-
-  const mountedRef = useRef(false);
-
-  const reflectPreference = (dark) => {
-    try {
-      document.firstElementChild.setAttribute("data-theme", dark ? "dark" : "light");
-    } catch (e) {}
-    const btn = document.querySelector("#theme-toggle");
-    if (btn) btn.setAttribute("aria-label", dark ? "dark" : "light");
-  };
-
-  const setPreference = (dark) => {
-    setIsDark(dark);
-    try {
+  const applyTheme = useCallback(
+    (dark) => {
+      document.documentElement.setAttribute(
+        "data-theme",
+        dark ? "dark" : "light"
+      );
       localStorage.setItem(storageKey, dark ? "dark" : "light");
-    } catch (e) {}
-    if (typeof controlledSetIsDark === "function") controlledSetIsDark(dark);
-    reflectPreference(dark);
+      setIsDark(dark);
+      controlledSetIsDark?.(dark);
+    },
+    [controlledSetIsDark]
+  );
+
+  const toggleTheme = () => applyTheme(!isDark);
+
+  const goToSection = useCallback(
+    (id) => {
+      setIsMenuOpen(false);
+      if (location.pathname !== "/") {
+        navigate("/");
+        requestAnimationFrame(() => {
+          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+        });
+      } else {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+    [location.pathname, navigate]
+  );
+
+  /* Click outside to close */
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const handler = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [isMenuOpen]);
+
+  /* Swipe down to close */
+  const onTouchStart = (e) => {
+    startYRef.current = e.touches[0].clientY;
   };
 
-  const handleToggle = () => setPreference(!isDark);
-
-  useEffect(() => {
-    if (typeof controlledIsDark === "boolean") {
-      setIsDark(controlledIsDark);
-      reflectPreference(controlledIsDark);
-    }
-    injectRuntimeThemeCss();
-    mountedRef.current = true;
-
-    const mm = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
-    const onSystemChange = (e) => {
-      try {
-        if (!localStorage.getItem(storageKey)) {
-          const autoDark = e.matches;
-          setIsDark(autoDark);
-          reflectPreference(autoDark);
-          if (typeof controlledSetIsDark === "function") controlledSetIsDark(autoDark);
-        }
-      } catch (err) {}
-    };
-
-    if (mm && mm.addEventListener) mm.addEventListener("change", onSystemChange);
-    else if (mm && mm.addListener) mm.addListener(onSystemChange);
-
-    reflectPreference(isDark);
-
-    return () => {
-      if (mm && mm.removeEventListener) mm.removeEventListener("change", onSystemChange);
-      else if (mm && mm.removeListener) mm.removeListener(onSystemChange);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (!mountedRef.current) return;
-    if (typeof controlledIsDark === "boolean" && controlledIsDark !== isDark) {
-      setIsDark(controlledIsDark);
-      reflectPreference(controlledIsDark);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [controlledIsDark]);
+  const onTouchMove = (e) => {
+    const delta = e.touches[0].clientY - startYRef.current;
+    if (delta > 60) setIsMenuOpen(false);
+  };
 
   return (
-    <HeaderMain id="header">
-      <HeaderWrapper>
-        <LogoLink href="#header" aria-label="Hygnn Home">
-          <HeaderLogo
-            src={isDark ? "/InvertedLogo.png" : "/PrimaryLogo.png"}
-            alt="Hygnn logo"
-          />
-        </LogoLink>
+    <>
+      <HeaderMain>
+        <HeaderWrapper>
+          <LogoButton onClick={() => navigate("/")}>
+            <HeaderLogo
+              src={isDark ? "/InvertedLogo.png" : "/PrimaryLogo.png"}
+              alt="Hygnn logo"
+            />
+          </LogoButton>
 
-        <HeaderNav>
-          <NavLink as="button" onClick={() => goToSection("about-us")}>
-  Hygiene Partner
-</NavLink>
+          <DesktopNav>
+            <NavLink onClick={() => navigate("/about")}>
+              Hygiene Partner
+            </NavLink>
+            <NavLink onClick={() => goToSection("why-us")}>Why Us</NavLink>
+            <NavLink onClick={() => navigate("/contact")}>
+              Contact Us
+            </NavLink>
+            <ThemeToggle onClick={toggleTheme}>🌓</ThemeToggle>
+          </DesktopNav>
 
-<NavLink as="button" onClick={() => goToSection("why-us")}>
-  Why Us
-</NavLink>
-
-<NavLink as="button" onClick={() => navigate("/contact")}>
-  Contact Us
-</NavLink>
-
-          <ThemeToggle
-            id="theme-toggle"
-            className="theme-toggle"
-            title="Toggles light & dark"
-            aria-label={isDark ? "dark" : "light"}
-            aria-live="polite"
-            onClick={handleToggle}
+          <Hamburger
+            open={isMenuOpen}
+            aria-label="Toggle menu"
+            onClick={() => setIsMenuOpen((v) => !v)}
           >
-            <svg
-              className="sun-and-moon"
-              aria-hidden="true"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              role="img"
-            >
-              {/* Mask element is the one we target with .moon in CSS */}
-              <mask className="moon" id="moon-mask">
-                <rect x="0" y="0" width="100%" height="100%" fill="white" />
-                <circle cx="24" cy="10" r="6" fill="black" />
-              </mask>
+            <span />
+            <span />
+            <span />
+          </Hamburger>
+        </HeaderWrapper>
 
-              <circle
-                className="sun"
-                cx="12"
-                cy="12"
-                r="6"
-                mask="url(#moon-mask)"
-                fill="currentColor"
-              />
+        <MobileMenu
+          ref={menuRef}
+          open={isMenuOpen}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+        >
+          <NavLink onClick={() => navigate("/about")}>
+            Hygiene Partner
+          </NavLink>
+          <NavLink onClick={() => goToSection("why-us")}>Why Us</NavLink>
+          <NavLink onClick={() => navigate("/contact")}>
+            Contact Us
+          </NavLink>
+          <ThemeToggle onClick={toggleTheme}>🌓</ThemeToggle>
+        </MobileMenu>
+      </HeaderMain>
 
-              <g className="sun-beams" stroke="currentColor">
-                <line x1="12" y1="1" x2="12" y2="3" />
-                <line x1="12" y1="21" x2="12" y2="23" />
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                <line x1="1" y1="12" x2="3" y2="12" />
-                <line x1="21" y1="12" x2="23" y2="12" />
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-              </g>
-            </svg>
-          </ThemeToggle>
-        </HeaderNav>
-      </HeaderWrapper>
-    </HeaderMain>
+      <Backdrop open={isMenuOpen} />
+    </>
   );
 };
 
