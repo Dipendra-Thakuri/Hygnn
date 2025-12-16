@@ -94,26 +94,26 @@ const WhyUsSection = () => {
           <SectionTitle>Built for busy kitchen operators</SectionTitle>
           <SectionSubtitle>
             We combine on-ground hygiene services with simple digital tools, so
-            your teams can focus on guests while we keep hygiene under control.
+            your teams can focus on guests while also keeping the hygiene under control.
           </SectionSubtitle>
         </HeaderRow>
 
         <ReasonsGrid>
-          <ReasonCard>
-            <ReasonIcon>📊</ReasonIcon>
-            <ReasonTitle>Actionable hygiene insights</ReasonTitle>
-            <ReasonText>
-              Dashboards and reports that highlight risk areas, trends, and
-              sites that need attention — not just raw checklists.
-            </ReasonText>
-          </ReasonCard>
-
           <ReasonCard>
             <ReasonIcon>🤝</ReasonIcon>
             <ReasonTitle>Partner, not just vendor</ReasonTitle>
             <ReasonText>
               We work with your operations team to define standards, SOPs, and
               routines that actually fit your kitchens.
+            </ReasonText>
+          </ReasonCard>
+
+          <ReasonCard>
+            <ReasonIcon>📊</ReasonIcon>
+            <ReasonTitle>Actionable hygiene insights</ReasonTitle>
+            <ReasonText>
+              Dashboards and reports that highlight risk areas, trends, and
+              sites that need attention — not just raw checklists.
             </ReasonText>
           </ReasonCard>
 
@@ -130,8 +130,7 @@ const WhyUsSection = () => {
             <ReasonIcon>⚡</ReasonIcon>
             <ReasonTitle>Simple tools, fast adoption</ReasonTitle>
             <ReasonText>
-              Minimal training, mobile-first flows, and clear visuals make it
-              easy for staff to use Hygnn every day.
+              Designed for quick adoption, Hygnn’s intuitive workflows and clear visuals enable teams to manage hygiene tasks with minimal training.
             </ReasonText>
           </ReasonCard>
 

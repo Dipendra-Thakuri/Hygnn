@@ -3,69 +3,78 @@ import React from "react";
 import styled from "styled-components";
 
 const Section = styled.section`
-  padding: 70px 0 70px 0;
+  padding: clamp(60px, 10vw, 80px) 0;
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.text};
 `;
 
 const Container = styled.div`
-  width: 70%;
+  width: 90%;
   max-width: 1200px;
-  display: flex;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  justify-content: space-evenly;
+  gap: 3rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2.5rem;
+  }
 `;
 
-const PlaceholderImg = styled.img`
-  width: 320px;
-  height: 320px;
-  border-radius: 50px;
-  background: linear-gradient(120deg, #ef4444, #f97316);
-  opacity: 0.8;
+const TextCol = styled.div`
+  max-width: 520px;
 
-  /* Box shadow only in dark mode */
-  box-shadow: ${({ theme }) =>
-    theme.background === "#ffffff"
-      ? "none"
-      : `
-        0 0 60px rgba(0, 175, 255, 0.25),
-        0 0 100px rgba(0, 175, 255, 0.18),
-        0 0 140px rgba(0, 175, 255, 0.12)
-      `};
-`;
-
-const LeftCol = styled.div`
-  max-width: 40%;
+  @media (max-width: 900px) {
+    max-width: none;
+  }
 `;
 
 const Title = styled.h2`
-  margin: 0 0 14px 0;
-  font-size: 2.6rem;
+  margin: 0 0 0.75rem 0;
+  font-size: clamp(2rem, 4.5vw, 2.6rem);
   font-weight: 700;
   line-height: 1.15;
   font-family: "KentledgeBold";
-
-  @media (max-width: 768px) {
-    font-size: 2.2rem;
-  }
 `;
 
 const Subtitle = styled.p`
   margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.55;
-
-  /* Better readability in light mode */
+  font-size: clamp(1rem, 2.5vw, 1.05rem);
+  line-height: 1.6;
   color: ${({ theme }) =>
-    theme.background === "#ffffff" ? "#4b5563" : "#90959fff"};
+    theme.mode === "dark" ? "#90959f" : "#4b5563"};
+`;
+
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const PlaceholderImg = styled.img`
+  width: clamp(220px, 40vw, 320px);
+  aspect-ratio: 1 / 1;
+  border-radius: 40px;
+  object-fit: cover;
+  opacity: 0.9;
+
+  box-shadow: ${({ theme }) =>
+    theme.mode === "dark"
+      ? `
+        0 0 60px rgba(0, 175, 255, 0.25),
+        0 0 100px rgba(0, 175, 255, 0.18)
+      `
+      : "none"};
 `;
 
 const ProblemsSection = () => {
   return (
     <Section id="problems">
       <Container>
-        <LeftCol>
+        <TextCol>
           <Title>Facing problems with Hygiene?</Title>
 
           <Subtitle>
@@ -73,9 +82,14 @@ const ProblemsSection = () => {
             what’s going wrong, understand risks, and improve your kitchen’s
             performance effortlessly.
           </Subtitle>
-        </LeftCol>
+        </TextCol>
 
-        <PlaceholderImg src="/BadReport.png" />
+        <ImageWrapper>
+          <PlaceholderImg
+            src="/BadReport.png"
+            alt="Kitchen hygiene report showing poor performance"
+          />
+        </ImageWrapper>
       </Container>
     </Section>
   );

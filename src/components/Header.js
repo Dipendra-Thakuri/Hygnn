@@ -130,23 +130,25 @@ const Backdrop = styled.div`
 `;
 
 const MobileMenu = styled.div`
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
+  height: 100dvh;
 
   background: ${({ theme }) => theme.background};
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
 
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 2rem;
+  gap: 2rem;
 
-  transform: translateY(${({ open }) => (open ? "0" : "-100%")});
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: clamp(80px, 12vh, 140px) 1.25rem
+           clamp(60px, 10vh, 100px);
 
-  z-index: 1000;
+  transform: translateY(${({ open }) => (open ? "0%" : "-100%")});
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  z-index: 1001;
 
   @media (min-width: 769px) {
     display: none;
@@ -212,25 +214,22 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
 
   /* Click outside to close */
   useEffect(() => {
-    if (!isMenuOpen) return;
-    const handler = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setIsMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [isMenuOpen]);
+  document.body.style.overflow = isMenuOpen ? "hidden" : "";
+  return () => {
+    document.body.style.overflow = "";
+  };
+}, [isMenuOpen]);
 
   /* Swipe down to close */
   const onTouchStart = (e) => {
-    startYRef.current = e.touches[0].clientY;
-  };
+  startYRef.current = e.touches[0].clientY;
+};
 
-  const onTouchMove = (e) => {
-    const delta = e.touches[0].clientY - startYRef.current;
-    if (delta > 60) setIsMenuOpen(false);
-  };
+const onTouchMove = (e) => {
+  const delta = e.touches[0].clientY - startYRef.current;
+  if (delta > 60) setIsMenuOpen(false);
+};
+
 
   return (
     <>
@@ -255,10 +254,12 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
           </DesktopNav>
 
           <Hamburger
-            open={isMenuOpen}
-            aria-label="Toggle menu"
-            onClick={() => setIsMenuOpen((v) => !v)}
-          >
+  open={isMenuOpen}
+  aria-label="Toggle menu"
+  aria-expanded={isMenuOpen}
+  onClick={() => setIsMenuOpen((v) => !v)}
+>
+
             <span />
             <span />
             <span />
@@ -282,7 +283,10 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
         </MobileMenu>
       </HeaderMain>
 
-      <Backdrop open={isMenuOpen} />
+      <Backdrop
+        open={isMenuOpen}
+        onClick={() => setIsMenuOpen(false)}
+      />
     </>
   );
 };

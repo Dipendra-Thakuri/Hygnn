@@ -1,18 +1,26 @@
 // src/components/HeroSection.js
 import styled from "styled-components";
 
-const HeroMain = styled.div.attrs(() => ({
+const HeroMain = styled.section.attrs(() => ({
   id: "hero",
 }))`
   background: ${({ theme }) => theme.background};
-  padding: 120px 0 90px 0;
+  padding: clamp(100px, 12vh, 140px) 1.25rem
+    clamp(100px, 12vh, 140px);
+  display: flex;
+  justify-content: center;
   text-align: center;
+`;
+
+const HeroContainer = styled.div`
+  max-width: 1100px;
+  width: 100%;
 `;
 
 const HeroTitle = styled.h1`
   margin: 0;
   color: ${({ theme }) => theme.text};
-  font-size: 4.5rem;
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
   font-weight: 700;
   line-height: 1.05;
   font-family: "KentledgeBold";
@@ -31,23 +39,24 @@ const GradientText = styled.span`
   -webkit-text-fill-color: transparent;
 `;
 
-const HeroText = styled.h2`
-  color: ${({ theme }) => theme.text};
-  margin-top: 10px;
-  font-size: 1.5rem;
+const HeroText = styled.p`
+  margin-top: 0.75rem;
+  font-size: clamp(1.05rem, 2.5vw, 1.5rem);
   font-weight: 600;
   font-family: "KentledgeBold";
+  color: ${({ theme }) => theme.text};
 `;
 
 const HighlightText = styled.span`
   color: #00c2a0;
 `;
 
-/* 🔘 BOX SHADOW only in DARK MODE */
+/* CTA Button */
 const HeroButton = styled.button`
-  margin-top: 14px;
-  padding: 16px 42px;
-  font-size: 1.4rem;
+  margin-top: 1.5rem;
+  padding: clamp(14px, 2vw, 16px)
+    clamp(28px, 6vw, 42px);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
   font-weight: 700;
   border-radius: 50px;
   border: none;
@@ -62,43 +71,49 @@ const HeroButton = styled.button`
     #621cd0
   );
   color: white;
-  transition: 0.3s ease;
 
-  /* DARK MODE shadow, NONE in LIGHT */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
   box-shadow: ${({ theme }) =>
-    theme.background === "#ffffff"
-      ? "none"
-      : `
+    theme.mode === "dark"
+      ? `
         0 0 40px rgba(0, 175, 255, 0.25),
-        0 0 80px rgba(0, 175, 255, 0.18),
-        0 0 120px rgba(0, 175, 255, 0.12)
-      `};
+        0 0 80px rgba(0, 175, 255, 0.18)
+      `
+      : "none"};
 
-  &:hover {
-    box-shadow: ${({ theme }) =>
-      theme.background === "#ffffff"
-        ? "none"
-        : `
-          0 0 55px rgba(0, 175, 255, 0.37),
-          0 0 110px rgba(0, 175, 255, 0.29),
-          0 0 160px rgba(0, 175, 255, 0.23)
-        `};
-    transform: scale(1.05);
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: ${({ theme }) =>
+        theme.mode === "dark"
+          ? `
+            0 0 55px rgba(0, 175, 255, 0.37),
+            0 0 110px rgba(0, 175, 255, 0.29)
+          `
+          : "none"};
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 `;
 
 const HeroSection = () => {
   return (
     <HeroMain>
-      <HeroTitle>
-        Elevate your <GradientText>hygiene</GradientText> standards
-      </HeroTitle>
+      <HeroContainer>
+        <HeroTitle>
+          Elevate your <GradientText>hygiene</GradientText> standards
+        </HeroTitle>
 
-      <HeroText>
-        Get a <HighlightText>Custom Solution</HighlightText> for your Kitchen
-      </HeroText>
+        <HeroText>
+          Get a <HighlightText>Custom Solution</HighlightText> for your Kitchen
+        </HeroText>
 
-      <HeroButton>Know How</HeroButton>
+        <HeroButton>Know How</HeroButton>
+      </HeroContainer>
     </HeroMain>
   );
 };
