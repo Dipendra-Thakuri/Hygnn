@@ -248,7 +248,7 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
     <>
       <Backdrop open={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
 
-      <HeaderMain>
+      <HeaderMain id="header">
         <HeaderWrapper>
           <LogoButton onClick={() => navigate("/")}>
             <HeaderLogo

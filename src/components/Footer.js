@@ -134,7 +134,7 @@ const Footer = ({ isDark }) => {
         <RightSection>
           <FooterColumn>
             <ColumnTitle>Company</ColumnTitle>
-            <FooterLink href="#hero">Home</FooterLink>
+            <FooterLink href="#header">Home</FooterLink>
             <FooterLink href="#faq">Support</FooterLink>
             <FooterLink href="#faq">Privacy Policy</FooterLink>
             <FooterLink href="#faq">Terms of Service</FooterLink>

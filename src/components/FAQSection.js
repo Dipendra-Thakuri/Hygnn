@@ -5,7 +5,7 @@ import styled from "styled-components";
 /* ------------------ Section ------------------ */
 
 const Section = styled.section`
-  padding: clamp(60px, 10vw, 80px) 3rem;
+  padding: clamp(60px, 10vw, 80px) 10vw;
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.text};
