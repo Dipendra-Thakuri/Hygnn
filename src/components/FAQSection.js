@@ -2,22 +2,27 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+/* ------------------ Section ------------------ */
+
 const Section = styled.section`
-  padding: 70px 0 70px 0;
+  padding: clamp(60px, 10vw, 80px) 3rem;
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.text};
   background: ${({ theme }) => theme.background};
 `;
 
+/* ------------------ Container (BLUE-BLACK GLASS) ------------------ */
+
 const Container = styled.div`
-  width: 70%;
+  width: 90%;
   max-width: 1250px;
+
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  padding: 4rem;
+  gap: 3rem;
+  padding: clamp(2.5rem, 6vw, 4rem);
 
-  /* Glassy dark FAQ card on top of page background */
   background: ${({ theme }) => `
     radial-gradient(
       circle at top left,
@@ -29,17 +34,23 @@ const Container = styled.div`
       rgba(98, 28, 208, 0.22),
       transparent 45%
     ),
-    ${theme.background === "#ffffff" ? "rgba(10, 15, 25, 0.96)" : "rgba(10, 10, 15, 0.92)"}
+    ${
+      theme.mode === "dark"
+        ? "rgba(10, 15, 25, 0.96)"
+        : "rgba(15, 23, 42, 0.92)"
+    }
   `};
 
+  border-radius: clamp(28px, 5vw, 50px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
-  border-radius: 50px;
 
   @media (max-width: 950px) {
     grid-template-columns: 1fr;
   }
 `;
+
+/* ------------------ Left ------------------ */
 
 const LeftSide = styled.div`
   position: relative;
@@ -47,12 +58,12 @@ const LeftSide = styled.div`
 
 const HeaderTitle = styled.h2`
   margin: 0;
-  font-size: 2.4rem;
+  font-size: clamp(2rem, 5vw, 2.4rem);
   color: #f9fafb;
 `;
 
 const SmallText = styled.p`
-  margin: 8px 0 4px 0;
+  margin: 0.6rem 0 0.25rem;
   font-size: 1rem;
   color: #cbd5e1;
 `;
@@ -61,7 +72,6 @@ const EmailLink = styled.a`
   font-size: 1rem;
   color: #ffffff;
   text-decoration: none;
-  cursor: pointer;
 
   &:hover {
     opacity: 0.8;
@@ -69,23 +79,18 @@ const EmailLink = styled.a`
 `;
 
 const BigFAQ = styled.div`
-  margin-top: 50px;
-  font-size: 11rem;
+  margin-top: clamp(24px, 6vw, 50px);
+  font-size: clamp(5rem, 12vw, 11rem);
   font-weight: 600;
-  opacity: 0.5;
+  opacity: 0.45;
   user-select: none;
 
   background: linear-gradient(180deg, #8e8e8e, #ffffff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
-  @media (max-width: 950px) {
-    font-size: 7rem;
-    position: static;
-    margin-top: 20px;
-    text-align: left;
-  }
 `;
+
+/* ------------------ Accordion ------------------ */
 
 const AccordionList = styled.div`
   display: flex;
@@ -93,34 +98,36 @@ const AccordionList = styled.div`
   gap: 14px;
 `;
 
-const AccordionItem = styled.div`
+const AccordionItem = styled.button`
+  all: unset;
+  cursor: pointer;
+
   background: rgba(23, 32, 48, 0.75);
   border: 1px solid rgba(148, 163, 184, 0.45);
   padding: 16px 20px;
   border-radius: 18px;
   backdrop-filter: blur(4px);
-  cursor: pointer;
-  transition: 0.25s ease;
 
-  ${(props) =>
-    props.$open &&
+  transition: background 0.25s ease, border-color 0.25s ease;
+
+  ${({ $open }) =>
+    $open &&
     `
-    background: rgba(30, 41, 59, 0.9);
-    border-color: rgba(148, 163, 184, 0.65);
-  `}
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(148, 163, 184, 0.65);
+    `}
 `;
 
 const Row = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 12px;
 `;
 
 const Number = styled.span`
   font-size: 1rem;
   font-weight: 600;
   color: #64748b;
-  margin-right: 12px;
 `;
 
 const Question = styled.span`
@@ -133,22 +140,20 @@ const Question = styled.span`
 const Chevron = styled.span`
   font-size: 1.2rem;
   color: #94a3b8;
-  transition: 0.25s ease;
+  transition: transform 0.25s ease;
 
-  ${(props) =>
-    props.$open &&
-    `
-    transform: rotate(180deg);
-  `}
+  ${({ $open }) => $open && "transform: rotate(180deg);"}
 `;
 
 const Answer = styled.p`
-  margin: 12px 0 4px 0;
+  margin: 12px 0 4px;
+  padding-left: 28px;
   font-size: 0.95rem;
-  color: #cbd5e1;
   line-height: 1.55;
-  padding-left: 32px;
+  color: #cbd5e1;
 `;
+
+/* ------------------ Data ------------------ */
 
 const FAQ_DATA = [
   {
@@ -167,7 +172,7 @@ const FAQ_DATA = [
     id: 3,
     question: "Will this disrupt my operations?",
     answer:
-      "No. We schedule visits around your service hours and work with your team so normal operations continue without interruptions.",
+      "No. We schedule visits around your service hours so normal operations continue without interruptions.",
   },
   {
     id: 4,
@@ -183,12 +188,10 @@ const FAQ_DATA = [
   },
 ];
 
+/* ------------------ Component ------------------ */
+
 const FAQSection = () => {
   const [openId, setOpenId] = useState(null);
-
-  const toggle = (id) => {
-    setOpenId((prev) => (prev === id ? null : id));
-  };
 
   return (
     <Section id="faq">
@@ -211,10 +214,14 @@ const FAQSection = () => {
               <AccordionItem
                 key={item.id}
                 $open={isOpen}
-                onClick={() => toggle(item.id)}
+                onClick={() =>
+                  setOpenId(isOpen ? null : item.id)
+                }
               >
                 <Row>
-                  <Number>{String(index + 1).padStart(2, "0")}</Number>
+                  <Number>
+                    {String(index + 1).padStart(2, "0")}
+                  </Number>
                   <Question>{item.question}</Question>
                   <Chevron $open={isOpen}>⌄</Chevron>
                 </Row>

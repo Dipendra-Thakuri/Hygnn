@@ -5,7 +5,7 @@ const HeroMain = styled.section.attrs(() => ({
   id: "hero",
 }))`
   background: ${({ theme }) => theme.background};
-  padding: clamp(100px, 12vh, 140px) 1.25rem
+  padding: clamp(120px, 12vh, 140px) 1.25rem
     clamp(100px, 12vh, 140px);
   display: flex;
   justify-content: center;

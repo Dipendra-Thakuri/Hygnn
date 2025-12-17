@@ -3,25 +3,25 @@ import React from "react";
 import styled from "styled-components";
 
 const Section = styled.section`
-  padding: clamp(60px, 10vw, 80px) 0;
+  padding: clamp(60px, 10vw, 80px) 2rem;
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.text};
 `;
 
 const Container = styled.div`
-  width: 90%;
+  width: 60%;
   max-width: 1200px;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 2.5rem;
+    gap: 0.5rem;
   }
 `;
 
@@ -51,7 +51,11 @@ const Subtitle = styled.p`
 
 const ImageWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+
+  @media (max-width: 900px) {
+    justify-content: center;
+  }
 `;
 
 const PlaceholderImg = styled.img`

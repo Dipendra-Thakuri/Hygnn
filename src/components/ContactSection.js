@@ -157,8 +157,8 @@ const CTAButton = styled(Link)`
   text-decoration: none;
   cursor: pointer;
 
-  background: linear-gradient(180deg, #ffffff, #dfe3e8);
-  color: #000000;
+  background: #621CD0;
+  color: #ffffff;
 
   box-shadow: ${({ theme }) =>
     theme.background === "#ffffff"
@@ -168,7 +168,14 @@ const CTAButton = styled(Link)`
   transition: 0.2s ease;
 
   &:hover {
-    background: #ffffff;
+    background: linear-gradient(
+  135deg,
+  #3d0f8a 0%,
+  #5320b5 30%,
+  #621cd0 50%,
+  #5320b5 70%,
+  #3d0f8a 100%
+);
     transform: translateY(-2px);
   }
 `;

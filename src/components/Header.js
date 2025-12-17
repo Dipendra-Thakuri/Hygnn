@@ -1,10 +1,5 @@
 // src/components/Header.js
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  useCallback
-} from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
@@ -23,7 +18,7 @@ const HeaderMain = styled.header`
 const HeaderWrapper = styled.div`
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1.5rem 2.5rem 0rem 3.5rem;
+  padding: 1.25rem clamp(1rem, 4vw, 3.5rem);
 
   display: flex;
   align-items: center;
@@ -33,7 +28,6 @@ const HeaderWrapper = styled.div`
 const LogoButton = styled.button`
   background: none;
   border: none;
-  padding: 0;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -46,14 +40,10 @@ const HeaderLogo = styled.img`
 const NavLink = styled.button`
   background: none;
   border: none;
-  padding: 0;
   cursor: pointer;
-
-  font-size: clamp(0.95rem, 3vw, 1.125rem);
+  font-size: 1rem;
   font-family: "KentledgeBold";
   color: ${({ theme }) => theme.text};
-
-  transition: color 0.25s ease;
 
   &:hover {
     color: #00eaff;
@@ -63,7 +53,7 @@ const NavLink = styled.button`
 const DesktopNav = styled.div`
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 3vw, 2.5rem);
+  gap: 2.2rem;
 
   @media (max-width: 768px) {
     display: none;
@@ -122,7 +112,7 @@ const Backdrop = styled.div`
   opacity: ${({ open }) => (open ? 1 : 0)};
   pointer-events: ${({ open }) => (open ? "auto" : "none")};
   transition: opacity 0.25s ease;
-  z-index: 999;
+  z-index: 998;
 
   @media (min-width: 769px) {
     display: none;
@@ -131,38 +121,64 @@ const Backdrop = styled.div`
 
 const MobileMenu = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100dvh;
-
+  inset: 0;
   background: ${({ theme }) => theme.background};
 
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-
-  padding: clamp(80px, 12vh, 140px) 1.25rem
-           clamp(60px, 10vh, 100px);
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
 
   transform: translateY(${({ open }) => (open ? "0%" : "-100%")});
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
-  z-index: 1001;
+  z-index: 999;
 
   @media (min-width: 769px) {
     display: none;
   }
 `;
 
-/* ------------------ Theme Toggle ------------------ */
+const MobileCloseButton = styled.button`
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: ${({ theme }) => theme.text};
+`;
+
+const MobileNavLink = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-family: "KentledgeBold";
+  color: ${({ theme }) => theme.text};
+
+  &:hover {
+    color: #00eaff;
+  }
+`;
 
 const ThemeToggle = styled.button`
-  padding: 0.5rem;
   min-width: 44px;
   min-height: 44px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  background: ${({ theme }) => theme.cardBackground};
+  cursor: pointer;
+`;
+
+const MobileThemeToggle = styled.button`
+  margin-top: 1.5rem;
+  padding: 8px 18px;
+  font-size: 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
   background: ${({ theme }) => theme.cardBackground};
   cursor: pointer;
 `;
@@ -172,7 +188,6 @@ const ThemeToggle = styled.button`
 const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const menuRef = useRef(null);
   const startYRef = useRef(0);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -202,9 +217,9 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
       setIsMenuOpen(false);
       if (location.pathname !== "/") {
         navigate("/");
-        requestAnimationFrame(() => {
-          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-        });
+        requestAnimationFrame(() =>
+          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+        );
       } else {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       }
@@ -212,27 +227,27 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
     [location.pathname, navigate]
   );
 
-  /* Click outside to close */
+  /* Lock body scroll */
   useEffect(() => {
-  document.body.style.overflow = isMenuOpen ? "hidden" : "";
-  return () => {
-    document.body.style.overflow = "";
-  };
-}, [isMenuOpen]);
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => (document.body.style.overflow = "");
+  }, [isMenuOpen]);
 
   /* Swipe down to close */
   const onTouchStart = (e) => {
-  startYRef.current = e.touches[0].clientY;
-};
+    startYRef.current = e.touches[0].clientY;
+  };
 
-const onTouchMove = (e) => {
-  const delta = e.touches[0].clientY - startYRef.current;
-  if (delta > 60) setIsMenuOpen(false);
-};
-
+  const onTouchMove = (e) => {
+    if (e.touches[0].clientY - startYRef.current > 60) {
+      setIsMenuOpen(false);
+    }
+  };
 
   return (
     <>
+      <Backdrop open={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
+
       <HeaderMain>
         <HeaderWrapper>
           <LogoButton onClick={() => navigate("/")}>
@@ -247,19 +262,18 @@ const onTouchMove = (e) => {
               Hygiene Partner
             </NavLink>
             <NavLink onClick={() => goToSection("why-us")}>Why Us</NavLink>
-            <NavLink onClick={() => navigate("/contact")}>
+            <NavLink onClick={() => goToSection("contact")}>
               Contact Us
             </NavLink>
             <ThemeToggle onClick={toggleTheme}>🌓</ThemeToggle>
           </DesktopNav>
 
           <Hamburger
-  open={isMenuOpen}
-  aria-label="Toggle menu"
-  aria-expanded={isMenuOpen}
-  onClick={() => setIsMenuOpen((v) => !v)}
->
-
+            open={isMenuOpen}
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen((v) => !v)}
+          >
             <span />
             <span />
             <span />
@@ -267,26 +281,36 @@ const onTouchMove = (e) => {
         </HeaderWrapper>
 
         <MobileMenu
-          ref={menuRef}
           open={isMenuOpen}
+          role="dialog"
+          aria-modal="true"
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
         >
-          <NavLink onClick={() => navigate("/about")}>
+          <MobileCloseButton onClick={() => setIsMenuOpen(false)}>
+            ✕
+          </MobileCloseButton>
+
+          <MobileNavLink onClick={() => navigate("/about")}>
             Hygiene Partner
-          </NavLink>
-          <NavLink onClick={() => goToSection("why-us")}>Why Us</NavLink>
-          <NavLink onClick={() => navigate("/contact")}>
+          </MobileNavLink>
+          <MobileNavLink onClick={() => goToSection("why-us")}>
+            Why Us
+          </MobileNavLink>
+          <MobileNavLink
+            onClick={() => {
+              goToSection("contact");
+              setIsMenuOpen(false);
+            }}
+          >
             Contact Us
-          </NavLink>
-          <ThemeToggle onClick={toggleTheme}>🌓</ThemeToggle>
+          </MobileNavLink>
+
+          <MobileThemeToggle onClick={toggleTheme}>
+            {isDark ? "🌙 Dark mode" : "☀️ Light mode"}
+          </MobileThemeToggle>
         </MobileMenu>
       </HeaderMain>
-
-      <Backdrop
-        open={isMenuOpen}
-        onClick={() => setIsMenuOpen(false)}
-      />
     </>
   );
 };

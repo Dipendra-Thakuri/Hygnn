@@ -54,34 +54,6 @@ const Copyright = styled.p`
   opacity: 0.75;
 `;
 
-const LanguageButton = styled.button`
-  margin-top: 0.5rem;
-  padding: 10px 16px;
-  border-radius: 999px;
-  border: 1px solid
-    ${({ theme }) =>
-      theme.mode === "dark"
-        ? "rgba(255,255,255,0.1)"
-        : "rgba(148,163,184,0.6)"};
-
-  background: ${({ theme }) =>
-    theme.mode === "dark"
-      ? "rgba(255,255,255,0.04)"
-      : "rgba(15,23,42,0.02)"};
-
-  color: ${({ theme }) => theme.text};
-  font-size: 0.95rem;
-  cursor: pointer;
-
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  &:hover {
-    border-color: #00c2a0;
-  }
-`;
-
 /* ------------------ Right / Links ------------------ */
 
 const RightSection = styled.div`
@@ -157,8 +129,6 @@ const Footer = ({ isDark }) => {
           <Copyright>
             © {new Date().getFullYear()} Hygnn Inc.
           </Copyright>
-
-          <LanguageButton>🌐 English</LanguageButton>
         </LeftSection>
 
         <RightSection>

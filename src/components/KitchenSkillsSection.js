@@ -8,8 +8,8 @@ const Section = styled.section`
   text-align: center;
   color: ${({ theme }) => theme.text};
 
-  /* Plain background at top & bottom */
-  padding: 140px 0 160px;
+  padding: clamp(90px, 12vw, 140px) 0
+    clamp(110px, 14vw, 160px);
   background: ${({ theme }) => theme.background};
 `;
 
@@ -17,10 +17,8 @@ const Container = styled.div`
   position: relative;
   width: 90%;
   max-width: 900px;
-  margin: 0 auto;
   z-index: 0;
 
-  /* Centered radial glow that does NOT hit the edges */
   &::before {
     content: "";
     position: absolute;
@@ -35,9 +33,8 @@ const Container = styled.div`
       rgba(98, 28, 208, 0.15) 40%,
       transparent 90%
     );
-    filter: blur(16px);
-    opacity: ${({ theme }) =>
-      theme.background === "#ffffff" ? 0.9 : 1};
+    filter: blur(18px);
+    opacity: ${({ theme }) => (theme.mode === "dark" ? 1 : 0.85)};
     z-index: -1;
     pointer-events: none;
   }
@@ -45,7 +42,7 @@ const Container = styled.div`
 
 const Title = styled.h2`
   margin: 0;
-  font-size: 3rem;
+  font-size: clamp(2.1rem, 5vw, 3rem);
   font-weight: 700;
   line-height: 1.15;
 `;
@@ -57,17 +54,17 @@ const Highlight = styled.span`
 `;
 
 const Subtitle = styled.p`
-  margin-top: 12px;
-  font-size: 1.15rem;
+  margin-top: 0.75rem;
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
   line-height: 1.6;
   color: ${({ theme }) =>
-    theme.background === "#ffffff" ? "#4b5563" : "#cbd5e1"};
+    theme.mode === "dark" ? "#cbd5e1" : "#4b5563"};
 `;
 
 const OptionsGrid = styled.div`
-  margin-top: 45px;
+  margin-top: 2.5rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 22px;
 
   @media (max-width: 640px) {
@@ -75,7 +72,8 @@ const OptionsGrid = styled.div`
   }
 `;
 
-const OptionCard = styled.div`
+const OptionCard = styled.button`
+  all: unset;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -83,39 +81,55 @@ const OptionCard = styled.div`
   border-radius: 18px;
   cursor: pointer;
   backdrop-filter: blur(6px);
-  transition: 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease;
 
   background: ${({ theme }) =>
-    theme.background === "#ffffff"
-      ? "rgba(15, 23, 42, 0.03)"
-      : "rgba(255, 255, 255, 0.06)"};
+    theme.mode === "dark"
+      ? "rgba(255, 255, 255, 0.06)"
+      : "rgba(15, 23, 42, 0.03)"};
 
-  border: ${({ theme }) =>
-    theme.background === "#ffffff"
-      ? "1px solid rgba(148, 163, 184, 0.4)"
-      : "1px solid rgba(255, 255, 255, 0.12)"};
+  border: 1px solid
+    ${({ theme }) =>
+      theme.mode === "dark"
+        ? "rgba(255, 255, 255, 0.12)"
+        : "rgba(148, 163, 184, 0.4)"};
 
-  &:hover {
-    background: ${({ theme }) =>
-      theme.background === "#ffffff"
-        ? "rgba(15, 23, 42, 0.06)"
-        : "rgba(255, 255, 255, 0.12)"};
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    &:hover {
+      background: ${({ theme }) =>
+        theme.mode === "dark"
+          ? "rgba(255, 255, 255, 0.12)"
+          : "rgba(15, 23, 42, 0.06)"};
+      transform: translateY(-2px);
+      background: linear-gradient(
+  135deg,
+  #0b0d10 0%,
+  #1a1f24 30%,
+  #2e353d 50%,
+  #1a1f24 70%,
+  #0b0d10 100%
+);
+
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 `;
 
-const OptionLabel = styled.div`
+const OptionLabel = styled.span`
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
 `;
 
 const Icon = styled.span`
   font-size: 1.3rem;
 `;
 
-const Circle = styled.div`
+const Circle = styled.span`
   width: 20px;
   height: 20px;
   border: 2px solid #94a3b8;
@@ -123,22 +137,32 @@ const Circle = styled.div`
 `;
 
 const CTAButton = styled.button`
-  margin-top: 50px;
+  margin-top: 3rem;
   padding: 14px 32px;
-  font-size: 1.2rem;
+  font-size: clamp(1.05rem, 2.5vw, 1.2rem);
   border-radius: 14px;
   border: none;
   cursor: pointer;
   font-weight: 600;
 
-  background: linear-gradient(180deg, #ffffff, #dfe3e8);
-  color: #000;
+  background: #00c2a0;
+  color: #ffffff;
 
-  transition: 0.25s ease;
+  transition: transform 0.25s ease;
 
-  &:hover {
-    background: white;
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(
+  135deg,
+  #007f6a 0%,
+  #00a88c 30%,
+  #00c2a0 50%,
+  #00a88c 70%,
+  #007f6a 100%
+);
+
+    }
   }
 `;
 
@@ -147,7 +171,8 @@ const KitchenSkillsSection = () => {
     <Section>
       <Container>
         <Title>
-          What would you like to <Highlight>improve</Highlight> <br />
+          What would you like to <Highlight>improve</Highlight>
+          <br />
           in your Kitchen?
         </Title>
 

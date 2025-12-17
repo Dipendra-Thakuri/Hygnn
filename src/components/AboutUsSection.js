@@ -10,17 +10,17 @@ const Section = styled.section`
 `;
 
 const Container = styled.div`
-  width: 90%;
+  width: 60%;
   max-width: 1200px;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 0.5rem;
     text-align: center;
   }
 `;
@@ -30,7 +30,7 @@ const ImageWrapper = styled.div`
   justify-content: center;
 
   @media (max-width: 900px) {
-    order: 2; /* text first on mobile */
+    order: 2;
   }
 `;
 
@@ -64,7 +64,6 @@ const Title = styled.h2`
   font-size: clamp(2rem, 4.5vw, 2.6rem);
   font-weight: 700;
   line-height: 1.15;
-  font-family: "KentledgeBold";
 `;
 
 const Subtitle = styled.p`

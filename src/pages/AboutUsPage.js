@@ -16,7 +16,7 @@ const PageWrapper = styled.div`
 /* ===== SUB HEADER ===== */
 const SubHeader = styled.div`
   position: sticky;
-  top: 120px; /* height of main header */
+  top: 0px;
   z-index: 20;
   background: ${({ theme }) => theme.background};
   border-bottom: 1px solid
