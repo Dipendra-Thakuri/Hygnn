@@ -5,7 +5,7 @@ import styled from "styled-components";
 /* ------------------ Section ------------------ */
 
 const Section = styled.section`
-  padding: clamp(60px, 10vw, 80px) 10vw;
+  padding: clamp(60px, 10vw, 80px) 5vw;
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.text};
@@ -95,7 +95,7 @@ const BigFAQ = styled.div`
 const AccordionList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 `;
 
 const AccordionItem = styled.button`
@@ -104,7 +104,7 @@ const AccordionItem = styled.button`
 
   background: rgba(23, 32, 48, 0.75);
   border: 1px solid rgba(148, 163, 184, 0.45);
-  padding: 16px 20px;
+  padding: 1rem 2rem;
   border-radius: 18px;
   backdrop-filter: blur(4px);
 

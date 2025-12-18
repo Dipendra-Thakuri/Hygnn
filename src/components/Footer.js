@@ -1,14 +1,19 @@
 // src/components/Footer.js
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import {
+  FaInstagram,
+  FaLinkedinIn,
+  FaXTwitter,
+  FaFacebookF,
+} from "react-icons/fa6";
 
 /* ------------------ Layout ------------------ */
 
 const FooterMain = styled.footer`
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
-  padding: clamp(48px, 8vw, 80px) 0
-    clamp(32px, 6vw, 50px);
+  padding: clamp(48px, 8vw, 80px) 0 clamp(32px, 6vw, 50px);
 `;
 
 const FooterContainer = styled.div`
@@ -22,26 +27,21 @@ const FooterContainer = styled.div`
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.8rem;
     text-align: center;
   }
 `;
 
-/* ------------------ Left / Brand ------------------ */
+/* ------------------ Brand ------------------ */
 
 const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.4rem;
 
   @media (max-width: 900px) {
     align-items: center;
   }
-`;
-
-const BrandRow = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 const BrandGif = styled.video`
@@ -49,12 +49,45 @@ const BrandGif = styled.video`
   border-radius: 16px;
 `;
 
-const Copyright = styled.p`
-  font-size: 0.95rem;
-  opacity: 0.75;
+/* ------------------ Social Icons (Mobile) ------------------ */
+
+const SocialIconsRow = styled.div`
+  display: none;
+  gap: 22px;
+
+  @media (max-width: 900px) {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
-/* ------------------ Right / Links ------------------ */
+const SocialIcon = styled.a`
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: ${({ theme }) =>
+    theme.background === "#ffffff"
+      ? "rgba(0,0,0,0.05)"
+      : "rgba(255,255,255,0.08)"};
+
+  color: ${({ theme }) => theme.text};
+  font-size: 1.2rem;
+
+  transition: 0.25s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    background: #00c2a0;
+    color: #ffffff;
+  }
+`;
+
+/* ------------------ Links ------------------ */
 
 const RightSection = styled.div`
   display: grid;
@@ -62,12 +95,18 @@ const RightSection = styled.div`
   gap: 3rem;
 
   @media (max-width: 900px) {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
   }
 `;
 
-const FooterColumn = styled.div``;
+const FooterColumn = styled.div`
+  @media (max-width: 900px) {
+    &:nth-child(2) {
+      display: none; /* hide Social column on mobile */
+    }
+  }
+`;
 
 const ColumnTitle = styled.h4`
   font-size: 1rem;
@@ -85,6 +124,18 @@ const FooterLink = styled.a`
 
   &:hover {
     color: #00c2a0;
+  }
+`;
+
+/* ------------------ Copyright ------------------ */
+
+const Copyright = styled.p`
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-top: 1.5rem;
+
+  @media (max-width: 900px) {
+    margin-top: 2rem;
   }
 `;
 
@@ -116,30 +167,70 @@ const Footer = ({ isDark }) => {
   return (
     <FooterMain>
       <FooterContainer>
+        {/* BRAND + MOBILE SOCIAL */}
         <LeftSection>
-          <BrandRow>
-            <BrandGif
-              ref={videoRef}
-              src={isDark ? "/hygnn-logo-dark.mp4" : "/hygnn-logo-light.mp4"}
-              muted
-              playsInline
-            />
-          </BrandRow>
+          <BrandGif
+            ref={videoRef}
+            src={isDark ? "/hygnn-logo-dark.mp4" : "/hygnn-logo-light.mp4"}
+            muted
+            playsInline
+          />
+
+          {/* MOBILE SOCIAL ICONS */}
+          <SocialIconsRow>
+            <SocialIcon
+              href="https://www.instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <FaInstagram />
+            </SocialIcon>
+
+            <SocialIcon
+              href="https://www.facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
+              <FaFacebookF />
+            </SocialIcon>
+
+            <SocialIcon
+              href="https://www.linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <FaLinkedinIn />
+            </SocialIcon>
+
+            <SocialIcon
+              href="https://x.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitter"
+            >
+              <FaXTwitter />
+            </SocialIcon>
+          </SocialIconsRow>
 
           <Copyright>
             © {new Date().getFullYear()} Hygnn Inc.
           </Copyright>
         </LeftSection>
 
+        {/* LINKS */}
         <RightSection>
           <FooterColumn>
             <ColumnTitle>Company</ColumnTitle>
-            <FooterLink href="#header">Home</FooterLink>
+            <FooterLink href="#hero">Home</FooterLink>
             <FooterLink href="#faq">Support</FooterLink>
             <FooterLink href="#faq">Privacy Policy</FooterLink>
             <FooterLink href="#faq">Terms of Service</FooterLink>
           </FooterColumn>
 
+          {/* SOCIAL (DESKTOP ONLY) */}
           <FooterColumn>
             <ColumnTitle>Social</ColumnTitle>
             <FooterLink
@@ -148,6 +239,13 @@ const Footer = ({ isDark }) => {
               rel="noopener noreferrer"
             >
               Instagram
+            </FooterLink>
+            <FooterLink
+              href="https://www.facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Facebook
             </FooterLink>
             <FooterLink
               href="https://www.linkedin.com"
