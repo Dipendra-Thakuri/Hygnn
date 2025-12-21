@@ -4,12 +4,15 @@ import styled from "styled-components";
 const HeroMain = styled.section.attrs(() => ({
   id: "hero",
 }))`
+  min-height: calc(100vh - 90px); /* header height */
   background: ${({ theme }) => theme.background};
-  padding: clamp(120px, 12vh, 140px) 0.25rem
-    clamp(100px, 12vh, 140px);
+
   display: flex;
+  align-items: center;
   justify-content: center;
   text-align: center;
+
+  padding: 0 1.25rem;
 `;
 
 const HeroContainer = styled.div`

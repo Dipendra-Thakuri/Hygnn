@@ -183,28 +183,42 @@ const KitchenSkillsSection = () => {
         <OptionsGrid>
           <OptionCard>
             <OptionLabel>
-              <Icon>🧽</Icon> Cleaning Consistency
+              <Icon>🧽</Icon> Routing Cleaning
             </OptionLabel>
             <Circle />
           </OptionCard>
 
           <OptionCard>
             <OptionLabel>
-              <Icon>📋</Icon> SOP Compliance
+              <Icon>📋</Icon> Periodical Deep Cleaning
             </OptionLabel>
             <Circle />
           </OptionCard>
 
           <OptionCard>
             <OptionLabel>
-              <Icon>⚠️</Icon> Risk Identification
+              <Icon>⚠️</Icon> Automation in Kitchen
             </OptionLabel>
             <Circle />
           </OptionCard>
 
           <OptionCard>
             <OptionLabel>
-              <Icon>📊</Icon> Audit Readiness
+              <Icon>⚠️</Icon> Trainings
+            </OptionLabel>
+            <Circle />
+          </OptionCard>
+
+          <OptionCard>
+            <OptionLabel>
+              <Icon>⚠️</Icon> Compliance
+            </OptionLabel>
+            <Circle />
+          </OptionCard>
+
+          <OptionCard>
+            <OptionLabel>
+              <Icon>📊</Icon> Process
             </OptionLabel>
             <Circle />
           </OptionCard>
