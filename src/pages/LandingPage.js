@@ -6,7 +6,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HeroSection from "../components/HeroSection";
 import ProblemsSection from "../components/ProblemsSection";
-import AboutUsSection from "../components/AboutUsSection";
 import KitchenSkillsSection from "../components/KitchenSkillsSection";
 import WhyUsSection from "../components/WhyUsSection";
 
@@ -49,10 +48,6 @@ const LandingPage = ({ isDark, setIsDark }) => {
 
         <Section id="problems">
           <ProblemsSection />
-        </Section>
-
-        <Section id="about-us">
-          <AboutUsSection />
         </Section>
 
         <Section id="kitchen-skills">

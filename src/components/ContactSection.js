@@ -237,11 +237,11 @@ const ContactSection = () => {
     <Section id="contact">
       <Container>
         <Title>
-          Trusted by <Highlight>real kitchens</Highlight>
+          Trusted by <Highlight>real Partners</Highlight>
         </Title>
 
         <Subtitle>
-          See what operators say about working with Hygnn.
+          See what The Businesses say about working with Hygnn.
         </Subtitle>
 
         <ReviewsWrapper>

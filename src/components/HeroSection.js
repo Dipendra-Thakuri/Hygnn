@@ -7,7 +7,7 @@ const HeroMain = styled.section.attrs(() => ({
   background: ${({ theme }) => theme.background};
 
   /* FULL SCREEN UNTIL LARGE LAPTOPS */
-  min-height: calc(100vh - 90px); /* header offset */
+  min-height: 400px; /* header offset */
 
   /* STOP GROWING AFTER LARGE SCREENS */
   max-height: 820px;
@@ -21,14 +21,14 @@ const HeroMain = styled.section.attrs(() => ({
 `;
 
 const HeroContainer = styled.div`
-  max-width: 100vw;
+  max-width: 100%;
   width: 100%;
 `;
 
 const HeroTitle = styled.h1`
   margin: 0;
   color: ${({ theme }) => theme.text};
-  font-size: clamp(2rem, 4.3vw, 4rem);
+  font-size: clamp(2rem, 4.7vw, 4rem);
   font-weight: 900;
   line-height: 1;
   font-family: "KentledgeBold";
@@ -49,7 +49,7 @@ const GradientText = styled.span`
 
 const HeroText = styled.p`
   margin-top: 0.75rem;
-  font-size: clamp(1.05rem, 2.5vw, 1.5rem);
+  font-size: clamp(1.05rem, 2.1vw, 1.5rem);
   font-weight: 600;
   font-family: "KentledgeBold";
   color: ${({ theme }) => theme.text};
@@ -62,9 +62,8 @@ const HighlightText = styled.span`
 /* CTA Button */
 const HeroButton = styled.button`
   margin-top: 1rem;
-  padding: clamp(14px, 2vw, 16px)
-    clamp(28px, 6vw, 42px);
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  padding: clamp(12px, 1vw, 14px) 2.7rem clamp(12px, 1vw, 14px);
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
   font-weight: 700;
   border-radius: 50px;
   border: none;
@@ -113,11 +112,12 @@ const HeroSection = () => {
     <HeroMain>
       <HeroContainer>
         <HeroTitle>
-          <GradientText>Elevate Your Standard. Protect Your Brand.</GradientText>
+          Elevate Your <GradientText> Hygiene </GradientText> Standards
         </HeroTitle>
+        <HeroTitle> Protect Your Brand </HeroTitle>
 
         <HeroText>
-          <HighlightText>Connect with Hygnn to redefine what's possible for Hygiene in your business.</HighlightText>
+          <HighlightText>Connect to redefine what's possible for Hygiene in your business.</HighlightText>
         </HeroText>
 
         <HeroButton>Become a Partner</HeroButton>

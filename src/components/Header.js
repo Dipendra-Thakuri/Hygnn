@@ -259,7 +259,7 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
 
           <DesktopNav>
             <NavLink onClick={() => navigate("/about")}>
-              Hygiene Partner
+              Our Services
             </NavLink>
             <NavLink onClick={() => goToSection("why-us")}>Why Us</NavLink>
             <NavLink onClick={() => goToSection("contact")}>

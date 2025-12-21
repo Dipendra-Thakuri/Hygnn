@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Section = styled.section`
-  padding: 0 2rem clamp(60px, 10vw, 80px);
+  padding: clamp(60px, 10vw, 80px) 2rem clamp(60px, 10vw, 80px);
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.text};
