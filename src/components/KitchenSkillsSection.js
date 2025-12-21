@@ -1,6 +1,14 @@
 // src/components/KitchenSkillsSection.js
 import React from "react";
 import styled from "styled-components";
+import {
+  LuSprayCan,
+  LuClipboardCheck,
+  LuCpu,
+  LuGraduationCap,
+  LuShieldCheck,
+  LuGitBranch,
+} from "react-icons/lu";
 
 const Section = styled.section`
   display: flex;
@@ -96,37 +104,31 @@ const OptionCard = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      background: ${({ theme }) =>
-        theme.mode === "dark"
-          ? "rgba(255, 255, 255, 0.12)"
-          : "rgba(15, 23, 42, 0.06)"};
       transform: translateY(-2px);
       background: linear-gradient(
-  135deg,
-  #0b0d10 0%,
-  #1a1f24 30%,
-  #2e353d 50%,
-  #1a1f24 70%,
-  #0b0d10 100%
-);
-
+        135deg,
+        #0b0d10 0%,
+        #1a1f24 30%,
+        #2e353d 50%,
+        #1a1f24 70%,
+        #0b0d10 100%
+      );
     }
-  }
-
-  &:active {
-    transform: translateY(0);
   }
 `;
 
 const OptionLabel = styled.span`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-size: clamp(1rem, 2.5vw, 1.1rem);
 `;
 
 const Icon = styled.span`
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  color: #00b1d5;
 `;
 
 const Circle = styled.span`
@@ -154,14 +156,13 @@ const CTAButton = styled.button`
     &:hover {
       transform: translateY(-2px);
       background: linear-gradient(
-  135deg,
-  #007f6a 0%,
-  #00a88c 30%,
-  #00c2a0 50%,
-  #00a88c 70%,
-  #007f6a 100%
-);
-
+        135deg,
+        #007f6a 0%,
+        #00a88c 30%,
+        #00c2a0 50%,
+        #00a88c 70%,
+        #007f6a 100%
+      );
     }
   }
 `;
@@ -183,42 +184,48 @@ const KitchenSkillsSection = () => {
         <OptionsGrid>
           <OptionCard>
             <OptionLabel>
-              <Icon>🧽</Icon> Routing Cleaning
+              <Icon><LuSprayCan /></Icon>
+              Routine Cleaning
             </OptionLabel>
             <Circle />
           </OptionCard>
 
           <OptionCard>
             <OptionLabel>
-              <Icon>📋</Icon> Periodical Deep Cleaning
+              <Icon><LuClipboardCheck /></Icon>
+              Periodical Deep Cleaning
             </OptionLabel>
             <Circle />
           </OptionCard>
 
           <OptionCard>
             <OptionLabel>
-              <Icon>⚠️</Icon> Automation in Kitchen
+              <Icon><LuCpu /></Icon>
+              Automation in Kitchen
             </OptionLabel>
             <Circle />
           </OptionCard>
 
           <OptionCard>
             <OptionLabel>
-              <Icon>⚠️</Icon> Trainings
+              <Icon><LuGraduationCap /></Icon>
+              Trainings
             </OptionLabel>
             <Circle />
           </OptionCard>
 
           <OptionCard>
             <OptionLabel>
-              <Icon>⚠️</Icon> Compliance
+              <Icon><LuShieldCheck /></Icon>
+              Compliance
             </OptionLabel>
             <Circle />
           </OptionCard>
 
           <OptionCard>
             <OptionLabel>
-              <Icon>📊</Icon> Process
+              <Icon><LuGitBranch /></Icon>
+              Process Optimization
             </OptionLabel>
             <Circle />
           </OptionCard>
