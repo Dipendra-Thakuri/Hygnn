@@ -1,7 +1,18 @@
 @font-face {
   font-family: "KentledgeBold";
   src: url("./assets/fonts/kentledge-bold.otf") format("opentype");
-  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "KentledgeLight";
+  src: url("./assets/fonts/kentledge-light.otf") format("opentype");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "KentledgeMedium";
+  src: url("./assets/fonts/kentledge-medium.otf") format("opentype");
   font-style: normal;
 }
 

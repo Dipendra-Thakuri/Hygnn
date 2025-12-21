@@ -109,18 +109,19 @@ const FooterColumn = styled.div`
 `;
 
 const ColumnTitle = styled.h4`
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-bottom: 1rem;
-  font-weight: 600;
+  font-family: "KentledgeMedium";
 `;
 
 const FooterLink = styled.a`
   display: block;
   margin: 0.4rem 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
   text-decoration: none;
   color: ${({ theme }) =>
     theme.mode === "dark" ? "#9ca3af" : "#4b5563"};
+  font-family: "KentledgeLight";
 
   &:hover {
     color: #00c2a0;

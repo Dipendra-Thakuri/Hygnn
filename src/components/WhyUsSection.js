@@ -42,7 +42,7 @@ const Tag = styled.span`
 const SectionTitle = styled.h2`
   font-size: 2.3rem;
   margin: 0;
-  font-family: "KentledgeBold";
+  font-family: "KentledgeMedium";
 `;
 
 const SectionSubtitle = styled.p`
@@ -51,6 +51,7 @@ const SectionSubtitle = styled.p`
   max-width: 580px;
   color: ${({ theme }) =>
     theme.background === "#ffffff" ? "#4b5563" : "#9ca3af"};
+  font-family: "KentledgeLight";
 `;
 
 const ReasonsGrid = styled.div`
@@ -85,7 +86,7 @@ const ReasonIcon = styled.div`
 const ReasonTitle = styled.h3`
   font-size: 1.15rem;
   margin: 0 0 6px 0;
-  font-family: "KentledgeBold";
+  font-family: "KentledgeMedium";
 `;
 
 const ReasonText = styled.p`
@@ -94,6 +95,7 @@ const ReasonText = styled.p`
   line-height: 1.5;
   color: ${({ theme }) =>
     theme.background === "#ffffff" ? "#4b5563" : "#e5e7eb"};
+  font-family: "KentledgeLight";
 `;
 
 const WhyUsSection = () => {

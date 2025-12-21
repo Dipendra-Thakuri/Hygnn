@@ -19,7 +19,7 @@ const Container = styled.div`
 const Title = styled.h2`
   margin: 0;
   font-size: 3rem;
-  font-weight: 700;
+  font-family: "KentledgeMedium";
   line-height: 1.15;
 
   @media (max-width: 768px) {
@@ -47,6 +47,7 @@ const Subtitle = styled.p`
   /* Theme-aware subtitle color */
   color: ${({ theme }) =>
     theme.background === "#ffffff" ? "#4b5563" : "#cbd5e1"};
+  font-family: "KentledgeLight";
 
   @media (max-width: 768px) {
     font-size: 1rem;

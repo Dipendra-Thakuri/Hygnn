@@ -28,7 +28,7 @@ const HeroContainer = styled.div`
 const HeroTitle = styled.h1`
   margin: 0;
   color: ${({ theme }) => theme.text};
-  font-size: clamp(2rem, 4vw, 4rem);
+  font-size: clamp(2rem, 4.3vw, 4rem);
   font-weight: 900;
   line-height: 1.2;
   font-family: "KentledgeBold";
@@ -48,9 +48,9 @@ const GradientText = styled.span`
 `;
 
 const HeroText = styled.p`
-  margin-top: 0.75rem;
-  font-size: clamp(1.05rem, 1.4vw, 1.5rem);
-  font-family: "KentledgeBold";
+  margin-top: 0;
+  font-size: clamp(1.05rem, 1.5vw, 1.5rem);
+  font-family: "KentledgeLight";
   color: ${({ theme }) => theme.text};
 `;
 
@@ -61,11 +61,12 @@ const HighlightText = styled.span`
 /* CTA Button */
 const HeroButton = styled.button`
   margin-top: 1rem;
-  padding: clamp(10px, 1vw, 12px) 1.7rem clamp(10px, 1vw, 12px);
-  font-size: clamp(1rem, 1.3vw, 2rem);
+  padding: clamp(10px, 1.2vw, 12px) 1.7rem clamp(10px, 1.1vw, 12px);
+  font-size: clamp(1.1rem, 1.5vw, 2.2rem);
   border-radius: 50px;
   border: none;
   cursor: pointer;
+  font-family: "KentledgeMedium";
 
   background: linear-gradient(
     90deg,

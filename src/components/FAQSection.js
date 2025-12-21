@@ -60,18 +60,21 @@ const HeaderTitle = styled.h2`
   margin: 0;
   font-size: clamp(2rem, 5vw, 2.4rem);
   color: #f9fafb;
+  font-family: "KentledgeMedium";
 `;
 
 const SmallText = styled.p`
   margin: 0.6rem 0 0.25rem;
   font-size: 1rem;
   color: #cbd5e1;
+  font-family: "KentledgeLight";
 `;
 
 const EmailLink = styled.a`
   font-size: 1rem;
   color: #ffffff;
   text-decoration: none;
+  font-family: "KentledgeMedium";
 
   &:hover {
     opacity: 0.8;
@@ -81,7 +84,6 @@ const EmailLink = styled.a`
 const BigFAQ = styled.div`
   margin-top: clamp(24px, 6vw, 50px);
   font-size: clamp(5rem, 12vw, 11rem);
-  font-weight: 600;
   opacity: 0.45;
   user-select: none;
 
@@ -132,7 +134,7 @@ const Number = styled.span`
 
 const Question = styled.span`
   font-size: 1.05rem;
-  font-weight: 600;
+  font-family: "KentledgeMedium";
   flex: 1;
   color: #ffffff;
 `;
@@ -147,6 +149,7 @@ const Chevron = styled.span`
 
 const Answer = styled.p`
   margin: 12px 0 4px;
+  font-family: "Kentledgelight";
   padding-left: 28px;
   font-size: 0.95rem;
   line-height: 1.55;
@@ -223,7 +226,7 @@ const FAQSection = () => {
                     {String(index + 1).padStart(2, "0")}
                   </Number>
                   <Question>{item.question}</Question>
-                  <Chevron $open={isOpen}>⌄</Chevron>
+                  <Chevron $open={isOpen}>+</Chevron>
                 </Row>
 
                 {isOpen && <Answer>{item.answer}</Answer>}

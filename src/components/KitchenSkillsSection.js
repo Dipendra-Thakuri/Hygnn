@@ -143,6 +143,27 @@ const OptionLabel = styled.span`
   font-size: clamp(1rem, 2.5vw, 1.1rem);
 `;
 
+const OptionDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+`;
+
+const OptionMeta = styled.span`
+  font-size: 0.7rem;
+  letter-spacing: 0.17em;
+  font-weight: 600;
+  color: ${({ theme }) =>
+    theme.mode === "dark" ? "#94a3b8" : "#64748b"};
+`;
+
+const OptionTitle = styled.span`
+  font-size: 1rem;
+  font-family: "KentledgeLight";
+  color: ${({ theme }) => theme.text};
+`;
+
 const Icon = styled.span`
   font-size: 1.4rem;
   display: flex;
@@ -174,7 +195,7 @@ const CTAButton = styled.button`
   border-radius: 14px;
   border: none;
   cursor: pointer;
-  font-weight: 600;
+  font-family: "KentledgeMedium";
 
   background: #00c2a0;
   color: #ffffff;
@@ -209,54 +230,72 @@ const KitchenSkillsSection = () => {
         </Subtitle>
 
         <OptionsGrid>
-          <OptionCard>
-            <OptionLabel>
-              <Icon><LuSprayCan /></Icon>
-              Routine Cleaning
-            </OptionLabel>
-            <Circle />
-          </OptionCard>
+  <OptionCard>
+    <OptionLabel>
+      <Icon><LuSprayCan /></Icon>
+      <OptionDiv>
+        <OptionMeta>EXECUTION</OptionMeta>
+        <OptionTitle>Routine Cleaning</OptionTitle>
+      </OptionDiv>
+    </OptionLabel>
+    <Circle />
+  </OptionCard>
 
-          <OptionCard>
-            <OptionLabel>
-              <Icon><LuClipboardCheck /></Icon>
-              Periodical Deep Cleaning
-            </OptionLabel>
-            <Circle />
-          </OptionCard>
+  <OptionCard>
+    <OptionLabel>
+      <Icon><LuClipboardCheck /></Icon>
+      <OptionDiv>
+        <OptionMeta>INFRASTRUCTURE</OptionMeta>
+        <OptionTitle>Deep Cleaning</OptionTitle>
+      </OptionDiv>
+    </OptionLabel>
+    <Circle />
+  </OptionCard>
 
-          <OptionCard>
-            <OptionLabel>
-              <Icon><LuCpu /></Icon>
-              Automation in Kitchen
-            </OptionLabel>
-            <Circle />
-          </OptionCard>
+  <OptionCard>
+    <OptionLabel>
+      <Icon><LuCpu /></Icon>
+      <OptionDiv>
+        <OptionMeta>INTELLIGENCE</OptionMeta>
+        <OptionTitle>Automation</OptionTitle>
+      </OptionDiv>
+    </OptionLabel>
+    <Circle />
+  </OptionCard>
 
-          <OptionCard>
-            <OptionLabel>
-              <Icon><LuGraduationCap /></Icon>
-              Staff Trainings
-            </OptionLabel>
-            <Circle />
-          </OptionCard>
+  <OptionCard>
+    <OptionLabel>
+      <Icon><LuGraduationCap /></Icon>
+      <OptionDiv>
+        <OptionMeta>HUMAN CAPITAL</OptionMeta>
+        <OptionTitle>Staff Training</OptionTitle>
+      </OptionDiv>
+    </OptionLabel>
+    <Circle />
+  </OptionCard>
 
-          <OptionCard>
-            <OptionLabel>
-              <Icon><LuShieldCheck /></Icon>
-              Compliance
-            </OptionLabel>
-            <Circle />
-          </OptionCard>
+  <OptionCard>
+    <OptionLabel>
+      <Icon><LuShieldCheck /></Icon>
+      <OptionDiv>
+        <OptionMeta>GOVERNANCE</OptionMeta>
+        <OptionTitle>Audit Compliance</OptionTitle>
+      </OptionDiv>
+    </OptionLabel>
+    <Circle />
+  </OptionCard>
 
-          <OptionCard>
-            <OptionLabel>
-              <Icon><LuGitBranch /></Icon>
-              Process Standardization
-            </OptionLabel>
-            <Circle />
-          </OptionCard>
-        </OptionsGrid>
+  <OptionCard>
+    <OptionLabel>
+      <Icon><LuGitBranch /></Icon>
+      <OptionDiv>
+        <OptionMeta>SCALABILITY</OptionMeta>
+        <OptionTitle>Standardisation</OptionTitle>
+      </OptionDiv>
+    </OptionLabel>
+    <Circle />
+  </OptionCard>
+</OptionsGrid>
 
         <CTAButton>Let’s improve</CTAButton>
       </Container>

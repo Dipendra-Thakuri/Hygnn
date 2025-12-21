@@ -34,7 +34,7 @@ const LogoButton = styled.button`
 `;
 
 const HeaderLogo = styled.img`
-  width: clamp(110px, 22vw, 160px);
+  width: clamp(80px, 19vw, 130px);
 `;
 
 const NavLink = styled.button`
@@ -42,7 +42,7 @@ const NavLink = styled.button`
   border: none;
   cursor: pointer;
   font-size: 1rem;
-  font-family: "KentledgeBold";
+  font-family: "KentledgeLight";
   color: ${({ theme }) => theme.text};
 
   &:hover {

@@ -48,9 +48,8 @@ const TextCol = styled.div`
 const Title = styled.h2`
   margin: 0 0 0.75rem 0;
   font-size: clamp(2rem, 4.5vw, 2.6rem);
-  font-weight: 700;
   line-height: 1.15;
-  font-family: "KentledgeBold";
+  font-family: "KentledgeMedium";
 `;
 
 const Subtitle = styled.p`
@@ -60,6 +59,7 @@ const Subtitle = styled.p`
   line-height: 1.6;
   color: ${({ theme }) =>
     theme.mode === "dark" ? "#90959f" : "#4b5563"};
+  font-family: "KentledgeLight";
 `;
 
 /* ---------------- Image ---------------- */

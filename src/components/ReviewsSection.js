@@ -36,7 +36,7 @@ const Container = styled.div`
 const Title = styled.h2`
   margin: 0;
   font-size: clamp(2.2rem, 5vw, 3rem);
-  font-weight: 900;
+  font-family: "KentledgeMedium";
   line-height: 1;
 `;
 
@@ -51,6 +51,7 @@ const Subtitle = styled.p`
   font-size: 1.1rem;
   color: ${({ theme }) =>
     theme.background === "#ffffff" ? "#4b5563" : "#cbd5e1"};
+  font-family: "KentledgeLight";
 `;
 
 /* ---------------- Reviews Carousel ---------------- */
@@ -154,6 +155,7 @@ const ReviewText = styled.p`
   margin: 0 0 14px;
   font-size: 0.95rem;
   line-height: 1.55;
+  font-family: "KentledgeMedium";
   color: ${({ theme }) =>
     theme.background === "#ffffff" ? "#374151" : "#e5e7eb"};
 `;
@@ -161,13 +163,14 @@ const ReviewText = styled.p`
 const Reviewer = styled.p`
   margin: 0;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-family: "KentledgeLight";
 `;
 
 const Role = styled.p`
   margin: 2px 0 0;
   font-size: 0.8rem;
   opacity: 0.7;
+  font-family: "KentledgeLight";
 `;
 
 /* ---------------- Data ---------------- */
