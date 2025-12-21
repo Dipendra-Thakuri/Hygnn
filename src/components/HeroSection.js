@@ -5,7 +5,7 @@ const HeroMain = styled.section.attrs(() => ({
   id: "hero",
 }))`
   background: ${({ theme }) => theme.background};
-  padding: clamp(120px, 12vh, 140px) 1.25rem
+  padding: clamp(120px, 12vh, 140px) 0.25rem
     clamp(100px, 12vh, 140px);
   display: flex;
   justify-content: center;
@@ -13,16 +13,16 @@ const HeroMain = styled.section.attrs(() => ({
 `;
 
 const HeroContainer = styled.div`
-  max-width: 1100px;
+  max-width: 100vw;
   width: 100%;
 `;
 
 const HeroTitle = styled.h1`
   margin: 0;
   color: ${({ theme }) => theme.text};
-  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
-  font-weight: 700;
-  line-height: 1.05;
+  font-size: clamp(2rem, 4.3vw, 4rem);
+  font-weight: 900;
+  line-height: 1;
   font-family: "KentledgeBold";
 `;
 
@@ -53,7 +53,7 @@ const HighlightText = styled.span`
 
 /* CTA Button */
 const HeroButton = styled.button`
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   padding: clamp(14px, 2vw, 16px)
     clamp(28px, 6vw, 42px);
   font-size: clamp(1rem, 2.5vw, 1.4rem);
@@ -105,14 +105,14 @@ const HeroSection = () => {
     <HeroMain>
       <HeroContainer>
         <HeroTitle>
-          Elevate your <GradientText>hygiene</GradientText> standards
+          <GradientText>Elevate Your Standard. Protect Your Brand.</GradientText>
         </HeroTitle>
 
         <HeroText>
-          Get a <HighlightText>Custom Solution</HighlightText> for your Kitchen
+          <HighlightText>Connect with Hygnn to redefine what's possible for Hygiene in your business.</HighlightText>
         </HeroText>
 
-        <HeroButton>Know How</HeroButton>
+        <HeroButton>Become a Partner</HeroButton>
       </HeroContainer>
     </HeroMain>
   );

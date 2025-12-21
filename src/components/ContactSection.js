@@ -165,7 +165,7 @@ const CTAButton = styled(Link)`
       ? "none"
       : "0 18px 35px rgba(15, 23, 42, 0.55)"};
 
-  transition: 0.2s ease;
+  transition: transform 0.25s ease;
 
   &:hover {
     background: linear-gradient(
