@@ -42,7 +42,7 @@ const Container = styled.div`
       transparent 90%
     );
     filter: blur(18px);
-    opacity: ${({ theme }) => (theme.mode === "dark" ? 1 : 0.85)};
+    opacity: ${({ theme }) => (theme.mode === "dark" ? 1 : 0)};
     z-index: -1;
     pointer-events: none;
   }

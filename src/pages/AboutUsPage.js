@@ -33,9 +33,22 @@ const Intro = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: clamp(2.2rem, 5vw, 3rem);
-  line-height: 1.1;
+  font-size: clamp(2.2rem, 4.8vw, 5rem);
+  line-height: 0.9;
   margin: 0;
+`;
+
+const GradientText = styled.span`
+  background: linear-gradient(
+    90deg,
+    #00b1d5,
+    #009dff,
+    #0083ff,
+    #005fff,
+    #621cd0
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const Subtitle = styled.p`
@@ -120,11 +133,10 @@ const AboutUsPage = ({ isDark, setIsDark }) => {
         <Container>
           {/* INTRO */}
           <Intro>
-            <Title>We are your hygiene partner</Title>
+            <Title>We are your <GradientText> hygiene partner </GradientText> </Title>
             <Subtitle>
-              Hygnn brings together professional-grade hygiene products,
-              on-ground services, and digital tools into one integrated
-              ecosystem designed for modern food and hospitality businesses.
+              Hygnn delivers an integrated hygiene ecosystem by combining Products, Technology, 
+              and Services built for modern Businesses.
             </Subtitle>
           </Intro>
 

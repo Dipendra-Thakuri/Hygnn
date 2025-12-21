@@ -1,31 +1,44 @@
-// src/components/ProblemsSection.js
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
+/* ---------------- Section ---------------- */
+
 const Section = styled.section`
-  padding: clamp(60px, 10vw, 80px) 2rem clamp(60px, 10vw, 80px);
+  padding: clamp(60px, 10vw, 80px) 2rem;
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.text};
 `;
 
+/* ---------------- Container ---------------- */
+
 const Container = styled.div`
-  width: 60%;
-  max-width: 1200px;
+  width: 65%;
+  max-width: 1000px;
+  margin: 0 auto;
+
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto auto; /* content-driven */
   align-items: center;
-  gap: 2rem;
+  gap: 1.4rem; /* tighter spacing */
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 0.5rem;
+    gap: 1.5rem;
   }
 `;
 
+/* ---------------- Text ---------------- */
+
 const TextCol = styled.div`
   max-width: 520px;
+
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  transform: ${({ $visible }) =>
+    $visible ? "translateY(0)" : "translateY(20px)"};
+
+  transition: opacity 0.7s ease, transform 0.7s ease;
 
   @media (max-width: 900px) {
     max-width: none;
@@ -48,21 +61,30 @@ const Subtitle = styled.p`
     theme.mode === "dark" ? "#90959f" : "#4b5563"};
 `;
 
+/* ---------------- Image ---------------- */
+
 const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
 
+  transform: ${({ $visible }) =>
+    $visible ? "translate(-12px, 0)" : "translate(-12px, 20px)"};
+
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+
+  transition: opacity 0.9s ease, transform 0.9s ease;
+
   @media (max-width: 900px) {
-    justify-content: center;
+    transform: ${({ $visible }) =>
+      $visible ? "translateY(0)" : "translateY(20px)"};
   }
 `;
 
 const PlaceholderImg = styled.img`
-  width: clamp(220px, 40vw, 320px);
-  aspect-ratio: 1 / 1;
+  width: clamp(220px, 36vw, 300px);
   border-radius: 40px;
   object-fit: cover;
-  opacity: 0.9;
+  opacity: 0.95;
 
   box-shadow: ${({ theme }) =>
     theme.mode === "dark"
@@ -70,24 +92,48 @@ const PlaceholderImg = styled.img`
         0 0 60px rgba(0, 175, 255, 0.25),
         0 0 100px rgba(0, 175, 255, 0.18)
       `
-      : "none"};
+      : `
+        0 10px 25px rgba(0, 0, 0, 0.12)
+      `};
 `;
 
-const ProblemsSection = () => {
-  return (
-    <Section id="problems">
-      <Container>
-        <TextCol>
-          <Title>Is Hygiene Becoming a Challenge?</Title>
+/* ---------------- Component ---------------- */
 
+const ProblemsSection = () => {
+  const sectionRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <Section id="problems" ref={sectionRef}>
+      <Container>
+        <TextCol $visible={visible}>
+          <Title>Is Hygiene Becoming a Challenge?</Title>
           <Subtitle>
-            Most Hygiene risks hide in routine we help you bring Consistency,
-             Control, Confidence back to your environment.
-             Reducing Uncertainity and Supporting Cleaner, Safer operations at scale.
+            Most hygiene risks hide in routine. We help you bring consistency,
+            control, and confidence back to your environment — reducing
+            uncertainty and supporting cleaner, safer operations at scale.
           </Subtitle>
         </TextCol>
 
-        <ImageWrapper>
+        <ImageWrapper $visible={visible}>
           <PlaceholderImg
             src="/BadReport.png"
             alt="Kitchen hygiene report showing poor performance"

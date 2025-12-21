@@ -16,7 +16,7 @@ const PageWrapper = styled.div`
 
 const Main = styled.main`
   flex: 1;
-  padding: 90px 0 70px;
+  padding: 60px 0 60px;
 `;
 
 const Container = styled.div`
@@ -32,15 +32,6 @@ const Container = styled.div`
 const HeaderBlock = styled.div`
   max-width: 620px;
   margin-bottom: 50px;
-`;
-
-const Eyebrow = styled.p`
-  font-size: 0.8rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #38bdf8;
-  font-weight: 600;
-  margin: 0 0 10px;
 `;
 
 const Title = styled.h1`
@@ -69,6 +60,19 @@ const ContentGrid = styled.div`
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
+`;
+
+const GradientText = styled.span`
+  background: linear-gradient(
+    90deg,
+    #00b1d5,
+    #009dff,
+    #0083ff,
+    #005fff,
+    #621cd0
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 /* -------- FORM -------- */
@@ -204,8 +208,7 @@ const ContactUsPage = ({ isDark, setIsDark }) => {
       <Main>
         <Container>
           <HeaderBlock>
-            <Eyebrow>Contact</Eyebrow>
-            <Title>Let’s talk hygiene</Title>
+            <Title>Let’s talk <GradientText> Hygiene </GradientText> </Title>
             <Subtitle>
               Whether you run a single kitchen or manage multiple outlets,
               our team will help you build cleaner, safer operations.

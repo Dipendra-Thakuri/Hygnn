@@ -19,12 +19,16 @@ const Container = styled.div`
   width: 90%;
   max-width: 1100px;
   z-index: 1;
-  background: radial-gradient(
-      circle at center,
-      rgba(0, 177, 213, 0.25),
-      rgba(98, 28, 208, 0.15) 40%,
-      transparent 90%
-    );
+
+  background: ${({ theme }) =>
+    theme.mode === "dark"
+      ? `radial-gradient(
+          circle at center,
+          rgba(0, 177, 213, 0.25),
+          rgba(98, 28, 208, 0.15) 40%,
+          transparent 90%
+        )`
+      : "none"};
 `;
 
 /* ---------------- Header ---------------- */
@@ -33,7 +37,7 @@ const Title = styled.h2`
   margin: 0;
   font-size: clamp(2.2rem, 5vw, 3rem);
   font-weight: 900;
-  line-height: 1.15;
+  line-height: 1;
 `;
 
 const Highlight = styled.span`
@@ -43,7 +47,7 @@ const Highlight = styled.span`
 `;
 
 const Subtitle = styled.p`
-  margin-top: 14px;
+  margin-top: 5px;
   font-size: 1.1rem;
   color: ${({ theme }) =>
     theme.background === "#ffffff" ? "#4b5563" : "#cbd5e1"};
