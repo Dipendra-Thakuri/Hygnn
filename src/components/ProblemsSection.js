@@ -4,7 +4,7 @@ import styled from "styled-components";
 /* ---------------- Section ---------------- */
 
 const Section = styled.section`
-  padding: clamp(60px, 10vw, 80px) 2rem;
+  padding: clamp(60px, 10vw, 80px) 2rem clamp(15px, 1.5vw, 25px);
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.text};
@@ -13,26 +13,26 @@ const Section = styled.section`
 /* ---------------- Container ---------------- */
 
 const Container = styled.div`
-  width: 65%;
+  width: 70%;
   max-width: 1000px;
   margin: 0 auto;
 
   display: grid;
   grid-template-columns: auto auto; /* content-driven */
   align-items: center;
-  gap: 1.4rem; /* tighter spacing */
+  gap: 4rem; /* tighter spacing */
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 1.5rem;
+    gap: 3.5rem;
   }
 `;
 
 /* ---------------- Text ---------------- */
 
 const TextCol = styled.div`
-  max-width: 520px;
+  max-width: 400px;
 
   opacity: ${({ $visible }) => ($visible ? 1 : 0)};
   transform: ${({ $visible }) =>
@@ -56,6 +56,7 @@ const Title = styled.h2`
 const Subtitle = styled.p`
   margin: 0;
   font-size: clamp(1rem, 2.5vw, 1.05rem);
+  text-align: justify;
   line-height: 1.6;
   color: ${({ theme }) =>
     theme.mode === "dark" ? "#90959f" : "#4b5563"};
@@ -125,11 +126,11 @@ const ProblemsSection = () => {
     <Section id="problems" ref={sectionRef}>
       <Container>
         <TextCol $visible={visible}>
-          <Title>Is Hygiene Becoming a Challenge?</Title>
+          <Title>The Hidden Friction in Traditional Hygiene.</Title>
           <Subtitle>
-            Most hygiene risks hide in routine. We help you bring consistency,
-            control, and confidence back to your environment — reducing
-            uncertainty and supporting cleaner, safer operations at scale.
+            Most F&B operations treat hygiene as a fragmented cost center juggling
+             siloed chemical suppliers, manual audit logs, and inconsistent labor.
+              This isn't just inefficient, it's a structural risk to your brand.
           </Subtitle>
         </TextCol>
 

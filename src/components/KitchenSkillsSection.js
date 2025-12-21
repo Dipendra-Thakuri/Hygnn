@@ -201,9 +201,7 @@ const KitchenSkillsSection = () => {
     <Section>
       <Container>
         <Title>
-          What would you like to <Highlight>improve</Highlight>
-          <br />
-          in your Kitchen?
+          Which pillar is <Highlight>compromising</Highlight> your brand integrity?
         </Title>
 
         <Subtitle>
@@ -238,7 +236,7 @@ const KitchenSkillsSection = () => {
           <OptionCard>
             <OptionLabel>
               <Icon><LuGraduationCap /></Icon>
-              Trainings
+              Staff Trainings
             </OptionLabel>
             <Circle />
           </OptionCard>
@@ -254,7 +252,7 @@ const KitchenSkillsSection = () => {
           <OptionCard>
             <OptionLabel>
               <Icon><LuGitBranch /></Icon>
-              Process Optimization
+              Process Standardization
             </OptionLabel>
             <Circle />
           </OptionCard>

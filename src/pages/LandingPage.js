@@ -8,6 +8,7 @@ import HeroSection from "../components/HeroSection";
 import ProblemsSection from "../components/ProblemsSection";
 import KitchenSkillsSection from "../components/KitchenSkillsSection";
 import WhyUsSection from "../components/WhyUsSection";
+import MarqueeSection from "../components/MarqueeSection";
 
 /* Lazy-loaded sections (below the fold) */
 const HygieneLevelSection = lazy(() =>
@@ -44,6 +45,10 @@ const LandingPage = ({ isDark, setIsDark }) => {
       <MainContent>
         <Section id="hero">
           <HeroSection />
+        </Section>
+
+        <Section>
+          <MarqueeSection />
         </Section>
 
         <Section id="problems">
