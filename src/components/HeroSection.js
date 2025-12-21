@@ -61,8 +61,8 @@ const HighlightText = styled.span`
 /* CTA Button */
 const HeroButton = styled.button`
   margin-top: 1rem;
-  padding: clamp(10px, 1vw, 12px) 1rem clamp(10px, 1vw, 12px);
-  font-size: clamp(0.5rem, 1.5vw, 0.9rem);
+  padding: clamp(10px, 1vw, 12px) 1.7rem clamp(10px, 1vw, 12px);
+  font-size: clamp(1rem, 1.3vw, 2rem);
   border-radius: 50px;
   border: none;
   cursor: pointer;
