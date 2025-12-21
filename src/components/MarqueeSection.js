@@ -24,10 +24,9 @@ const Section = styled.section`
 /* ---------------- Banner ---------------- */
 
 const Banner = styled.div`
-  width: 80%;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1220px;
   overflow: hidden;
-  border-radius: 10px;
 
   background: linear-gradient(
     90deg,
@@ -55,7 +54,7 @@ const Inner = styled.div`
 const Text = styled.span`
   white-space: nowrap;
   padding: 0.5rem;
-  font-size: clamp(0.7rem, 1.5vw, 1.5rem);
+  font-size: clamp(0.7rem, 1.2vw, 1.5rem);
   font-family: "KentledgeBold";
 
   color: #ffffff;
