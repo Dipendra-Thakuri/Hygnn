@@ -1,6 +1,4 @@
-// src/components/ContactSection.js
-import React from "react";
-import { Link } from "react-router-dom";
+// src/components/ReviewsSection.js
 import styled, { keyframes } from "styled-components";
 
 /* ---------------- Section ---------------- */
@@ -21,6 +19,12 @@ const Container = styled.div`
   width: 90%;
   max-width: 1100px;
   z-index: 1;
+  background: radial-gradient(
+      circle at center,
+      rgba(0, 177, 213, 0.25),
+      rgba(98, 28, 208, 0.15) 40%,
+      transparent 90%
+    );
 `;
 
 /* ---------------- Header ---------------- */
@@ -28,7 +32,7 @@ const Container = styled.div`
 const Title = styled.h2`
   margin: 0;
   font-size: clamp(2.2rem, 5vw, 3rem);
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1.15;
 `;
 
@@ -133,7 +137,7 @@ const ReviewCard = styled.div`
   background: ${({ theme }) =>
     theme.background === "#ffffff"
       ? "linear-gradient(145deg, #f9fafb, #e5e7eb)"
-      : "rgba(15, 23, 42, 0.3)"};
+      : "rgba(15, 23, 42, 0.2)"};
 
   border: 1px solid
     ${({ theme }) =>
@@ -160,37 +164,6 @@ const Role = styled.p`
   margin: 2px 0 0;
   font-size: 0.8rem;
   opacity: 0.7;
-`;
-
-/* ---------------- CTA ---------------- */
-
-const CTAButton = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 40px;
-  padding: 14px 34px;
-  border-radius: 14px;
-  font-size: 1.05rem;
-  font-weight: 600;
-  text-decoration: none;
-
-  background: #621cd0;
-  color: #ffffff;
-
-  transition: transform 0.25s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    background: linear-gradient(
-      135deg,
-      #3d0f8a 0%,
-      #5320b5 30%,
-      #621cd0 50%,
-      #5320b5 70%,
-      #3d0f8a 100%
-    );
-  }
 `;
 
 /* ---------------- Data ---------------- */
@@ -232,7 +205,7 @@ const doubledReviews = [...REVIEWS, ...REVIEWS];
 
 /* ---------------- Component ---------------- */
 
-const ContactSection = () => {
+const ReviewsSection = () => {
   return (
     <Section id="contact">
       <Container>
@@ -275,11 +248,9 @@ const ContactSection = () => {
             <RightFadeSmall />
           </ReviewsShell2>
         </ReviewsWrapper>
-
-        <CTAButton to="/contact">Talk to Hygnn</CTAButton>
       </Container>
     </Section>
   );
 };
 
-export default ContactSection;
+export default ReviewsSection;

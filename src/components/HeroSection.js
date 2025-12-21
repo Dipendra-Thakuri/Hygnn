@@ -30,7 +30,7 @@ const HeroTitle = styled.h1`
   color: ${({ theme }) => theme.text};
   font-size: clamp(2rem, 4.7vw, 4rem);
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.2;
   font-family: "KentledgeBold";
 `;
 
@@ -81,24 +81,9 @@ const HeroButton = styled.button`
 
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 
-  box-shadow: ${({ theme }) =>
-    theme.mode === "dark"
-      ? `
-        0 0 40px rgba(0, 175, 255, 0.25),
-        0 0 80px rgba(0, 175, 255, 0.18)
-      `
-      : "none"};
-
   @media (hover: hover) {
     &:hover {
       transform: translateY(-2px);
-      box-shadow: ${({ theme }) =>
-        theme.mode === "dark"
-          ? `
-            0 0 55px rgba(0, 175, 255, 0.37),
-            0 0 110px rgba(0, 175, 255, 0.29)
-          `
-          : "none"};
     }
   }
 

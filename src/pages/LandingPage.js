@@ -14,7 +14,7 @@ const HygieneLevelSection = lazy(() =>
   import("../components/HygieneLevelSection")
 );
 const ContactSection = lazy(() =>
-  import("../components/ContactSection")
+  import("../components/ReviewsSection")
 );
 const FAQSection = lazy(() =>
   import("../components/FAQSection")

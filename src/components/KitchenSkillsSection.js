@@ -89,7 +89,7 @@ const OptionCard = styled.button`
   border-radius: 18px;
   cursor: pointer;
   backdrop-filter: blur(6px);
-  transition: transform 0.25s ease, background 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 
   background: ${({ theme }) =>
     theme.mode === "dark"
@@ -105,15 +105,34 @@ const OptionCard = styled.button`
   @media (hover: hover) {
     &:hover {
       transform: translateY(-2px);
-      background: linear-gradient(
-        135deg,
-        #0b0d10 0%,
-        #1a1f24 30%,
-        #2e353d 50%,
-        #1a1f24 70%,
-        #0b0d10 100%
-      );
+
+      background: ${({ theme }) =>
+        theme.mode === "dark"
+          ? `linear-gradient(
+              135deg,
+              #0b0d10 0%,
+              #1a1f24 30%,
+              #2e353d 50%,
+              #1a1f24 70%,
+              #0b0d10 100%
+            )`
+          : `linear-gradient(
+            135deg,
+            rgba(0, 177, 213, 0.12) 0%,
+            rgba(0, 157, 255, 0.10) 35%,
+            rgba(98, 28, 208, 0.08) 65%,
+            rgba(0, 177, 213, 0.12) 100%
+          )`};
+
+      border-color: ${({ theme }) =>
+        theme.mode === "dark"
+          ? "rgba(255, 255, 255, 0.22)"
+          : "rgba(148, 163, 184, 0.6)"};
     }
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 `;
 
@@ -129,13 +148,23 @@ const Icon = styled.span`
   display: flex;
   align-items: center;
   color: #00b1d5;
+  transition: color 0.25s ease;
+
+  ${OptionCard}:hover & {
+    color: #00c2a0;
+  }
 `;
 
 const Circle = styled.span`
   width: 20px;
   height: 20px;
-  border: 2px solid #94a3b8;
   border-radius: 50%;
+  border: 2px solid #94a3b8;
+  transition: border-color 0.25s ease;
+
+  ${OptionCard}:hover & {
+    border-color: #00c2a0;
+  }
 `;
 
 const CTAButton = styled.button`

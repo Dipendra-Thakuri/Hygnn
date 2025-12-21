@@ -258,11 +258,11 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
           </LogoButton>
 
           <DesktopNav>
+            <NavLink onClick={() => goToSection("why-us")}>Why Us</NavLink>
             <NavLink onClick={() => navigate("/about")}>
               Our Services
             </NavLink>
-            <NavLink onClick={() => goToSection("why-us")}>Why Us</NavLink>
-            <NavLink onClick={() => goToSection("contact")}>
+            <NavLink onClick={() => navigate("/contact")}>
               Contact Us
             </NavLink>
             <ThemeToggle onClick={toggleTheme}>🌓</ThemeToggle>

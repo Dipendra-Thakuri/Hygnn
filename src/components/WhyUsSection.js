@@ -1,13 +1,21 @@
 // src/components/WhyUsSection.js
 import React from "react";
 import styled from "styled-components";
+import {
+  LuHandshake,
+  LuTrendingUp,
+  LuLayers,
+  LuZap,
+  LuRepeat,
+  LuShieldCheck,
+} from "react-icons/lu";
 
 const SectionMain = styled.section.attrs(() => ({
   id: "why-us",
 }))`
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
-  padding: 70px 0 70px 0;
+  padding: 70px 0;
   display: flex;
   justify-content: center;
 `;
@@ -60,7 +68,7 @@ const ReasonsGrid = styled.div`
 `;
 
 const ReasonCard = styled.div`
-  padding: 18px 18px 20px 18px;
+  padding: 18px 18px 20px;
   border-radius: 16px;
   border: 1px solid rgba(148, 163, 184, 0.35);
   background: ${({ theme }) => theme.cardBackground};
@@ -69,6 +77,9 @@ const ReasonCard = styled.div`
 const ReasonIcon = styled.div`
   font-size: 1.5rem;
   margin-bottom: 8px;
+  color: #6366f1;
+  display: flex;
+  align-items: center;
 `;
 
 const ReasonTitle = styled.h3`
@@ -94,13 +105,14 @@ const WhyUsSection = () => {
           <SectionTitle>Built for busy kitchen operators</SectionTitle>
           <SectionSubtitle>
             We combine on-ground hygiene services with simple digital tools, so
-            your teams can focus on guests while also keeping the hygiene under control.
+            your teams can focus on guests while also keeping hygiene under
+            control.
           </SectionSubtitle>
         </HeaderRow>
 
         <ReasonsGrid>
           <ReasonCard>
-            <ReasonIcon>🤝</ReasonIcon>
+            <ReasonIcon><LuHandshake /></ReasonIcon>
             <ReasonTitle>Partner, not just vendor</ReasonTitle>
             <ReasonText>
               We work with your operations team to define standards, SOPs, and
@@ -109,33 +121,34 @@ const WhyUsSection = () => {
           </ReasonCard>
 
           <ReasonCard>
-            <ReasonIcon>📊</ReasonIcon>
+            <ReasonIcon><LuTrendingUp /></ReasonIcon>
             <ReasonTitle>Actionable hygiene insights</ReasonTitle>
             <ReasonText>
-              Dashboards and reports that highlight risk areas, trends, and
-              sites that need attention — not just raw checklists.
+              Dashboards and reports that highlight risk areas, trends, and sites
+              that need attention — not just raw checklists.
             </ReasonText>
           </ReasonCard>
 
           <ReasonCard>
-            <ReasonIcon>🧽</ReasonIcon>
+            <ReasonIcon><LuLayers /></ReasonIcon>
             <ReasonTitle>End-to-end support</ReasonTitle>
             <ReasonText>
-              From audits and deep cleans to daily checklists and tickets, we
-              give you a single place to run hygiene.
+              From audits and deep cleans to daily checklists and tickets, we give
+              you a single place to run hygiene.
             </ReasonText>
           </ReasonCard>
 
           <ReasonCard>
-            <ReasonIcon>⚡</ReasonIcon>
+            <ReasonIcon><LuZap /></ReasonIcon>
             <ReasonTitle>Simple tools, fast adoption</ReasonTitle>
             <ReasonText>
-              Designed for quick adoption, Hygnn’s intuitive workflows and clear visuals enable teams to manage hygiene tasks with minimal training.
+              Designed for quick adoption, Hygnn’s intuitive workflows and clear
+              visuals enable teams to manage hygiene tasks with minimal training.
             </ReasonText>
           </ReasonCard>
 
           <ReasonCard>
-            <ReasonIcon>✅</ReasonIcon>
+            <ReasonIcon><LuRepeat /></ReasonIcon>
             <ReasonTitle>Consistency across outlets</ReasonTitle>
             <ReasonText>
               Standardize hygiene routines so every location matches your brand
@@ -144,7 +157,7 @@ const WhyUsSection = () => {
           </ReasonCard>
 
           <ReasonCard>
-            <ReasonIcon>🔒</ReasonIcon>
+            <ReasonIcon><LuShieldCheck /></ReasonIcon>
             <ReasonTitle>Audit-ready, always</ReasonTitle>
             <ReasonText>
               Digital records, time-stamped checks, and photo evidence make it
