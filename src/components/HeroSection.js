@@ -4,15 +4,20 @@ import styled from "styled-components";
 const HeroMain = styled.section.attrs(() => ({
   id: "hero",
 }))`
-  min-height: calc(100vh - 90px); /* header height */
   background: ${({ theme }) => theme.background};
+
+  /* FULL SCREEN UNTIL LARGE LAPTOPS */
+  min-height: calc(100vh - 90px); /* header offset */
+
+  /* STOP GROWING AFTER LARGE SCREENS */
+  max-height: 820px;
 
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 
-  padding: 0 1.25rem;
+  padding: 0 0.25rem;
 `;
 
 const HeroContainer = styled.div`

@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Section = styled.section`
-  padding: clamp(60px, 10vw, 80px) 2rem;
+  padding: 0 2rem clamp(60px, 10vw, 80px);
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.text};
@@ -12,7 +12,6 @@ const Section = styled.section`
 const Container = styled.div`
   width: 60%;
   max-width: 1200px;
-
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -51,7 +50,7 @@ const Subtitle = styled.p`
 
 const ImageWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 
   @media (max-width: 900px) {
     justify-content: center;
@@ -79,12 +78,12 @@ const ProblemsSection = () => {
     <Section id="problems">
       <Container>
         <TextCol>
-          <Title>Facing problems with Hygiene?</Title>
+          <Title>Is Hygiene Becoming a Challenge?</Title>
 
           <Subtitle>
-            Track your level of hygiene with real insights from Hygnn — see
-            what’s going wrong, understand risks, and improve your kitchen’s
-            performance effortlessly.
+            Most Hygiene risks hide in routine we help you bring Consistency,
+             Control, Confidence back to your environment.
+             Reducing Uncertainity and Supporting Cleaner, Safer operations at scale.
           </Subtitle>
         </TextCol>
 
