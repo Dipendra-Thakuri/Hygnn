@@ -161,33 +161,33 @@ const Answer = styled.p`
 const FAQ_DATA = [
   {
     id: 1,
-    question: "What is a hygiene level assessment?",
+    question: "What do you mean by Hygnn as a concept?",
     answer:
-      "A structured evaluation of your kitchen’s hygiene covering surfaces, equipment, storage, and staff practices. You receive a score and a breakdown of areas needing improvement.",
+      "Hygnn is not just about using cleaning products. It is a system that combines the right products, correct processes, trained people, technology and continuous monitoring to ensure safe, consistent, and verifiable outcomes.",
   },
   {
     id: 2,
-    question: "Do you visit the kitchen in person?",
+    question: "How is your approach different from traditional cleaning?",
     answer:
-      "Yes, our hygiene specialists visit your site to perform a detailed inspection. Follow-ups may combine in-person checks with digital reviews.",
+      "Traditional cleaning focuses on products alone. Our approach integrates: Professionally formulated hygiene products , Technology-driven workflows and monitoring , Structured training and on-ground support , This ensures hygiene is measurable, repeatable, and compliant, not dependent on individuals.",
   },
   {
     id: 3,
-    question: "Will this disrupt my operations?",
+    question: "How do you measure hygiene performance?",
     answer:
-      "No. We schedule visits around your service hours so normal operations continue without interruptions.",
+      "Performance is measured using, Task completion data, Compliance scores, Audit outcomes. Process adherence. This allows hygiene to be tracked, improved, and sustained.",
   },
   {
     id: 4,
-    question: "Is this suitable for small restaurants?",
+    question: "Can your system be implemented in existing operations?",
     answer:
-      "Absolutely. We support single outlets, cloud kitchens, and large chains — the scoring system adapts to all formats.",
+      "Yes. Our model is designed to integrate seamlessly with existing operations without disrupting daily workflows.",
   },
   {
     id: 5,
-    question: "What happens after the assessment?",
+    question: "What kind of on-ground support do you provide ?",
     answer:
-      "You get a clear action plan with prioritized fixes. We can also provide ongoing audits and cleaning services to maintain your score.",
+      "Hygiene is not a one-time setup. We provide, On-ground and remote support , Process optimisation and corrective actions, Performance reviews and improvement plans, Continuous guidance as operations evolve. Support ensures long-term consistency and results.",
   },
 ];
 

@@ -58,6 +58,7 @@ const Title = styled.h1`
   font-size: clamp(2.2rem, 4.8vw, 5rem);
   line-height: 0.9;
   margin: 0;
+  font-family: "KentledgeMedium";
 `;
 
 const GradientText = styled.span`
@@ -71,6 +72,7 @@ const Subtitle = styled.p`
   max-width: 700px;
   margin: 18px auto 0;
   font-size: 1.05rem;
+  font-family: "KentledgeLight";
   line-height: 1.7;
   color: ${({ $isDark }) => ($isDark ? "#cbd5e1" : "#64748b")};
 `;
