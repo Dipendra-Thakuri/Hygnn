@@ -1,6 +1,8 @@
 // src/components/WhyUsSection.js
 import React from "react";
 import styled from "styled-components";
+import Section from "./layout/Section";
+import Container from "./layout/Container";
 import {
   LuHandshake,
   LuTrendingUp,
@@ -10,74 +12,73 @@ import {
   LuShieldCheck,
 } from "react-icons/lu";
 
-const SectionMain = styled.section.attrs(() => ({
-  id: "why-us",
-}))`
-  background: ${({ theme }) => theme.background};
-  color: ${({ theme }) => theme.text};
-  padding: 70px 0;
-  display: flex;
-  justify-content: center;
-`;
-
-const SectionContainer = styled.div`
-  width: 90%;
-  max-width: 1100px;
-`;
+/* ---------------- Header ---------------- */
 
 const HeaderRow = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 36px;
+  gap: 12px;
+  margin-bottom: 3.2rem;
 `;
 
 const Tag = styled.span`
   font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #a5b4fc;
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 2.3rem;
+  font-size: clamp(2.4rem, 3.4vw, 3.2rem);
   margin: 0;
   font-family: "KentledgeMedium";
 `;
 
 const SectionSubtitle = styled.p`
   margin: 0;
-  font-size: 1.02rem;
-  max-width: 580px;
-  color: ${({ theme }) =>
-    theme.background === "#ffffff" ? "#4b5563" : "#9ca3af"};
+  font-size: 1.05rem;
+  max-width: 60ch;
+  line-height: 1.6;
   font-family: "KentledgeLight";
+  color: ${({ theme }) =>
+    theme.mode === "dark" ? "#9ca3af" : "#4b5563"};
 `;
+
+/* ---------------- Grid ---------------- */
 
 const ReasonsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
-
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
 `;
 
+/* ---------------- Card ---------------- */
+
 const ReasonCard = styled.div`
-  padding: 18px 18px 20px;
-  border-radius: 16px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 22px 22px 26px;
+  border-radius: 20px;
+
   background: ${({ theme }) => theme.cardBackground};
+  border: 1px solid
+    ${({ theme }) =>
+      theme.mode === "dark"
+        ? "rgba(255, 255, 255, 0.14)"
+        : "rgba(148, 163, 184, 0.4)"};
+
+  transition: transform 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: ${({ theme }) =>
+      theme.mode === "dark"
+        ? "rgba(255, 255, 255, 0.22)"
+        : "rgba(148, 163, 184, 0.6)"};
+  }
 `;
 
 const ReasonIcon = styled.div`
-  font-size: 1.5rem;
-  margin-bottom: 8px;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
   color: #6366f1;
   display: flex;
   align-items: center;
@@ -85,23 +86,25 @@ const ReasonIcon = styled.div`
 
 const ReasonTitle = styled.h3`
   font-size: 1.15rem;
-  margin: 0 0 6px 0;
+  margin: 0 0 8px 0;
   font-family: "KentledgeMedium";
 `;
 
 const ReasonText = styled.p`
   margin: 0;
   font-size: 0.95rem;
-  line-height: 1.5;
-  color: ${({ theme }) =>
-    theme.background === "#ffffff" ? "#4b5563" : "#e5e7eb"};
+  line-height: 1.55;
   font-family: "KentledgeLight";
+  color: ${({ theme }) =>
+    theme.mode === "dark" ? "#e5e7eb" : "#4b5563"};
 `;
+
+/* ---------------- Component ---------------- */
 
 const WhyUsSection = () => {
   return (
-    <SectionMain>
-      <SectionContainer>
+    <Section id="why-us">
+      <Container>
         <HeaderRow>
           <Tag>Why Hygnn</Tag>
           <SectionTitle>Built for busy kitchen operators</SectionTitle>
@@ -167,8 +170,8 @@ const WhyUsSection = () => {
             </ReasonText>
           </ReasonCard>
         </ReasonsGrid>
-      </SectionContainer>
-    </SectionMain>
+      </Container>
+    </Section>
   );
 };
 

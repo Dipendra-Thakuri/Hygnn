@@ -1,43 +1,19 @@
 // src/components/ReviewsSection.js
 import styled, { keyframes } from "styled-components";
-
-/* ---------------- Section ---------------- */
-
-const Section = styled.section`
-  position: relative;
-  padding: clamp(72px, 10vw, 120px) 1rem;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  color: ${({ theme }) => theme.text};
-  background: ${({ theme }) => theme.background};
-  overflow: hidden;
-`;
-
-const Container = styled.div`
-  position: relative;
-  width: 90%;
-  max-width: 1100px;
-  z-index: 1;
-
-  background: ${({ theme }) =>
-    theme.mode === "dark"
-      ? `radial-gradient(
-          circle at center,
-          rgba(0, 177, 213, 0.25),
-          rgba(98, 28, 208, 0.15) 40%,
-          transparent 90%
-        )`
-      : "none"};
-`;
+import Section from "./layout/Section";
+import Container from "./layout/Container";
 
 /* ---------------- Header ---------------- */
 
+const Header = styled.div`
+  text-align: center;
+`;
+
 const Title = styled.h2`
   margin: 0;
-  font-size: clamp(2.2rem, 5vw, 3rem);
+  font-size: clamp(2.6rem, 3.6vw, 3.2rem);
   font-family: "KentledgeMedium";
-  line-height: 1;
+  line-height: 1.1;
 `;
 
 const Highlight = styled.span`
@@ -47,108 +23,102 @@ const Highlight = styled.span`
 `;
 
 const Subtitle = styled.p`
-  margin-top: 5px;
-  font-size: 1.1rem;
-  color: ${({ theme }) =>
-    theme.background === "#ffffff" ? "#4b5563" : "#cbd5e1"};
+  margin-top: 0.8rem;
+  font-size: 1.05rem;
   font-family: "KentledgeLight";
+  color: ${({ theme }) =>
+    theme.mode === "dark" ? "#cbd5e1" : "#4b5563"};
 `;
 
-/* ---------------- Reviews Carousel ---------------- */
+/* ---------------- Marquee Animations ---------------- */
 
-const marquee1 = keyframes`
+const marqueeLeft = keyframes`
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 `;
 
-const marquee2 = keyframes`
+const marqueeRight = keyframes`
   0% { transform: translateX(-50%); }
   100% { transform: translateX(0); }
 `;
 
+/* ---------------- Reviews ---------------- */
+
 const ReviewsWrapper = styled.div`
-  margin-top: 44px;
+  margin-top: 3.5rem;
   position: relative;
 `;
 
-const ReviewsShell1 = styled.div`
-  overflow: hidden;
-  padding: 10px 0;
-`;
-
-const ReviewsShell2 = styled.div`
+const ReviewsShell = styled.div`
   position: relative;
   overflow: hidden;
-  padding: 10px 0;
-  width: 80%;
+  padding: 12px 0;
+`;
+
+const ReviewsShellNarrow = styled(ReviewsShell)`
+  width: 78%;
   margin: 0 auto;
 `;
+
+/* ---------------- Edge Fade ---------------- */
 
 const EdgeFade = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 90px;
+  width: 80px;
   pointer-events: none;
   z-index: 2;
-
-  @media (max-width: 640px) {
-    width: 40px;
-  }
 `;
 
 const LeftFade = styled(EdgeFade)`
   left: 0;
   background: ${({ theme }) =>
-    theme.background === "#ffffff"
-      ? "linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0))"
-      : "linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))"};
+    theme.mode === "dark"
+      ? "linear-gradient(to right, #000, transparent)"
+      : "linear-gradient(to right, #fff, transparent)"};
 `;
 
 const RightFade = styled(EdgeFade)`
   right: 0;
   background: ${({ theme }) =>
-    theme.background === "#ffffff"
-      ? "linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0))"
-      : "linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))"};
+    theme.mode === "dark"
+      ? "linear-gradient(to left, #000, transparent)"
+      : "linear-gradient(to left, #fff, transparent)"};
 `;
 
-const LeftFadeSmall = styled(LeftFade)`
-  width: 50px;
-`;
+/* ---------------- Tracks ---------------- */
 
-const RightFadeSmall = styled(RightFade)`
-  width: 50px;
-`;
-
-const ReviewsTrack1 = styled.div`
+const ReviewsTrackLeft = styled.div`
   display: inline-flex;
-  gap: 17px;
-  animation: ${marquee1} 40s linear infinite;
+  gap: 20px;
+  animation: ${marqueeLeft} 42s linear infinite;
 `;
 
-const ReviewsTrack2 = styled.div`
+const ReviewsTrackRight = styled.div`
   display: inline-flex;
-  gap: 17px;
-  animation: ${marquee2} 40s linear infinite;
+  gap: 20px;
+  animation: ${marqueeRight} 42s linear infinite;
 `;
+
+/* ---------------- Cards ---------------- */
 
 const ReviewCard = styled.div`
-  flex: 0 0 300px;
-  padding: 20px;
-  border-radius: 18px;
+  flex: 0 0 320px;
+  padding: 22px;
+  border-radius: 20px;
   text-align: left;
 
   background: ${({ theme }) =>
-    theme.background === "#ffffff"
-      ? "linear-gradient(145deg, #f9fafb, #e5e7eb)"
-      : "rgba(15, 23, 42, 0.2)"};
+    theme.mode === "dark"
+      ? "rgba(15, 23, 42, 0.35)"
+      : "linear-gradient(145deg, #f9fafb, #e5e7eb)"};
 
   border: 1px solid
     ${({ theme }) =>
-      theme.background === "#ffffff"
-        ? "rgba(148, 163, 184, 0.6)"
-        : "rgba(148, 163, 184, 0.35)"};
+      theme.mode === "dark"
+        ? "rgba(148, 163, 184, 0.35)"
+        : "rgba(148, 163, 184, 0.6)"};
 `;
 
 const ReviewText = styled.p`
@@ -157,7 +127,7 @@ const ReviewText = styled.p`
   line-height: 1.55;
   font-family: "KentledgeMedium";
   color: ${({ theme }) =>
-    theme.background === "#ffffff" ? "#374151" : "#e5e7eb"};
+    theme.mode === "dark" ? "#e5e7eb" : "#374151"};
 `;
 
 const Reviewer = styled.p`
@@ -214,46 +184,45 @@ const doubledReviews = [...REVIEWS, ...REVIEWS];
 
 const ReviewsSection = () => {
   return (
-    <Section id="contact">
+    <Section id="reviews">
       <Container>
-        <Title>
-          Trusted by <Highlight>real Partners</Highlight>
-        </Title>
-
-        <Subtitle>
-          See what The Businesses say about working with Hygnn.
-        </Subtitle>
+        <Header>
+          <Title>
+            Trusted by <Highlight>real partners</Highlight>
+          </Title>
+          <Subtitle>
+            See what businesses say about working with Hygnn.
+          </Subtitle>
+        </Header>
 
         <ReviewsWrapper>
-          <ReviewsShell1>
-            <ReviewsTrack1>
+          <ReviewsShell>
+            <ReviewsTrackLeft>
               {doubledReviews.map((review, idx) => (
-                <ReviewCard key={idx}>
+                <ReviewCard key={`top-${idx}`}>
                   <ReviewText>“{review.text}”</ReviewText>
                   <Reviewer>{review.name}</Reviewer>
                   <Role>{review.role}</Role>
                 </ReviewCard>
               ))}
-            </ReviewsTrack1>
-
+            </ReviewsTrackLeft>
             <LeftFade />
             <RightFade />
-          </ReviewsShell1>
+          </ReviewsShell>
 
-          <ReviewsShell2>
-            <ReviewsTrack2>
+          <ReviewsShellNarrow>
+            <ReviewsTrackRight>
               {doubledReviews.map((review, idx) => (
-                <ReviewCard key={idx}>
+                <ReviewCard key={`bottom-${idx}`}>
                   <ReviewText>“{review.text}”</ReviewText>
                   <Reviewer>{review.name}</Reviewer>
                   <Role>{review.role}</Role>
                 </ReviewCard>
               ))}
-            </ReviewsTrack2>
-
-            <LeftFadeSmall />
-            <RightFadeSmall />
-          </ReviewsShell2>
+            </ReviewsTrackRight>
+            <LeftFade />
+            <RightFade />
+          </ReviewsShellNarrow>
         </ReviewsWrapper>
       </Container>
     </Section>

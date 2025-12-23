@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 /* ---------------- Hero Wrapper ---------------- */
 
-const HeroWrapper = styled.div`
+const HeroWrapper = styled.section`
   min-height: calc(100svh - var(--header-height, 0px));
   display: flex;
   align-items: center;
@@ -13,7 +13,7 @@ const HeroWrapper = styled.div`
 
 const HeroContent = styled.div`
   text-align: center;
-  max-width: 1536px;
+  max-width: 1100px;
   margin: 0 auto;
 `;
 
@@ -22,9 +22,9 @@ const HeroContent = styled.div`
 const HeroTitle = styled.h1`
   margin: 0;
   color: ${({ theme }) => theme.text};
-  font-size: clamp(2.2rem, 4.3vw, 7rem);
+  font-size: clamp(2.4rem, 4vw, 4.6rem);
   font-weight: 900;
-  line-height: 1.15;
+  line-height: 1.12;
   font-family: "KentledgeBold";
 `;
 
@@ -42,8 +42,8 @@ const GradientText = styled.span`
 `;
 
 const HeroText = styled.p`
-  margin-top: 1rem;
-  font-size: clamp(1.05rem, 1.5vw, 4.5rem);
+  margin-top: 1.1rem;
+  font-size: clamp(1.05rem, 1.2vw, 1.35rem);
   font-family: "KentledgeLight";
   color: ${({ theme }) => theme.text};
   max-width: 60ch;
@@ -56,9 +56,9 @@ const HighlightText = styled.span`
 `;
 
 const HeroButton = styled.button`
-  margin-top: 1.6rem;
-  padding: 12px 36px 10px 36px;
-  font-size: 1.15rem;
+  margin-top: 1.8rem;
+  padding: 12px 36px 10px;
+  font-size: 1.1rem;
   border-radius: 999px;
   border: none;
   cursor: pointer;
@@ -87,20 +87,20 @@ const HeroSection = () => {
   return (
     <div id="hero">
       <HeroWrapper>
-          <HeroContent>
-            <HeroTitle>
-              Elevate Your <GradientText>Hygiene</GradientText> Standards
-            </HeroTitle>
-            <HeroTitle>Protect Your Brand</HeroTitle>
+        <HeroContent>
+          <HeroTitle>
+            Elevate Your <GradientText>Hygiene</GradientText> Standards
+          </HeroTitle>
+          <HeroTitle>Protect Your Brand</HeroTitle>
 
-            <HeroText>
-              <HighlightText>
-                Connect to redefine what’s possible for hygiene in your business.
-              </HighlightText>
-            </HeroText>
+          <HeroText>
+            <HighlightText>
+              Connect to redefine what’s possible for hygiene in your business.
+            </HighlightText>
+          </HeroText>
 
-            <HeroButton>Become a Partner</HeroButton>
-          </HeroContent>
+          <HeroButton>Become a Partner</HeroButton>
+        </HeroContent>
       </HeroWrapper>
     </div>
   );

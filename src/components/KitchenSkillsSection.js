@@ -1,6 +1,8 @@
 // src/components/KitchenSkillsSection.js
 import React from "react";
 import styled from "styled-components";
+import Section from "./layout/Section";
+import Container from "./layout/Container";
 import {
   LuSprayCan,
   LuClipboardCheck,
@@ -10,29 +12,18 @@ import {
   LuGitBranch,
 } from "react-icons/lu";
 
-const Section = styled.section`
-  display: flex;
-  justify-content: center;
+/* ---------------- Content ---------------- */
+
+const Content = styled.div`
   text-align: center;
-  color: ${({ theme }) => theme.text};
-
-  padding: clamp(90px, 12vw, 140px) 0
-    clamp(110px, 14vw, 160px);
-  background: ${({ theme }) => theme.background};
-`;
-
-const Container = styled.div`
   position: relative;
-  width: 90%;
-  max-width: 900px;
-  z-index: 0;
 
   &::before {
     content: "";
     position: absolute;
     inset: 0;
     margin: auto;
-    width: min(700px, 100%);
+    width: 720px;
     height: 380px;
     border-radius: 50%;
     background: radial-gradient(
@@ -41,17 +32,19 @@ const Container = styled.div`
       rgba(98, 28, 208, 0.15) 40%,
       transparent 90%
     );
-    filter: blur(18px);
+    filter: blur(22px);
     opacity: ${({ theme }) => (theme.mode === "dark" ? 1 : 0)};
     z-index: -1;
     pointer-events: none;
   }
 `;
 
+/* ---------------- Typography ---------------- */
+
 const Title = styled.h2`
   margin: 0;
-  font-size: clamp(2.1rem, 5vw, 3rem);
-  font-weight: 700;
+  font-size: clamp(2.4rem, 3.6vw, 3.2rem);
+  font-family: "KentledgeMedium";
   line-height: 1.15;
 `;
 
@@ -62,34 +55,37 @@ const Highlight = styled.span`
 `;
 
 const Subtitle = styled.p`
-  margin-top: 0.75rem;
-  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  margin-top: 0.9rem;
+  font-size: 1.05rem;
   line-height: 1.6;
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "KentledgeLight";
   color: ${({ theme }) =>
     theme.mode === "dark" ? "#cbd5e1" : "#4b5563"};
 `;
 
+/* ---------------- Grid ---------------- */
+
 const OptionsGrid = styled.div`
-  margin-top: 2.5rem;
+  margin-top: 3rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
+  gap: 26px;
 `;
+
+/* ---------------- Cards ---------------- */
 
 const OptionCard = styled.button`
   all: unset;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 22px;
-  border-radius: 18px;
+  padding: 20px 24px;
+  border-radius: 20px;
   cursor: pointer;
   backdrop-filter: blur(6px);
-  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 
   background: ${({ theme }) =>
     theme.mode === "dark"
@@ -99,51 +95,56 @@ const OptionCard = styled.button`
   border: 1px solid
     ${({ theme }) =>
       theme.mode === "dark"
-        ? "rgba(255, 255, 255, 0.12)"
-        : "rgba(148, 163, 184, 0.4)"};
+        ? "rgba(255, 255, 255, 0.14)"
+        : "rgba(148, 163, 184, 0.45)"};
 
-  @media (hover: hover) {
-    &:hover {
-      transform: translateY(-2px);
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 
-      background: ${({ theme }) =>
-        theme.mode === "dark"
-          ? `linear-gradient(
-              135deg,
-              #0b0d10 0%,
-              #1a1f24 30%,
-              #2e353d 50%,
-              #1a1f24 70%,
-              #0b0d10 100%
-            )`
-          : `linear-gradient(
+  &:hover {
+    transform: translateY(-2px);
+
+    background: ${({ theme }) =>
+      theme.mode === "dark"
+        ? `linear-gradient(
+            135deg,
+            #0b0d10 0%,
+            #1a1f24 35%,
+            #2e353d 50%,
+            #1a1f24 65%,
+            #0b0d10 100%
+          )`
+        : `linear-gradient(
             135deg,
             rgba(0, 177, 213, 0.12) 0%,
-            rgba(0, 157, 255, 0.10) 35%,
+            rgba(0, 157, 255, 0.1) 35%,
             rgba(98, 28, 208, 0.08) 65%,
             rgba(0, 177, 213, 0.12) 100%
           )`};
 
-      border-color: ${({ theme }) =>
-        theme.mode === "dark"
-          ? "rgba(255, 255, 255, 0.22)"
-          : "rgba(148, 163, 184, 0.6)"};
-    }
-  }
-
-  &:active {
-    transform: translateY(0);
+    border-color: ${({ theme }) =>
+      theme.mode === "dark"
+        ? "rgba(255, 255, 255, 0.22)"
+        : "rgba(148, 163, 184, 0.6)"};
   }
 `;
 
-const OptionLabel = styled.span`
+const OptionLabel = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
+  gap: 14px;
 `;
 
-const OptionDiv = styled.div`
+const Icon = styled.span`
+  font-size: 1.5rem;
+  color: #00b1d5;
+  transition: color 0.25s ease;
+
+  ${OptionCard}:hover & {
+    color: #00c2a0;
+  }
+`;
+
+const OptionText = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -152,7 +153,7 @@ const OptionDiv = styled.div`
 
 const OptionMeta = styled.span`
   font-size: 0.7rem;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.18em;
   font-weight: 600;
   color: ${({ theme }) =>
     theme.mode === "dark" ? "#94a3b8" : "#64748b"};
@@ -162,18 +163,6 @@ const OptionTitle = styled.span`
   font-size: 1rem;
   font-family: "KentledgeLight";
   color: ${({ theme }) => theme.text};
-`;
-
-const Icon = styled.span`
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  color: #00b1d5;
-  transition: color 0.25s ease;
-
-  ${OptionCard}:hover & {
-    color: #00c2a0;
-  }
 `;
 
 const Circle = styled.span`
@@ -188,11 +177,13 @@ const Circle = styled.span`
   }
 `;
 
+/* ---------------- CTA ---------------- */
+
 const CTAButton = styled.button`
-  margin-top: 3rem;
-  padding: 14px 32px;
-  font-size: clamp(1.05rem, 2.5vw, 1.2rem);
-  border-radius: 14px;
+  margin-top: 3.5rem;
+  padding: 14px 34px;
+  font-size: 1.05rem;
+  border-radius: 16px;
   border: none;
   cursor: pointer;
   font-family: "KentledgeMedium";
@@ -200,104 +191,106 @@ const CTAButton = styled.button`
   background: #00c2a0;
   color: #ffffff;
 
-  transition: transform 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease;
 
-  @media (hover: hover) {
-    &:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(
-        135deg,
-        #007f6a 0%,
-        #00a88c 30%,
-        #00c2a0 50%,
-        #00a88c 70%,
-        #007f6a 100%
-      );
-    }
+  &:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(
+      135deg,
+      #007f6a 0%,
+      #00a88c 30%,
+      #00c2a0 50%,
+      #00a88c 70%,
+      #007f6a 100%
+    );
   }
 `;
+
+/* ---------------- Component ---------------- */
 
 const KitchenSkillsSection = () => {
   return (
     <Section>
       <Container>
-        <Title>
-          Which pillar is <Highlight>compromising</Highlight> your brand integrity?
-        </Title>
+        <Content>
+          <Title>
+            Which pillar is <Highlight>compromising</Highlight> your brand integrity?
+          </Title>
 
-        <Subtitle>
-          Pick hygiene areas you want to strengthen across your operations:
-        </Subtitle>
+          <Subtitle>
+            Pick hygiene areas you want to strengthen across your operations:
+          </Subtitle>
 
-        <OptionsGrid>
-  <OptionCard>
-    <OptionLabel>
-      <Icon><LuSprayCan /></Icon>
-      <OptionDiv>
-        <OptionMeta>EXECUTION</OptionMeta>
-        <OptionTitle>Routine Cleaning</OptionTitle>
-      </OptionDiv>
-    </OptionLabel>
-    <Circle />
-  </OptionCard>
+          <OptionsGrid>
+            <OptionCard>
+              <OptionLabel>
+                <Icon><LuSprayCan /></Icon>
+                <OptionText>
+                  <OptionMeta>EXECUTION</OptionMeta>
+                  <OptionTitle>Routine Cleaning</OptionTitle>
+                </OptionText>
+              </OptionLabel>
+              <Circle />
+            </OptionCard>
 
-  <OptionCard>
-    <OptionLabel>
-      <Icon><LuClipboardCheck /></Icon>
-      <OptionDiv>
-        <OptionMeta>INFRASTRUCTURE</OptionMeta>
-        <OptionTitle>Deep Cleaning</OptionTitle>
-      </OptionDiv>
-    </OptionLabel>
-    <Circle />
-  </OptionCard>
+            <OptionCard>
+              <OptionLabel>
+                <Icon><LuClipboardCheck /></Icon>
+                <OptionText>
+                  <OptionMeta>INFRASTRUCTURE</OptionMeta>
+                  <OptionTitle>Deep Cleaning</OptionTitle>
+                </OptionText>
+              </OptionLabel>
+              <Circle />
+            </OptionCard>
 
-  <OptionCard>
-    <OptionLabel>
-      <Icon><LuCpu /></Icon>
-      <OptionDiv>
-        <OptionMeta>INTELLIGENCE</OptionMeta>
-        <OptionTitle>Automation</OptionTitle>
-      </OptionDiv>
-    </OptionLabel>
-    <Circle />
-  </OptionCard>
+            <OptionCard>
+              <OptionLabel>
+                <Icon><LuCpu /></Icon>
+                <OptionText>
+                  <OptionMeta>INTELLIGENCE</OptionMeta>
+                  <OptionTitle>Automation</OptionTitle>
+                </OptionText>
+              </OptionLabel>
+              <Circle />
+            </OptionCard>
 
-  <OptionCard>
-    <OptionLabel>
-      <Icon><LuGraduationCap /></Icon>
-      <OptionDiv>
-        <OptionMeta>HUMAN CAPITAL</OptionMeta>
-        <OptionTitle>Staff Training</OptionTitle>
-      </OptionDiv>
-    </OptionLabel>
-    <Circle />
-  </OptionCard>
+            <OptionCard>
+              <OptionLabel>
+                <Icon><LuGraduationCap /></Icon>
+                <OptionText>
+                  <OptionMeta>HUMAN CAPITAL</OptionMeta>
+                  <OptionTitle>Staff Training</OptionTitle>
+                </OptionText>
+              </OptionLabel>
+              <Circle />
+            </OptionCard>
 
-  <OptionCard>
-    <OptionLabel>
-      <Icon><LuShieldCheck /></Icon>
-      <OptionDiv>
-        <OptionMeta>GOVERNANCE</OptionMeta>
-        <OptionTitle>Audit Compliance</OptionTitle>
-      </OptionDiv>
-    </OptionLabel>
-    <Circle />
-  </OptionCard>
+            <OptionCard>
+              <OptionLabel>
+                <Icon><LuShieldCheck /></Icon>
+                <OptionText>
+                  <OptionMeta>GOVERNANCE</OptionMeta>
+                  <OptionTitle>Audit Compliance</OptionTitle>
+                </OptionText>
+              </OptionLabel>
+              <Circle />
+            </OptionCard>
 
-  <OptionCard>
-    <OptionLabel>
-      <Icon><LuGitBranch /></Icon>
-      <OptionDiv>
-        <OptionMeta>SCALABILITY</OptionMeta>
-        <OptionTitle>Standardisation</OptionTitle>
-      </OptionDiv>
-    </OptionLabel>
-    <Circle />
-  </OptionCard>
-</OptionsGrid>
+            <OptionCard>
+              <OptionLabel>
+                <Icon><LuGitBranch /></Icon>
+                <OptionText>
+                  <OptionMeta>SCALABILITY</OptionMeta>
+                  <OptionTitle>Standardisation</OptionTitle>
+                </OptionText>
+              </OptionLabel>
+              <Circle />
+            </OptionCard>
+          </OptionsGrid>
 
-        <CTAButton>Let’s improve</CTAButton>
+          <CTAButton>Let’s improve</CTAButton>
+        </Content>
       </Container>
     </Section>
   );

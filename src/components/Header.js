@@ -15,9 +15,9 @@ const HeaderMain = styled.header`
 `;
 
 const HeaderWrapper = styled.div`
-  max-width: 100svw;
+  max-width: 1536px;
   margin: 0 auto;
-  padding: 1.25rem clamp(1rem, 4vw, 3.5rem);
+  padding: 1.25rem clamp(1.5rem, 3vw, 3.5rem);
 
   display: flex;
   align-items: center;
@@ -33,19 +33,15 @@ const LogoButton = styled.button`
 `;
 
 const HeaderLogo = styled.img`
-  width: clamp(80px, 19vw, 130px);
+  width: clamp(90px, 10vw, 130px);
 `;
 
-/* ------------------ Nav ------------------ */
+/* ------------------ Navigation ------------------ */
 
-const DesktopNav = styled.div`
+const DesktopNav = styled.nav`
   display: flex;
   align-items: center;
-  gap: 2.2rem;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
+  gap: 2.4rem;
 `;
 
 const NavLink = styled.button`
@@ -70,12 +66,12 @@ const ThemeToggle = styled.button`
   cursor: pointer;
 `;
 
-/* ------------------ SignUp Button ------------------ */
+/* ------------------ Sign Up Button ------------------ */
 
 const GradientBorder = styled.div`
-  position: relative;
   border-radius: 999px;
   padding: 1.5px;
+
   background: linear-gradient(
     90deg,
     #00b1d5,
@@ -98,7 +94,7 @@ const GradientBorder = styled.div`
 `;
 
 const SignUpButton = styled.button`
-  padding: 10px 18px 6px 18px;
+  padding: 9px 20px;
   border-radius: 999px;
   border: none;
   background: ${({ theme }) => theme.background};
@@ -107,108 +103,6 @@ const SignUpButton = styled.button`
   font-family: "KentledgeMedium";
   cursor: pointer;
   white-space: nowrap;
-
-  position: relative;
-  z-index: 1;
-`;
-
-/* ------------------ Hamburger ------------------ */
-
-const Hamburger = styled.button`
-  width: 42px;
-  height: 42px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  position: relative;
-  display: none;
-
-  @media (max-width: 768px) {
-    display: block;
-  }
-
-  span {
-    position: absolute;
-    left: 8px;
-    width: 26px;
-    height: 2px;
-    background: ${({ theme }) => theme.text};
-    transition: transform 0.3s ease, opacity 0.25s ease;
-  }
-
-  span:nth-child(1) {
-    top: 14px;
-    transform: ${({ open }) =>
-      open ? "rotate(45deg) translateY(6px)" : "none"};
-  }
-
-  span:nth-child(2) {
-    top: 20px;
-    opacity: ${({ open }) => (open ? 0 : 1)};
-  }
-
-  span:nth-child(3) {
-    top: 26px;
-    transform: ${({ open }) =>
-      open ? "rotate(-45deg) translateY(-6px)" : "none"};
-  }
-`;
-
-/* ------------------ Mobile Menu ------------------ */
-
-const Backdrop = styled.div`
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(6px);
-  opacity: ${({ open }) => (open ? 1 : 0)};
-  pointer-events: ${({ open }) => (open ? "auto" : "none")};
-  transition: opacity 0.25s ease;
-  z-index: 998;
-
-  @media (min-width: 769px) {
-    display: none;
-  }
-`;
-
-const MobileMenu = styled.div`
-  position: fixed;
-  inset: 0;
-  background: ${({ theme }) => theme.background};
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2.2rem;
-
-  transform: translateY(${({ open }) => (open ? "0%" : "-100%")});
-  transition: transform 0.4s ease;
-  z-index: 999;
-
-  @media (min-width: 769px) {
-    display: none;
-  }
-`;
-
-const MobileNavLink = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.4rem;
-  font-family: "KentledgeBold";
-  color: ${({ theme }) => theme.text};
-`;
-
-const MobileSignUp = styled.button`
-  padding: 12px 30px;
-  border-radius: 999px;
-  border: 1px solid #38bdf8;
-  background: transparent;
-  color: ${({ theme }) => theme.text};
-  font-family: "KentledgeMedium";
-  font-size: 1.1rem;
-  cursor: pointer;
 `;
 
 /* ------------------ Component ------------------ */
@@ -218,9 +112,9 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
   const location = useLocation();
   const headerRef = useRef(null);
 
-  /* Header height → CSS variable */
+  /* Expose header height for Hero */
   useEffect(() => {
-    const update = () => {
+    const updateHeight = () => {
       if (headerRef.current) {
         document.documentElement.style.setProperty(
           "--header-height",
@@ -228,12 +122,12 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
         );
       }
     };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(
     localStorage.getItem(storageKey)
       ? localStorage.getItem(storageKey) === "dark"
@@ -252,7 +146,6 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
   const toggleTheme = () => applyTheme(!isDark);
 
   const goToSection = (id) => {
-    setIsMenuOpen(false);
     if (location.pathname !== "/") {
       navigate("/");
       requestAnimationFrame(() =>
@@ -264,56 +157,30 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
   };
 
   return (
-    <>
-      <Backdrop open={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
+    <HeaderMain ref={headerRef}>
+      <HeaderWrapper>
+        <LogoButton onClick={() => navigate("/")}>
+          <HeaderLogo
+            src={isDark ? "/InvertedLogo.png" : "/PrimaryLogo.png"}
+            alt="Hygnn logo"
+          />
+        </LogoButton>
 
-      <HeaderMain ref={headerRef}>
-        <HeaderWrapper>
-          <LogoButton onClick={() => navigate("/")}>
-            <HeaderLogo
-              src={isDark ? "/InvertedLogo.png" : "/PrimaryLogo.png"}
-              alt="Hygnn logo"
-            />
-          </LogoButton>
+        <DesktopNav>
+          <ThemeToggle onClick={toggleTheme}>🌓</ThemeToggle>
 
-          <DesktopNav>
-            <ThemeToggle onClick={toggleTheme}>🌓</ThemeToggle>
+          <NavLink onClick={() => goToSection("why-us")}>Why Us</NavLink>
+          <NavLink onClick={() => navigate("/about")}>Our Services</NavLink>
+          <NavLink onClick={() => navigate("/contact")}>Contact Us</NavLink>
 
-            <NavLink onClick={() => goToSection("why-us")}>Why Us</NavLink>
-            <NavLink onClick={() => navigate("/about")}>Our Services</NavLink>
-            <NavLink onClick={() => navigate("/contact")}>Contact Us</NavLink>
-
-            <GradientBorder>
-              <SignUpButton onClick={() => navigate("/signup")}>
-                Sign Up
-              </SignUpButton>
-            </GradientBorder>
-          </DesktopNav>
-
-          <Hamburger open={isMenuOpen} onClick={() => setIsMenuOpen((v) => !v)}>
-            <span />
-            <span />
-            <span />
-          </Hamburger>
-        </HeaderWrapper>
-
-        <MobileMenu open={isMenuOpen}>
-          <MobileNavLink onClick={() => goToSection("why-us")}>
-            Why Us
-          </MobileNavLink>
-          <MobileNavLink onClick={() => navigate("/about")}>
-            Our Services
-          </MobileNavLink>
-          <MobileNavLink onClick={() => navigate("/contact")}>
-            Contact Us
-          </MobileNavLink>
-
-          <MobileSignUp onClick={() => navigate("/signup")}>
-            Sign Up
-          </MobileSignUp>
-        </MobileMenu>
-      </HeaderMain>
-    </>
+          <GradientBorder>
+            <SignUpButton onClick={() => navigate("/signup")}>
+              Sign Up
+            </SignUpButton>
+          </GradientBorder>
+        </DesktopNav>
+      </HeaderWrapper>
+    </HeaderMain>
   );
 };
 
