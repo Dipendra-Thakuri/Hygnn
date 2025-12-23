@@ -13,7 +13,7 @@ const HeroWrapper = styled.div`
 
 const HeroContent = styled.div`
   text-align: center;
-  max-width: 100svw;
+  max-width: 1536px;
   margin: 0 auto;
 `;
 
@@ -22,7 +22,7 @@ const HeroContent = styled.div`
 const HeroTitle = styled.h1`
   margin: 0;
   color: ${({ theme }) => theme.text};
-  font-size: 4.5svw;
+  font-size: clamp(2.2rem, 4.3vw, 7rem);
   font-weight: 900;
   line-height: 1.15;
   font-family: "KentledgeBold";
@@ -43,9 +43,10 @@ const GradientText = styled.span`
 
 const HeroText = styled.p`
   margin-top: 1rem;
-  font-size: 1.6vw;
+  font-size: clamp(1.05rem, 1.5vw, 4.5rem);
   font-family: "KentledgeLight";
   color: ${({ theme }) => theme.text};
+  max-width: 60ch;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -56,8 +57,8 @@ const HighlightText = styled.span`
 
 const HeroButton = styled.button`
   margin-top: 1.6rem;
-  padding: 12px 36px;
-  font-size: 1.5svw;
+  padding: 12px 36px 10px 36px;
+  font-size: 1.15rem;
   border-radius: 999px;
   border: none;
   cursor: pointer;
