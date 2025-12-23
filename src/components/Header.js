@@ -1,4 +1,3 @@
-// src/components/Header.js
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -16,7 +15,7 @@ const HeaderMain = styled.header`
 `;
 
 const HeaderWrapper = styled.div`
-  max-width: 1400px;
+  max-width: 100svw;
   margin: 0 auto;
   padding: 1.25rem clamp(1rem, 4vw, 3.5rem);
 
@@ -37,6 +36,18 @@ const HeaderLogo = styled.img`
   width: clamp(80px, 19vw, 130px);
 `;
 
+/* ------------------ Nav ------------------ */
+
+const DesktopNav = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
 const NavLink = styled.button`
   background: none;
   border: none;
@@ -50,14 +61,55 @@ const NavLink = styled.button`
   }
 `;
 
-const DesktopNav = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 2.2rem;
+const ThemeToggle = styled.button`
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: ${({ theme }) => theme.cardBackground};
+  cursor: pointer;
+`;
 
-  @media (max-width: 768px) {
-    display: none;
+/* ------------------ SignUp Button ------------------ */
+
+const GradientBorder = styled.div`
+  position: relative;
+  border-radius: 999px;
+  padding: 1.5px;
+  background: linear-gradient(
+    90deg,
+    #00b1d5,
+    #009dff,
+    #621cd0,
+    #00c2a0,
+    #00b1d5
+  );
+  background-size: 300% 100%;
+  animation: borderFlow 6s linear infinite;
+
+  @keyframes borderFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 300% 50%;
+    }
   }
+`;
+
+const SignUpButton = styled.button`
+  padding: 10px 18px 6px 18px;
+  border-radius: 999px;
+  border: none;
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
+  font-size: 0.95rem;
+  font-family: "KentledgeMedium";
+  cursor: pointer;
+  white-space: nowrap;
+
+  position: relative;
+  z-index: 1;
 `;
 
 /* ------------------ Hamburger ------------------ */
@@ -102,7 +154,7 @@ const Hamburger = styled.button`
   }
 `;
 
-/* ------------------ Overlay + Menu ------------------ */
+/* ------------------ Mobile Menu ------------------ */
 
 const Backdrop = styled.div`
   position: fixed;
@@ -131,24 +183,12 @@ const MobileMenu = styled.div`
   gap: 2.2rem;
 
   transform: translateY(${({ open }) => (open ? "0%" : "-100%")});
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-
+  transition: transform 0.4s ease;
   z-index: 999;
 
   @media (min-width: 769px) {
     display: none;
   }
-`;
-
-const MobileCloseButton = styled.button`
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  color: ${({ theme }) => theme.text};
 `;
 
 const MobileNavLink = styled.button`
@@ -158,28 +198,16 @@ const MobileNavLink = styled.button`
   font-size: 1.4rem;
   font-family: "KentledgeBold";
   color: ${({ theme }) => theme.text};
-
-  &:hover {
-    color: #00eaff;
-  }
 `;
 
-const ThemeToggle = styled.button`
-  min-width: 44px;
-  min-height: 44px;
+const MobileSignUp = styled.button`
+  padding: 12px 30px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: ${({ theme }) => theme.cardBackground};
-  cursor: pointer;
-`;
-
-const MobileThemeToggle = styled.button`
-  margin-top: 1.5rem;
-  padding: 8px 18px;
-  font-size: 1rem;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  background: ${({ theme }) => theme.cardBackground};
+  border: 1px solid #38bdf8;
+  background: transparent;
+  color: ${({ theme }) => theme.text};
+  font-family: "KentledgeMedium";
+  font-size: 1.1rem;
   cursor: pointer;
 `;
 
@@ -188,39 +216,32 @@ const MobileThemeToggle = styled.button`
 const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const startYRef = useRef(0);
-
   const headerRef = useRef(null);
 
-useEffect(() => {
-  const setHeaderHeight = () => {
-    if (headerRef.current) {
-      document.documentElement.style.setProperty(
-        "--header-height",
-        `${headerRef.current.offsetHeight}px`
-      );
-    }
-  };
-
-  setHeaderHeight();
-  window.addEventListener("resize", setHeaderHeight);
-
-  return () => window.removeEventListener("resize", setHeaderHeight);
-}, []);
+  /* Header height → CSS variable */
+  useEffect(() => {
+    const update = () => {
+      if (headerRef.current) {
+        document.documentElement.style.setProperty(
+          "--header-height",
+          `${headerRef.current.offsetHeight}px`
+        );
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem(storageKey);
-    if (saved) return saved === "dark";
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
+  const [isDark, setIsDark] = useState(
+    localStorage.getItem(storageKey)
+      ? localStorage.getItem(storageKey) === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
 
   const applyTheme = useCallback(
     (dark) => {
-      document.documentElement.setAttribute(
-        "data-theme",
-        dark ? "dark" : "light"
-      );
       localStorage.setItem(storageKey, dark ? "dark" : "light");
       setIsDark(dark);
       controlledSetIsDark?.(dark);
@@ -230,35 +251,15 @@ useEffect(() => {
 
   const toggleTheme = () => applyTheme(!isDark);
 
-  const goToSection = useCallback(
-    (id) => {
-      setIsMenuOpen(false);
-      if (location.pathname !== "/") {
-        navigate("/");
-        requestAnimationFrame(() =>
-          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
-        );
-      } else {
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-      }
-    },
-    [location.pathname, navigate]
-  );
-
-  /* Lock body scroll */
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "";
-    return () => (document.body.style.overflow = "");
-  }, [isMenuOpen]);
-
-  /* Swipe down to close */
-  const onTouchStart = (e) => {
-    startYRef.current = e.touches[0].clientY;
-  };
-
-  const onTouchMove = (e) => {
-    if (e.touches[0].clientY - startYRef.current > 60) {
-      setIsMenuOpen(false);
+  const goToSection = (id) => {
+    setIsMenuOpen(false);
+    if (location.pathname !== "/") {
+      navigate("/");
+      requestAnimationFrame(() =>
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+      );
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -266,7 +267,7 @@ useEffect(() => {
     <>
       <Backdrop open={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
 
-      <HeaderMain ref={headerRef} id="header">
+      <HeaderMain ref={headerRef}>
         <HeaderWrapper>
           <LogoButton onClick={() => navigate("/")}>
             <HeaderLogo
@@ -276,57 +277,40 @@ useEffect(() => {
           </LogoButton>
 
           <DesktopNav>
-            <NavLink onClick={() => goToSection("why-us")}>Why Us</NavLink>
-            <NavLink onClick={() => navigate("/about")}>
-              Our Services
-            </NavLink>
-            <NavLink onClick={() => navigate("/contact")}>
-              Contact Us
-            </NavLink>
             <ThemeToggle onClick={toggleTheme}>🌓</ThemeToggle>
+
+            <NavLink onClick={() => goToSection("why-us")}>Why Us</NavLink>
+            <NavLink onClick={() => navigate("/about")}>Our Services</NavLink>
+            <NavLink onClick={() => navigate("/contact")}>Contact Us</NavLink>
+
+            <GradientBorder>
+              <SignUpButton onClick={() => navigate("/signup")}>
+                Sign Up
+              </SignUpButton>
+            </GradientBorder>
           </DesktopNav>
 
-          <Hamburger
-            open={isMenuOpen}
-            aria-label="Toggle menu"
-            aria-expanded={isMenuOpen}
-            onClick={() => setIsMenuOpen((v) => !v)}
-          >
+          <Hamburger open={isMenuOpen} onClick={() => setIsMenuOpen((v) => !v)}>
             <span />
             <span />
             <span />
           </Hamburger>
         </HeaderWrapper>
 
-        <MobileMenu
-          open={isMenuOpen}
-          role="dialog"
-          aria-modal="true"
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-        >
-          <MobileCloseButton onClick={() => setIsMenuOpen(false)}>
-            ✕
-          </MobileCloseButton>
-
-          <MobileNavLink onClick={() => navigate("/about")}>
-            Hygiene Partner
-          </MobileNavLink>
+        <MobileMenu open={isMenuOpen}>
           <MobileNavLink onClick={() => goToSection("why-us")}>
             Why Us
           </MobileNavLink>
-          <MobileNavLink
-            onClick={() => {
-              goToSection("contact");
-              setIsMenuOpen(false);
-            }}
-          >
+          <MobileNavLink onClick={() => navigate("/about")}>
+            Our Services
+          </MobileNavLink>
+          <MobileNavLink onClick={() => navigate("/contact")}>
             Contact Us
           </MobileNavLink>
 
-          <MobileThemeToggle onClick={toggleTheme}>
-            {isDark ? "🌙 Dark mode" : "☀️ Light mode"}
-          </MobileThemeToggle>
+          <MobileSignUp onClick={() => navigate("/signup")}>
+            Sign Up
+          </MobileSignUp>
         </MobileMenu>
       </HeaderMain>
     </>

@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import Section from "./layout/Section";
-import Container from "./layout/Container";
 
 /* ---------------- Hero Wrapper ---------------- */
 
@@ -15,7 +13,7 @@ const HeroWrapper = styled.div`
 
 const HeroContent = styled.div`
   text-align: center;
-  max-width: 900px;
+  max-width: 100svw;
   margin: 0 auto;
 `;
 
@@ -24,7 +22,7 @@ const HeroContent = styled.div`
 const HeroTitle = styled.h1`
   margin: 0;
   color: ${({ theme }) => theme.text};
-  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-size: 4.5svw;
   font-weight: 900;
   line-height: 1.15;
   font-family: "KentledgeBold";
@@ -45,10 +43,9 @@ const GradientText = styled.span`
 
 const HeroText = styled.p`
   margin-top: 1rem;
-  font-size: clamp(1.05rem, 1.6vw, 1.5rem);
+  font-size: 1.6vw;
   font-family: "KentledgeLight";
   color: ${({ theme }) => theme.text};
-  max-width: 60ch;
   margin-left: auto;
   margin-right: auto;
 `;
@@ -60,7 +57,7 @@ const HighlightText = styled.span`
 const HeroButton = styled.button`
   margin-top: 1.6rem;
   padding: 12px 36px;
-  font-size: 1.15rem;
+  font-size: 1.5svw;
   border-radius: 999px;
   border: none;
   cursor: pointer;

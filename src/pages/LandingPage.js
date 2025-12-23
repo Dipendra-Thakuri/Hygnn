@@ -24,7 +24,7 @@ const FAQSection = lazy(() =>
 const LandingWrapper = styled.div`
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
-  min-height: 100vh;
+  min-height: 100svh;
 `;
 
 const MainContent = styled.main`
@@ -34,7 +34,7 @@ const MainContent = styled.main`
 `;
 
 const Section = styled.section`
-  width: 100%;
+  width: 100svw;
 `;
 
 const LandingPage = ({ isDark, setIsDark }) => {
