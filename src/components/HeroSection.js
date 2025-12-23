@@ -1,7 +1,15 @@
-// src/components/HeroSection.js
 import styled from "styled-components";
 import Section from "./layout/Section";
 import Container from "./layout/Container";
+
+/* ---------------- Hero Wrapper ---------------- */
+
+const HeroWrapper = styled.div`
+  min-height: calc(100svh - var(--header-height, 0px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 /* ---------------- Hero Content ---------------- */
 
@@ -11,12 +19,14 @@ const HeroContent = styled.div`
   margin: 0 auto;
 `;
 
+/* ---------------- Typography ---------------- */
+
 const HeroTitle = styled.h1`
   margin: 0;
   color: ${({ theme }) => theme.text};
-  font-size: clamp(2rem, 4.3vw, 4rem);
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1.15;
   font-family: "KentledgeBold";
 `;
 
@@ -34,8 +44,8 @@ const GradientText = styled.span`
 `;
 
 const HeroText = styled.p`
-  margin-top: 0.75rem;
-  font-size: clamp(1.05rem, 1.5vw, 1.5rem);
+  margin-top: 1rem;
+  font-size: clamp(1.05rem, 1.6vw, 1.5rem);
   font-family: "KentledgeLight";
   color: ${({ theme }) => theme.text};
   max-width: 60ch;
@@ -48,10 +58,10 @@ const HighlightText = styled.span`
 `;
 
 const HeroButton = styled.button`
-  margin-top: 1.4rem;
-  padding: clamp(10px, 1.2vw, 12px) 1.7rem;
-  font-size: clamp(1.1rem, 1.5vw, 2.2rem);
-  border-radius: 50px;
+  margin-top: 1.6rem;
+  padding: 12px 36px;
+  font-size: 1.15rem;
+  border-radius: 999px;
   border: none;
   cursor: pointer;
   font-family: "KentledgeMedium";
@@ -68,10 +78,8 @@ const HeroButton = styled.button`
 
   transition: transform 0.25s ease;
 
-  @media (hover: hover) {
-    &:hover {
-      transform: translateY(-2px);
-    }
+  &:hover {
+    transform: translateY(-2px);
   }
 `;
 
@@ -79,24 +87,24 @@ const HeroButton = styled.button`
 
 const HeroSection = () => {
   return (
-    <Section id="hero">
-      <Container size="wide">
-        <HeroContent>
-          <HeroTitle>
-            Elevate Your <GradientText>Hygiene</GradientText> Standards
-          </HeroTitle>
-          <HeroTitle>Protect Your Brand</HeroTitle>
+    <div id="hero">
+      <HeroWrapper>
+          <HeroContent>
+            <HeroTitle>
+              Elevate Your <GradientText>Hygiene</GradientText> Standards
+            </HeroTitle>
+            <HeroTitle>Protect Your Brand</HeroTitle>
 
-          <HeroText>
-            <HighlightText>
-              Connect to redefine what’s possible for hygiene in your business.
-            </HighlightText>
-          </HeroText>
+            <HeroText>
+              <HighlightText>
+                Connect to redefine what’s possible for hygiene in your business.
+              </HighlightText>
+            </HeroText>
 
-          <HeroButton>Become a Partner</HeroButton>
-        </HeroContent>
-      </Container>
-    </Section>
+            <HeroButton>Become a Partner</HeroButton>
+          </HeroContent>
+      </HeroWrapper>
+    </div>
   );
 };
 

@@ -190,6 +190,24 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
   const location = useLocation();
   const startYRef = useRef(0);
 
+  const headerRef = useRef(null);
+
+useEffect(() => {
+  const setHeaderHeight = () => {
+    if (headerRef.current) {
+      document.documentElement.style.setProperty(
+        "--header-height",
+        `${headerRef.current.offsetHeight}px`
+      );
+    }
+  };
+
+  setHeaderHeight();
+  window.addEventListener("resize", setHeaderHeight);
+
+  return () => window.removeEventListener("resize", setHeaderHeight);
+}, []);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem(storageKey);
@@ -248,7 +266,7 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
     <>
       <Backdrop open={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
 
-      <HeaderMain id="header">
+      <HeaderMain ref={headerRef} id="header">
         <HeaderWrapper>
           <LogoButton onClick={() => navigate("/")}>
             <HeaderLogo
