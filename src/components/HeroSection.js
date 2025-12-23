@@ -13,7 +13,7 @@ const HeroWrapper = styled.section`
 
 const HeroContent = styled.div`
   text-align: center;
-  max-width: 1100px;
+  max-width: 1536px;
   margin: 0 auto;
 `;
 
@@ -46,7 +46,6 @@ const HeroText = styled.p`
   font-size: clamp(1.05rem, 1.2vw, 1.35rem);
   font-family: "KentledgeLight";
   color: ${({ theme }) => theme.text};
-  max-width: 60ch;
   margin-left: auto;
   margin-right: auto;
 `;
