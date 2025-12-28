@@ -8,6 +8,8 @@ import HeroSection from "../components/HeroSection";
 import ProblemsSection from "../components/ProblemsSection";
 import KitchenSkillsSection from "../components/KitchenSkillsSection";
 import WhyUsSection from "../components/WhyUsSection";
+import ScrollNavigator from "../components/ScrollNavigator";
+import Container from "../components/layout/Container";
 //import MarqueeSection from "../components/MarqueeSection";
 
 /* Lazy-loaded sections (below the fold) */
@@ -34,7 +36,8 @@ const MainContent = styled.main`
 `;
 
 const Section = styled.section`
-  width: 100svw;
+  width: 100%;
+  position: relative;
 `;
 
 const LandingPage = ({ isDark, setIsDark }) => {
@@ -44,41 +47,58 @@ const LandingPage = ({ isDark, setIsDark }) => {
 
       <MainContent>
         <Section id="hero">
+          <Container>
           <HeroSection />
+          </Container>
         </Section>
 
         {/* <Section>
+          <Container>
           <MarqueeSection />
+          </Container>
         </Section> */}
 
         <Section id="problems">
+          <Container>
           <ProblemsSection />
+          </Container>
         </Section>
 
         <Section id="kitchen-skills">
+          <Container>
           <KitchenSkillsSection />
+          </Container>
         </Section>
 
         <Section id="why-us">
+          <Container>
           <WhyUsSection />
+          </Container>
         </Section>
 
         {/* Lazy loaded sections */}
         <Suspense fallback={null}>
           <Section id="hygiene-level">
+            <Container>
             <HygieneLevelSection />
+            </Container>
           </Section>
 
           <Section id="contact">
+            <Container>
             <ContactSection />
+            </Container>
           </Section>
 
           <Section id="faq">
+            <Container>
             <FAQSection />
+            </Container>
           </Section>
         </Suspense>
       </MainContent>
 
+      <ScrollNavigator />
       <Footer isDark={isDark} />
     </LandingWrapper>
   );

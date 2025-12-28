@@ -2,80 +2,123 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-/* ---------------- Layout ---------------- */
+/* ================= PAGE ================= */
 
 const PageWrapper = styled.main`
   min-height: calc(100svh - var(--header-height, 0px));
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background: ${({ theme }) => theme.background};
 `;
+
+/* ================= FRAME ================= */
+
+const Frame = styled.div`
+  width: 100%;
+  max-width: 1100px;
+  min-height: 560px;
+
+  margin: 2rem;
+  padding: 1.5rem;
+
+  background: ${({ theme }) =>
+    theme.mode === "dark" ? "#000000ff" : "#ffffffff"};
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+/* ================= CARD ================= */
 
 const Card = styled.div`
   width: 100%;
-  max-width: 460px;
-  padding: 3rem 3.5rem;
-  border-radius: 28px;
+  max-width: 960px;
+  min-height: 500px;
 
-  background: ${({ theme }) => theme.cardBackground};
-  box-shadow: ${({ theme }) =>
-    theme.mode === "dark"
-      ? "0 20px 80px rgba(0,0,0,0.55)"
-      : "0 20px 60px rgba(0,0,0,0.12)"};
+  background: ${({ theme }) =>
+    theme.mode === "dark" ? "#0f172a" : "#ffffff"};
+
+  border-radius: 16px;
+  border: 1px solid
+    ${({ theme }) =>
+      theme.mode === "dark"
+        ? "rgba(255,255,255,0.12)"
+        : "rgba(15,23,42,0.15)"};
+
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
-/* ---------------- Typography ---------------- */
+/* ================= LEFT ================= */
+
+const Left = styled.div`
+  padding: 3.5rem 3.8rem;
+`;
 
 const Title = styled.h1`
+  font-size: 2.4rem;
   margin: 0;
-  font-size: 2.1rem;
-  font-family: "KentledgeBold";
-  text-align: center;
   color: ${({ theme }) => theme.text};
 `;
 
 const Subtitle = styled.p`
-  margin: 0.6rem 0 2.2rem;
-  text-align: center;
-  font-size: 0.95rem;
-  font-family: "KentledgeLight";
+  margin-top: 0.8rem;
+  max-width: 420px;
+  line-height: 1.6;
   color: ${({ theme }) =>
-    theme.mode === "dark" ? "#9ca3af" : "#4b5563"};
+    theme.mode === "dark" ? "#94a3b8" : "#475569"};
 `;
 
-/* ---------------- Form ---------------- */
-
 const Form = styled.form`
+  margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+  gap: 1.2rem;
 `;
 
 const Input = styled.input`
-  padding: 14px 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: transparent;
+  height: 52px;
+  padding: 0 16px;
+  border-radius: 10px;
+
+  background: ${({ theme }) =>
+    theme.mode === "dark" ? "#020617" : "#f8fafc"};
+
   color: ${({ theme }) => theme.text};
+
+  border: 1px solid
+    ${({ theme }) =>
+      theme.mode === "dark"
+        ? "rgba(148,163,184,0.35)"
+        : "rgba(148,163,184,0.6)"};
+
   font-size: 0.95rem;
-  font-family: "KentledgeLight";
 
   &:focus {
     outline: none;
-    border-color: #00b1d5;
+    border-color: #38bdf8;
   }
 `;
 
-const Button = styled.button`
-  margin-top: 1.2rem;
-  padding: 14px;
-  border-radius: 999px;
+const PrimaryButton = styled.button`
+  height: 54px;
+  margin-top: 0.8rem;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
 
   font-size: 1rem;
-  font-family: "KentledgeMedium";
-  color: white;
+  font-weight: 600;
+  color: #ffffff;
 
   background: linear-gradient(
     90deg,
@@ -83,27 +126,68 @@ const Button = styled.button`
     #009dff,
     #621cd0
   );
-
-  transition: transform 0.25s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-  }
 `;
 
-const FooterText = styled.p`
-  margin-top: 1.6rem;
-  text-align: center;
+const Helper = styled.p`
+  margin-top: 1.4rem;
   font-size: 0.9rem;
-  font-family: "KentledgeLight";
+  color: ${({ theme }) =>
+    theme.mode === "dark" ? "#94a3b8" : "#475569"};
 
   span {
-    color: #00b1d5;
+    color: #38bdf8;
     cursor: pointer;
   }
 `;
 
-/* ---------------- Component ---------------- */
+/* ================= RIGHT ================= */
+
+const Right = styled.div`
+  padding: 3.5rem 2.8rem;
+
+  background: ${({ theme }) =>
+    theme.mode === "dark" ? "#020617" : "#f8fafc"};
+
+  border-left: 1px solid
+    ${({ theme }) =>
+      theme.mode === "dark"
+        ? "rgba(255,255,255,0.08)"
+        : "rgba(15,23,42,0.1)"};
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+`;
+
+const SocialTitle = styled.h3`
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: ${({ theme }) => theme.text};
+`;
+
+const SocialButton = styled.button`
+  height: 48px;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+
+  color: ${({ theme }) => theme.text};
+  font-size: 0.95rem;
+  font-weight: 500;
+
+  border: 1px solid
+    ${({ theme }) =>
+      theme.mode === "dark"
+        ? "rgba(148,163,184,0.35)"
+        : "rgba(148,163,184,0.6)"};
+
+  &:hover {
+    border-color: #38bdf8;
+  }
+`;
+
+/* ================= COMPONENT ================= */
 
 const LoginPage = ({ isDark, setIsDark }) => {
   return (
@@ -111,24 +195,41 @@ const LoginPage = ({ isDark, setIsDark }) => {
       <Header isDark={isDark} setIsDark={setIsDark} />
 
       <PageWrapper>
-        <Card>
-          <Title>Welcome back</Title>
-          <Subtitle>Log in to continue managing hygiene smarter</Subtitle>
+        <Frame>
+          <Card>
+            {/* LEFT */}
+            <Left>
+              <Title>Login to your account</Title>
+              <Subtitle>
+                Access hygiene insights, audits, and compliance dashboards
+                across all your kitchens.
+              </Subtitle>
 
-          <Form>
-            <Input type="email" placeholder="Email address" />
-            <Input type="password" placeholder="Password" />
+              <Form>
+                <Input placeholder="Email address" />
+                <Input type="password" placeholder="Password" />
+                <PrimaryButton>Login to your account</PrimaryButton>
+              </Form>
 
-            <Button type="submit">Log In</Button>
-          </Form>
+              <Helper>
+                Forgot password? <span>Reset</span>
+                <br />
+                New here? <span>Create account</span>
+              </Helper>
+            </Left>
 
-          <FooterText>
-            Don’t have an account? <span>Sign up</span>
-          </FooterText>
-        </Card>
+            {/* RIGHT */}
+            <Right>
+              <SocialTitle>Or continue with</SocialTitle>
+              <SocialButton>Sign in with Google</SocialButton>
+              <SocialButton>Sign in with Microsoft</SocialButton>
+              <SocialButton>Sign in with Apple</SocialButton>
+            </Right>
+          </Card>
+        </Frame>
       </PageWrapper>
 
-      <Footer />
+      <Footer isDark={isDark} />
     </>
   );
 };

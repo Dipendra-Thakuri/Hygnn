@@ -60,6 +60,11 @@ const ReviewsShellNarrow = styled(ReviewsShell)`
   margin: 0 auto;
 `;
 
+const HeaderWrap = styled.div`
+  max-width: 640px;
+  margin-inline: auto;
+`;
+
 /* ---------------- Edge Fade ---------------- */
 
 const EdgeFade = styled.div`
@@ -185,14 +190,16 @@ const doubledReviews = [...REVIEWS, ...REVIEWS];
 const ReviewsSection = () => {
   return (
     <Section id="reviews">
-      <Container>
+      <Container size="wide">
         <Header>
+          <HeaderWrap>
           <Title>
             Trusted by <Highlight>real partners</Highlight>
           </Title>
           <Subtitle>
             See what businesses say about working with Hygnn.
           </Subtitle>
+          </HeaderWrap>
         </Header>
 
         <ReviewsWrapper>

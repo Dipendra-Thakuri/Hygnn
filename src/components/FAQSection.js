@@ -19,7 +19,7 @@ const Container = styled.div`
   max-width: 1250px;
 
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 3rem;
   padding: clamp(2.5rem, 6vw, 4rem);
 
@@ -54,6 +54,7 @@ const Container = styled.div`
 
 const LeftSide = styled.div`
   position: relative;
+  max-width: 420px;
 `;
 
 const HeaderTitle = styled.h2`

@@ -23,7 +23,7 @@ const Content = styled.div`
     position: absolute;
     inset: 0;
     margin: auto;
-    width: 720px;
+    width: min(720px, 90%);
     height: 380px;
     border-radius: 50%;
     background: radial-gradient(
@@ -40,6 +40,11 @@ const Content = styled.div`
 `;
 
 /* ---------------- Typography ---------------- */
+
+const TextWrap = styled.div`
+  max-width: 720px;
+  margin-inline: auto;
+`;
 
 const Title = styled.h2`
   margin: 0;
@@ -213,6 +218,7 @@ const KitchenSkillsSection = () => {
     <Section>
       <Container>
         <Content>
+          <TextWrap>
           <Title>
             Which pillar is <Highlight>compromising</Highlight> your brand integrity?
           </Title>
@@ -220,6 +226,7 @@ const KitchenSkillsSection = () => {
           <Subtitle>
             Pick hygiene areas you want to strengthen across your operations:
           </Subtitle>
+          </TextWrap>
 
           <OptionsGrid>
             <OptionCard>

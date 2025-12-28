@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Container from "./layout/Container";
 
 /* ---------------- Hero Wrapper ---------------- */
 
@@ -86,6 +87,7 @@ const HeroSection = () => {
   return (
     <div id="hero">
       <HeroWrapper>
+        <Container>
         <HeroContent>
           <HeroTitle>
             Elevate Your <GradientText>Hygiene</GradientText> Standards
@@ -100,6 +102,7 @@ const HeroSection = () => {
 
           <HeroButton>Become a Partner</HeroButton>
         </HeroContent>
+        </Container>
       </HeroWrapper>
     </div>
   );

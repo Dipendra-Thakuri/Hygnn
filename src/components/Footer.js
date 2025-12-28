@@ -10,7 +10,9 @@ import {
 
 /* ------------------ Layout ------------------ */
 
-const FooterMain = styled.footer`
+const FooterMain = styled.footer.attrs(() => ({
+  id: "footer",
+}))`
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
   padding: clamp(48px, 8vw, 80px) 0 clamp(32px, 6vw, 50px);

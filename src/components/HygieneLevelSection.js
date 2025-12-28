@@ -42,6 +42,11 @@ const Subtitle = styled.p`
     theme.mode === "dark" ? "#cbd5e1" : "#4b5563"};
 `;
 
+const TextWrap = styled.div`
+  max-width: 680px;
+  margin-inline: auto;
+`;
+
 /* ---------------- Card ---------------- */
 
 const CardWrapper = styled.div`
@@ -159,8 +164,9 @@ const StatValue = styled.span`
 const HygieneLevelSection = () => {
   return (
     <Section id="hygiene-level">
-      <Container>
+      <Container size="wide">
         <Content>
+          <TextWrap>
           <Title>
             Get your <Highlight>real</Highlight> Hygiene level
           </Title>
@@ -169,6 +175,7 @@ const HygieneLevelSection = () => {
             Get an on-site hygiene inspection by our specialists and receive a
             detailed score for every part of your kitchen.
           </Subtitle>
+          </TextWrap>
 
           <CardWrapper>
             <Card>

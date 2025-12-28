@@ -21,6 +21,10 @@ const HeaderRow = styled.div`
   margin-bottom: 3.2rem;
 `;
 
+const HeaderWrap = styled.div`
+  max-width: 720px;
+`;
+
 const Tag = styled.span`
   font-size: 0.75rem;
   letter-spacing: 0.1em;
@@ -48,7 +52,7 @@ const SectionSubtitle = styled.p`
 
 const ReasonsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 28px;
 `;
 
@@ -106,6 +110,7 @@ const WhyUsSection = () => {
     <Section id="why-us">
       <Container>
         <HeaderRow>
+          <HeaderWrap>
           <Tag>Why Hygnn</Tag>
           <SectionTitle>Built for busy kitchen operators</SectionTitle>
           <SectionSubtitle>
@@ -113,6 +118,7 @@ const WhyUsSection = () => {
             your teams can focus on guests while also keeping hygiene under
             control.
           </SectionSubtitle>
+          </HeaderWrap>
         </HeaderRow>
 
         <ReasonsGrid>

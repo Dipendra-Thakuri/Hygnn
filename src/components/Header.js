@@ -33,7 +33,7 @@ const LogoButton = styled.button`
 `;
 
 const HeaderLogo = styled.img`
-  width: clamp(90px, 10vw, 130px);
+  width: clamp(6rem, 9vw, 8rem);
 `;
 
 /* ------------------ Navigation ------------------ */
@@ -94,7 +94,7 @@ const GradientBorder = styled.div`
 `;
 
 const SignUpButton = styled.button`
-  padding: 9px 20px;
+  padding: 10px 20px 8px 20px;
   border-radius: 999px;
   border: none;
   background: ${({ theme }) => theme.background};
@@ -112,7 +112,7 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
   const location = useLocation();
   const headerRef = useRef(null);
 
-  /* Expose header height for Hero */
+  /* ------------------ Header Height Sync ------------------ */
   useEffect(() => {
     const updateHeight = () => {
       if (headerRef.current) {
@@ -128,6 +128,7 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
+  /* ------------------ Theme State ------------------ */
   const [isDark, setIsDark] = useState(
     localStorage.getItem(storageKey)
       ? localStorage.getItem(storageKey) === "dark"
@@ -145,6 +146,7 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
 
   const toggleTheme = () => applyTheme(!isDark);
 
+  /* ------------------ Navigation Helpers ------------------ */
   const goToSection = (id) => {
     if (location.pathname !== "/") {
       navigate("/");
@@ -156,6 +158,7 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
     }
   };
 
+  /* ------------------ Render ------------------ */
   return (
     <HeaderMain ref={headerRef}>
       <HeaderWrapper>
@@ -174,7 +177,7 @@ const Header = ({ isDark: controlledIsDark, setIsDark: controlledSetIsDark }) =>
           <NavLink onClick={() => navigate("/contact")}>Contact Us</NavLink>
 
           <GradientBorder>
-            <SignUpButton onClick={() => navigate("/signup")}>
+            <SignUpButton onClick={() => navigate("/login")}>
               Sign Up
             </SignUpButton>
           </GradientBorder>

@@ -7,7 +7,6 @@ import LandingPage from "./pages/LandingPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   const [isDark, setIsDark] = useState(true);
@@ -28,8 +27,11 @@ function App() {
             path="/about"
             element={<AboutUsPage isDark={isDark} setIsDark={setIsDark} />}
           />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<RegisterPage />} />
+          <Route
+  path="/login"
+  element={<LoginPage isDark={isDark} setIsDark={setIsDark} />}
+/>
+
 
         </Routes>
       </BrowserRouter>
