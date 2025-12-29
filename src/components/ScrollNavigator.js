@@ -84,32 +84,44 @@ const ScrollNavigator = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPos = window.scrollY + window.innerHeight / 2;
+      const viewportCenter = window.innerHeight / 2;
 
-      let activeIndex = 0;
+      let closestIndex = 0;
+      let closestDistance = Infinity;
 
       SECTIONS.forEach((id, index) => {
         const el = document.getElementById(id);
         if (!el) return;
 
-        if (scrollPos >= el.offsetTop) {
-          activeIndex = index;
+        const rect = el.getBoundingClientRect();
+        const sectionCenter = rect.top + rect.height / 2;
+
+        const distance = Math.abs(sectionCenter - viewportCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
         }
       });
 
-      setCurrentIndex(activeIndex);
+      setCurrentIndex(closestIndex);
     };
 
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   const handleClick = () => {
     if (currentIndex < SECTIONS.length - 1) {
       document
         .getElementById(SECTIONS[currentIndex + 1])
-        ?.scrollIntoView({ behavior: "smooth" });
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
