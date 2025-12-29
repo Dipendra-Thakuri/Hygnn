@@ -142,7 +142,7 @@ const GlowField = styled.div`
 /* -------- Inputs -------- */
 
 const Input = styled.input`
-  width: 100%;
+  width: 95%;
   padding: 14px 10px 12px;
   font-size: 0.95rem;
 

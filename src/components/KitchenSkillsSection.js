@@ -15,9 +15,9 @@ import {
 /* ================= Animations ================= */
 
 const sectionVariants = {
-  hidden: { opacity: 0 },
+  hidden: { y: 24 },
   visible: {
-    opacity: 1,
+    y: 0,
     transition: { duration: 0.6, ease: "easeOut" },
   },
 };
@@ -73,7 +73,7 @@ const Content = styled(motion.div)`
     );
     filter: blur(22px);
     opacity: ${({ theme }) => (theme.mode === "dark" ? 1 : 0)};
-    z-index: -1;
+    z-index: 0;
     pointer-events: none;
   }
 `;
