@@ -121,7 +121,7 @@ const ProblemsSection = () => {
 
         <ImageWrapper $visible={visible}>
           <Image
-            src="/BadReport.pn"
+            src="/BadReport.png"
             alt="Kitchen hygiene report showing poor performance"
           />
         </ImageWrapper>

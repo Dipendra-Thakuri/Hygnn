@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
+import { LuArrowLeft } from "react-icons/lu";
 
 /* ================= PAGE ================= */
 
 const PageWrapper = styled.main`
-  min-height: calc(100svh - var(--header-height, 0px));
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,110 +13,172 @@ const PageWrapper = styled.main`
   background: ${({ theme }) => theme.background};
 `;
 
-/* ================= FRAME ================= */
+/* ================= BACK BUTTON ================= */
 
-const Frame = styled.div`
-  width: 100%;
-  max-width: 1100px;
-  min-height: 560px;
-
-  margin: 2rem;
-  padding: 1.5rem;
-
-  background: ${({ theme }) =>
-    theme.mode === "dark" ? "#000000ff" : "#ffffffff"};
-
-  border-radius: 18px;
+const BackButton = styled.button`
+  position: absolute;
+  top: 28px;
+  left: 28px;
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 6px;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  color: ${({ theme }) => theme.text};
+  font-size: 0.9rem;
+  opacity: 0.8;
+
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+    transform: translateX(-2px);
+  }
+`;
+
+const BackIcon = styled(LuArrowLeft)`
+  font-size: 1.2rem;
 `;
 
 /* ================= CARD ================= */
 
 const Card = styled.div`
   width: 100%;
-  max-width: 960px;
-  min-height: 500px;
+  max-width: 350px;
+
+  padding: 2.6rem 2.4rem;
 
   background: ${({ theme }) =>
     theme.mode === "dark" ? "#0f172a" : "#ffffff"};
 
-  border-radius: 16px;
+  border-radius: 2px;
   border: 1px solid
     ${({ theme }) =>
       theme.mode === "dark"
         ? "rgba(255,255,255,0.12)"
         : "rgba(15,23,42,0.15)"};
 
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  box-shadow: ${({ theme }) =>
+    theme.mode === "dark"
+      ? "0 20px 60px rgba(0,0,0,0.55)"
+      : "0 20px 50px rgba(15,23,42,0.15)"};
+`;
 
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
+/* ================= TEXT ================= */
+
+const Title = styled.h1`
+  margin: 0;
+  padding-bottom: 24px;
+  font-size: 2.1rem;
+  text-align: center;
+
+  background: linear-gradient(
+    90deg,
+    #00b1d5,
+    #009dff,
+    #0083ff,
+    #005fff,
+    #621cd0
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+/* ================= FORM ================= */
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+`;
+
+const Field = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Label = styled.label`
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  opacity: 0.85;
+  color: ${({ theme }) =>
+    theme.mode === "dark" ? "#ffffff" : "#000000"};
+`;
+
+/* -------- Glow Wrapper -------- */
+
+const GlowField = styled.div`
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%;
+
+    background: linear-gradient(
+      90deg,
+      #00b1d5,
+      #009dff,
+      #0083ff,
+      #005fff,
+      #621cd0
+    );
+
+    transition: width 0.35s ease;
+  }
+
+  &:focus-within::after {
+    width: 100%;
   }
 `;
 
-/* ================= LEFT ================= */
-
-const Left = styled.div`
-  padding: 3.5rem 3.8rem;
-`;
-
-const Title = styled.h1`
-  font-size: 2.4rem;
-  margin: 0;
-  color: ${({ theme }) => theme.text};
-`;
-
-const Subtitle = styled.p`
-  margin-top: 0.8rem;
-  max-width: 420px;
-  line-height: 1.6;
-  color: ${({ theme }) =>
-    theme.mode === "dark" ? "#94a3b8" : "#475569"};
-`;
-
-const Form = styled.form`
-  margin-top: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-`;
+/* -------- Inputs -------- */
 
 const Input = styled.input`
-  height: 52px;
-  padding: 0 16px;
-  border-radius: 10px;
+  width: 95%;
+  padding: 14px 10px 12px 10px;
+  font-size: 0.95rem;
 
-  background: ${({ theme }) =>
-    theme.mode === "dark" ? "#020617" : "#f8fafc"};
-
+  background: transparent;
   color: ${({ theme }) => theme.text};
 
-  border: 1px solid
+  border: none;
+  border-bottom: 1px solid
     ${({ theme }) =>
       theme.mode === "dark"
         ? "rgba(148,163,184,0.35)"
         : "rgba(148,163,184,0.6)"};
 
-  font-size: 0.95rem;
+  transition: border-color 0.25s ease;
 
   &:focus {
     outline: none;
-    border-color: #38bdf8;
+    border-bottom-color: transparent;
+  }
+
+  &::placeholder {
+    color: ${({ theme }) =>
+      theme.mode === "dark" ? "#64748b" : "#94a3b8"};
   }
 `;
 
+/* -------- Button -------- */
+
 const PrimaryButton = styled.button`
-  height: 54px;
   margin-top: 0.8rem;
-  border-radius: 10px;
+  height: 50px;
+  border-radius: 999px;
   border: none;
   cursor: pointer;
 
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #ffffff;
 
@@ -126,111 +188,81 @@ const PrimaryButton = styled.button`
     #009dff,
     #621cd0
   );
+
+  transition: transform 0.25s ease, opacity 0.25s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    opacity: 0.95;
+  }
 `;
 
-const Helper = styled.p`
+/* ================= HELPER ================= */
+
+const Helper = styled.div`
   margin-top: 1.4rem;
-  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+
   color: ${({ theme }) =>
     theme.mode === "dark" ? "#94a3b8" : "#475569"};
 
   span {
     color: #38bdf8;
     cursor: pointer;
-  }
-`;
-
-/* ================= RIGHT ================= */
-
-const Right = styled.div`
-  padding: 3.5rem 2.8rem;
-
-  background: ${({ theme }) =>
-    theme.mode === "dark" ? "#020617" : "#f8fafc"};
-
-  border-left: 1px solid
-    ${({ theme }) =>
-      theme.mode === "dark"
-        ? "rgba(255,255,255,0.08)"
-        : "rgba(15,23,42,0.1)"};
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-`;
-
-const SocialTitle = styled.h3`
-  margin-bottom: 0.8rem;
-  font-size: 1rem;
-  color: ${({ theme }) => theme.text};
-`;
-
-const SocialButton = styled.button`
-  height: 48px;
-  border-radius: 10px;
-  background: transparent;
-  cursor: pointer;
-
-  color: ${({ theme }) => theme.text};
-  font-size: 0.95rem;
-  font-weight: 500;
-
-  border: 1px solid
-    ${({ theme }) =>
-      theme.mode === "dark"
-        ? "rgba(148,163,184,0.35)"
-        : "rgba(148,163,184,0.6)"};
-
-  &:hover {
-    border-color: #38bdf8;
+    white-space: nowrap;
   }
 `;
 
 /* ================= COMPONENT ================= */
 
-const LoginPage = ({ isDark, setIsDark }) => {
+const LoginPage = () => {
+  const navigate = useNavigate();
+
   return (
-    <>
-      <Header isDark={isDark} setIsDark={setIsDark} />
+    <PageWrapper>
+      <BackButton onClick={() => navigate("/")}>
+        <BackIcon />
+        Home
+      </BackButton>
 
-      <PageWrapper>
-        <Frame>
-          <Card>
-            {/* LEFT */}
-            <Left>
-              <Title>Login to your account</Title>
-              <Subtitle>
-                Access hygiene insights, audits, and compliance dashboards
-                across all your kitchens.
-              </Subtitle>
+      <Card>
+        <Title>Account Login</Title>
 
-              <Form>
-                <Input placeholder="Email address" />
-                <Input type="password" placeholder="Password" />
-                <PrimaryButton>Login to your account</PrimaryButton>
-              </Form>
+        <Form>
+          <Field>
+            <Label>Email</Label>
+            <GlowField>
+              <Input
+                type="email"
+                placeholder="Enter your email"
+              />
+            </GlowField>
+          </Field>
 
-              <Helper>
-                Forgot password? <span>Reset</span>
-                <br />
-                New here? <span>Create account</span>
-              </Helper>
-            </Left>
+          <Field>
+            <Label>Password</Label>
+            <GlowField>
+              <Input
+                type="password"
+                placeholder="Enter your password"
+              />
+            </GlowField>
+          </Field>
 
-            {/* RIGHT */}
-            <Right>
-              <SocialTitle>Or continue with</SocialTitle>
-              <SocialButton>Sign in with Google</SocialButton>
-              <SocialButton>Sign in with Microsoft</SocialButton>
-              <SocialButton>Sign in with Apple</SocialButton>
-            </Right>
-          </Card>
-        </Frame>
-      </PageWrapper>
+          <PrimaryButton>Login</PrimaryButton>
+        </Form>
 
-      <Footer isDark={isDark} />
-    </>
+        <Helper>
+          <span>Forgot password?</span>
+          <span onClick={() => navigate("/register")}>
+            Create account
+          </span>
+        </Helper>
+
+      </Card>
+    </PageWrapper>
   );
 };
 

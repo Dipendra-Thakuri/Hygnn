@@ -1,11 +1,22 @@
-// src/components/ReviewsSection.js
 import styled, { keyframes } from "styled-components";
+import { motion } from "framer-motion";
 import Section from "./layout/Section";
 import Container from "./layout/Container";
 
+/* ---------------- Animations ---------------- */
+
+const headerVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
 /* ---------------- Header ---------------- */
 
-const Header = styled.div`
+const Header = styled(motion.div)`
   text-align: center;
 `;
 
@@ -28,6 +39,11 @@ const Subtitle = styled.p`
   font-family: "KentledgeLight";
   color: ${({ theme }) =>
     theme.mode === "dark" ? "#cbd5e1" : "#4b5563"};
+`;
+
+const HeaderWrap = styled.div`
+  max-width: 640px;
+  margin-inline: auto;
 `;
 
 /* ---------------- Marquee Animations ---------------- */
@@ -58,11 +74,6 @@ const ReviewsShell = styled.div`
 const ReviewsShellNarrow = styled(ReviewsShell)`
   width: 78%;
   margin: 0 auto;
-`;
-
-const HeaderWrap = styled.div`
-  max-width: 640px;
-  margin-inline: auto;
 `;
 
 /* ---------------- Edge Fade ---------------- */
@@ -191,17 +202,24 @@ const ReviewsSection = () => {
   return (
     <Section id="reviews">
       <Container size="wide">
-        <Header>
+        {/* Animated Header */}
+        <Header
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-120px" }}
+        >
           <HeaderWrap>
-          <Title>
-            Trusted by <Highlight>real partners</Highlight>
-          </Title>
-          <Subtitle>
-            See what businesses say about working with Hygnn.
-          </Subtitle>
+            <Title>
+              Trusted by <Highlight>real partners</Highlight>
+            </Title>
+            <Subtitle>
+              See what businesses say about working with Hygnn.
+            </Subtitle>
           </HeaderWrap>
         </Header>
 
+        {/* Marquee (unchanged for performance) */}
         <ReviewsWrapper>
           <ReviewsShell>
             <ReviewsTrackLeft>

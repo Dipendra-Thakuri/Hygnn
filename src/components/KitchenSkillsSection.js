@@ -1,6 +1,6 @@
-// src/components/KitchenSkillsSection.js
 import React from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import Section from "./layout/Section";
 import Container from "./layout/Container";
 import {
@@ -12,9 +12,48 @@ import {
   LuGitBranch,
 } from "react-icons/lu";
 
-/* ---------------- Content ---------------- */
+/* ================= Animations ================= */
 
-const Content = styled.div`
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const textVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const gridVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.45, ease: "easeOut" },
+  },
+};
+
+/* ================= Content ================= */
+
+const Content = styled(motion.div)`
   text-align: center;
   position: relative;
 
@@ -39,9 +78,9 @@ const Content = styled.div`
   }
 `;
 
-/* ---------------- Typography ---------------- */
+/* ================= Typography ================= */
 
-const TextWrap = styled.div`
+const TextWrap = styled(motion.div)`
   max-width: 720px;
   margin-inline: auto;
 `;
@@ -71,18 +110,18 @@ const Subtitle = styled.p`
     theme.mode === "dark" ? "#cbd5e1" : "#4b5563"};
 `;
 
-/* ---------------- Grid ---------------- */
+/* ================= Grid ================= */
 
-const OptionsGrid = styled.div`
+const OptionsGrid = styled(motion.div)`
   margin-top: 3rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 26px;
 `;
 
-/* ---------------- Cards ---------------- */
+/* ================= Cards ================= */
 
-const OptionCard = styled.button`
+const OptionCard = styled(motion.button)`
   all: unset;
   display: flex;
   align-items: center;
@@ -103,7 +142,8 @@ const OptionCard = styled.button`
         ? "rgba(255, 255, 255, 0.14)"
         : "rgba(148, 163, 184, 0.45)"};
 
-  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.25s ease, background 0.25s ease,
+    border-color 0.25s ease;
 
   &:hover {
     transform: translateY(-2px);
@@ -182,9 +222,9 @@ const Circle = styled.span`
   }
 `;
 
-/* ---------------- CTA ---------------- */
+/* ================= CTA ================= */
 
-const CTAButton = styled.button`
+const CTAButton = styled(motion.button)`
   margin-top: 3.5rem;
   padding: 14px 34px;
   font-size: 1.05rem;
@@ -196,7 +236,7 @@ const CTAButton = styled.button`
   background: #00c2a0;
   color: #ffffff;
 
-  transition: transform 0.25s ease, background 0.25s ease;
+  transition: transform 0.25s ease;
 
   &:hover {
     transform: translateY(-2px);
@@ -211,92 +251,63 @@ const CTAButton = styled.button`
   }
 `;
 
-/* ---------------- Component ---------------- */
+/* ================= Component ================= */
 
 const KitchenSkillsSection = () => {
   return (
     <Section>
       <Container>
-        <Content>
-          <TextWrap>
-          <Title>
-            Which pillar is <Highlight>compromising</Highlight> your brand integrity?
-          </Title>
-
-          <Subtitle>
-            Pick hygiene areas you want to strengthen across your operations:
-          </Subtitle>
+        <Content
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <TextWrap variants={textVariants}>
+            <Title>
+              Which pillar is <Highlight>compromising</Highlight> your brand
+              integrity?
+            </Title>
+            <Subtitle>
+              Pick hygiene areas you want to strengthen across your operations:
+            </Subtitle>
           </TextWrap>
 
-          <OptionsGrid>
-            <OptionCard>
-              <OptionLabel>
-                <Icon><LuSprayCan /></Icon>
-                <OptionText>
-                  <OptionMeta>EXECUTION</OptionMeta>
-                  <OptionTitle>Routine Cleaning</OptionTitle>
-                </OptionText>
-              </OptionLabel>
-              <Circle />
-            </OptionCard>
-
-            <OptionCard>
-              <OptionLabel>
-                <Icon><LuClipboardCheck /></Icon>
-                <OptionText>
-                  <OptionMeta>INFRASTRUCTURE</OptionMeta>
-                  <OptionTitle>Deep Cleaning</OptionTitle>
-                </OptionText>
-              </OptionLabel>
-              <Circle />
-            </OptionCard>
-
-            <OptionCard>
-              <OptionLabel>
-                <Icon><LuCpu /></Icon>
-                <OptionText>
-                  <OptionMeta>INTELLIGENCE</OptionMeta>
-                  <OptionTitle>Automation</OptionTitle>
-                </OptionText>
-              </OptionLabel>
-              <Circle />
-            </OptionCard>
-
-            <OptionCard>
-              <OptionLabel>
-                <Icon><LuGraduationCap /></Icon>
-                <OptionText>
-                  <OptionMeta>HUMAN CAPITAL</OptionMeta>
-                  <OptionTitle>Staff Training</OptionTitle>
-                </OptionText>
-              </OptionLabel>
-              <Circle />
-            </OptionCard>
-
-            <OptionCard>
-              <OptionLabel>
-                <Icon><LuShieldCheck /></Icon>
-                <OptionText>
-                  <OptionMeta>GOVERNANCE</OptionMeta>
-                  <OptionTitle>Audit Compliance</OptionTitle>
-                </OptionText>
-              </OptionLabel>
-              <Circle />
-            </OptionCard>
-
-            <OptionCard>
-              <OptionLabel>
-                <Icon><LuGitBranch /></Icon>
-                <OptionText>
-                  <OptionMeta>SCALABILITY</OptionMeta>
-                  <OptionTitle>Standardisation</OptionTitle>
-                </OptionText>
-              </OptionLabel>
-              <Circle />
-            </OptionCard>
+          <OptionsGrid variants={gridVariants}>
+            {[
+              [LuSprayCan, "EXECUTION", "Routine Cleaning"],
+              [LuClipboardCheck, "INFRASTRUCTURE", "Deep Cleaning"],
+              [LuCpu, "INTELLIGENCE", "Automation"],
+              [LuGraduationCap, "HUMAN CAPITAL", "Staff Training"],
+              [LuShieldCheck, "GOVERNANCE", "Audit Compliance"],
+              [LuGitBranch, "SCALABILITY", "Standardisation"],
+            ].map(([IconComp, meta, title], i) => (
+              <OptionCard
+                key={i}
+                variants={cardVariants}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <OptionLabel>
+                  <Icon>
+                    <IconComp />
+                  </Icon>
+                  <OptionText>
+                    <OptionMeta>{meta}</OptionMeta>
+                    <OptionTitle>{title}</OptionTitle>
+                  </OptionText>
+                </OptionLabel>
+                <Circle />
+              </OptionCard>
+            ))}
           </OptionsGrid>
 
-          <CTAButton>Let’s improve</CTAButton>
+          <CTAButton
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.96 }}
+          >
+            Let’s improve
+          </CTAButton>
         </Content>
       </Container>
     </Section>

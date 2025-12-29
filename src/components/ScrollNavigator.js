@@ -50,8 +50,8 @@ const GradientBorder = styled.div`
 `;
 
 const ArrowButton = styled.button`
-  width: 64px;
-  height: 64px;
+  width: 74px;
+  height: 74px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
@@ -66,7 +66,7 @@ const ArrowButton = styled.button`
   transition: transform 0.25s ease;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(0.95);
   }
 `;
 

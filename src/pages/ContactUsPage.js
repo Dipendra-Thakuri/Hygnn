@@ -1,65 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useEffect } from "react";
 
+/* ================= PAGE ================= */
 
 const PageWrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: "KentledgeBold";
+
   background: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.text};
 `;
 
 const Main = styled.main`
   flex: 1;
-  padding: 60px 0 60px;
+  padding: clamp(80px, 10vh, 120px) 0;
 `;
 
 const Container = styled.div`
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 32px;
-
-  @media (max-width: 768px) {
-    padding: 0 20px;
-  }
+  padding: 0 clamp(20px, 4vw, 32px);
 `;
+
+/* ================= HEADER ================= */
 
 const HeaderBlock = styled.div`
   max-width: 620px;
-  margin-bottom: 50px;
+  margin-bottom: 64px;
 `;
 
 const Title = styled.h1`
   margin: 0;
-  font-size: 3rem;
+  font-size: clamp(2.6rem, 4vw, 3.4rem);
   line-height: 1.1;
-
-  @media (max-width: 768px) {
-    font-size: 2.4rem;
-  }
-`;
-
-const Subtitle = styled.p`
-  margin-top: 14px;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: ${({ theme }) =>
-    theme.background === "#ffffff" ? "#4b5563" : "#cbd5e1"};
-`;
-
-const ContentGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 50px;
-
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
-  }
 `;
 
 const GradientText = styled.span`
@@ -75,12 +51,33 @@ const GradientText = styled.span`
   -webkit-text-fill-color: transparent;
 `;
 
-/* -------- FORM -------- */
+const Subtitle = styled.p`
+  margin-top: 14px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: ${({ theme }) =>
+    theme.background === "#ffffff" ? "#4b5563" : "#cbd5e1"};
+`;
+
+/* ================= GRID ================= */
+
+const ContentGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 56px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+`;
+
+/* ================= FORM ================= */
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 26px;
 `;
 
 const Field = styled.div`
@@ -89,74 +86,123 @@ const Field = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   margin-bottom: 6px;
   opacity: 0.85;
 `;
 
+/* ---------- Glow Wrapper ---------- */
+
+const GlowField = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%;
+
+    background: linear-gradient(
+      90deg,
+      #00b1d5,
+      #009dff,
+      #0083ff,
+      #005fff,
+      #621cd0
+    );
+
+    transition: width 0.35s ease;
+  }
+
+  &:focus-within::after {
+    width: 100%;
+  }
+`;
+
+/* ---------- Inputs ---------- */
+
 const Input = styled.input`
-  padding: 14px 14px;
-  border-radius: 12px;
+  padding: 14px 4px 12px;
   font-size: 0.95rem;
 
-  background: ${({ theme }) =>
-    theme.background === "#ffffff"
-      ? "#f9fafb"
-      : "rgba(15, 23, 42, 0.9)"};
+  background: transparent;
+  color: ${({ theme }) => theme.text};
 
-  border: 1px solid
+  border: none;
+  border-bottom: 1px solid
     ${({ theme }) =>
       theme.background === "#ffffff"
         ? "rgba(148,163,184,0.6)"
         : "rgba(148,163,184,0.35)"};
 
-  color: ${({ theme }) => theme.text};
+  transition: border-color 0.25s ease;
 
   &:focus {
     outline: none;
-    border-color: #38bdf8;
+    border-bottom-color: transparent;
+  }
+
+  &::placeholder {
+    color: ${({ theme }) =>
+      theme.background === "#ffffff" ? "#94a3b8" : "#64748b"};
   }
 `;
 
 const Textarea = styled.textarea`
-  padding: 14px;
-  border-radius: 12px;
+  padding: 14px 4px 12px;
   font-size: 0.95rem;
-  min-height: 140px;
+  min-height: 120px;
   resize: vertical;
 
-  background: ${({ theme }) =>
-    theme.background === "#ffffff"
-      ? "#f9fafb"
-      : "rgba(15, 23, 42, 0.9)"};
+  background: transparent;
+  color: ${({ theme }) => theme.text};
 
-  border: 1px solid
+  border: none;
+  border-bottom: 1px solid
     ${({ theme }) =>
       theme.background === "#ffffff"
         ? "rgba(148,163,184,0.6)"
         : "rgba(148,163,184,0.35)"};
 
-  color: ${({ theme }) => theme.text};
+  transition: border-color 0.25s ease;
 
   &:focus {
     outline: none;
-    border-color: #38bdf8;
+    border-bottom-color: transparent;
+  }
+
+  &::placeholder {
+    color: ${({ theme }) =>
+      theme.background === "#ffffff" ? "#94a3b8" : "#64748b"};
   }
 `;
 
+/* ---------- Submit Button ---------- */
+
 const SubmitButton = styled.button`
-  margin-top: 10px;
-  padding: 15px 32px;
+  margin-top: 18px;
+  align-self: flex-start;
+
+  padding: 14px 34px;
   border-radius: 14px;
   font-size: 1.05rem;
   font-weight: 600;
   border: none;
   cursor: pointer;
 
-  background: linear-gradient(90deg, #00b1d5, #009dff, #621cd0);
-  color: #fff;
+  background: linear-gradient(
+    90deg,
+    #00b1d5,
+    #009dff,
+    #621cd0
+  );
+  color: #ffffff;
 
-  transition: 0.25s ease;
+  transition: transform 0.25s ease, opacity 0.25s ease;
 
   &:hover {
     transform: translateY(-2px);
@@ -164,10 +210,10 @@ const SubmitButton = styled.button`
   }
 `;
 
-/* -------- INFO CARD -------- */
+/* ================= INFO CARD ================= */
 
 const InfoCard = styled.div`
-  padding: 28px 26px;
+  padding: 30px 28px;
   border-radius: 22px;
 
   background: ${({ theme }) =>
@@ -195,11 +241,12 @@ const InfoItem = styled.p`
     theme.background === "#ffffff" ? "#374151" : "#cbd5e1"};
 `;
 
-const ContactUsPage = ({ isDark, setIsDark }) => {
+/* ================= COMPONENT ================= */
 
-    useEffect(() => {
-  window.scrollTo({ top: 0, behavior: "instant" });
-}, []);
+const ContactUsPage = ({ isDark, setIsDark }) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
 
   return (
     <PageWrapper>
@@ -208,10 +255,12 @@ const ContactUsPage = ({ isDark, setIsDark }) => {
       <Main>
         <Container>
           <HeaderBlock>
-            <Title>Let’s talk <GradientText> Hygiene </GradientText> </Title>
+            <Title>
+              Let’s talk <GradientText>Hygiene</GradientText>
+            </Title>
             <Subtitle>
-              Whether you run a single kitchen or manage multiple outlets,
-              our team will help you build cleaner, safer operations.
+              Whether you run a single kitchen or manage multiple outlets, our
+              team will help you build cleaner, safer operations.
             </Subtitle>
           </HeaderBlock>
 
@@ -219,22 +268,30 @@ const ContactUsPage = ({ isDark, setIsDark }) => {
             <Form>
               <Field>
                 <Label>Name</Label>
-                <Input placeholder="Your full name" />
+                <GlowField>
+                  <Input placeholder="Your full name" />
+                </GlowField>
               </Field>
 
               <Field>
                 <Label>Email</Label>
-                <Input type="email" placeholder="you@company.com" />
+                <GlowField>
+                  <Input type="email" placeholder="you@company.com" />
+                </GlowField>
               </Field>
 
               <Field>
                 <Label>Company / Kitchen</Label>
-                <Input placeholder="Restaurant or brand name" />
+                <GlowField>
+                  <Input placeholder="Restaurant or brand name" />
+                </GlowField>
               </Field>
 
               <Field>
                 <Label>Message</Label>
-                <Textarea placeholder="Tell us about your hygiene challenges…" />
+                <GlowField>
+                  <Textarea placeholder="Tell us about your hygiene challenges…" />
+                </GlowField>
               </Field>
 
               <SubmitButton>Send message</SubmitButton>
@@ -244,12 +301,8 @@ const ContactUsPage = ({ isDark, setIsDark }) => {
               <InfoTitle>Reach Hygnn</InfoTitle>
               <InfoItem>📧 hello@hygnn.com</InfoItem>
               <InfoItem>📞 +91 9XXXXXXXXX</InfoItem>
-              <InfoItem>
-                📍 Serving commercial kitchens across India
-              </InfoItem>
-              <InfoItem>
-                🕒 Mon–Sat · 9:30 AM – 6:30 PM
-              </InfoItem>
+              <InfoItem>📍 Serving commercial kitchens across India</InfoItem>
+              <InfoItem>🕒 Mon–Sat · 9:30 AM – 6:30 PM</InfoItem>
             </InfoCard>
           </ContentGrid>
         </Container>

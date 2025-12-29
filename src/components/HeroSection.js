@@ -1,31 +1,33 @@
 import styled from "styled-components";
-import Container from "./layout/Container";
 
 /* ---------------- Hero Wrapper ---------------- */
 
 const HeroWrapper = styled.section`
-  min-height: calc(100svh - var(--header-height, 0px));
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  padding: clamp(96px, 14vh, 140px) 0 clamp(72px, 10vh, 110px);
 `;
 
 /* ---------------- Hero Content ---------------- */
 
 const HeroContent = styled.div`
-  text-align: center;
-  max-width: 1536px;
+  max-width: 100%;
   margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
 `;
 
 /* ---------------- Typography ---------------- */
 
 const HeroTitle = styled.h1`
-  margin: 0;
+  margin: 0 0 0.5rem;
   color: ${({ theme }) => theme.text};
-  font-size: clamp(2.4rem, 4vw, 4.6rem);
+  font-size: clamp(2.5rem, 4.2vw, 4.5rem);
   font-weight: 900;
-  line-height: 1.12;
+  line-height: 1.1;
   font-family: "KentledgeBold";
 `;
 
@@ -43,12 +45,11 @@ const GradientText = styled.span`
 `;
 
 const HeroText = styled.p`
-  margin-top: 1.1rem;
-  font-size: clamp(1.05rem, 1.2vw, 1.35rem);
+  margin: 0;
+  font-size: clamp(1.1rem, 1.4vw, 1.4rem);
   font-family: "KentledgeLight";
   color: ${({ theme }) => theme.text};
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 640px;
 `;
 
 const HighlightText = styled.span`
@@ -58,7 +59,7 @@ const HighlightText = styled.span`
 const HeroButton = styled.button`
   margin-top: 1.8rem;
   padding: 12px 36px 10px;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   border-radius: 999px;
   border: none;
   cursor: pointer;
@@ -85,26 +86,26 @@ const HeroButton = styled.button`
 
 const HeroSection = () => {
   return (
-    <div id="hero">
+    <section id="hero">
       <HeroWrapper>
-        <Container>
-        <HeroContent>
-          <HeroTitle>
-            Elevate Your <GradientText>Hygiene</GradientText> Standards
-          </HeroTitle>
-          <HeroTitle>Protect Your Brand</HeroTitle>
+        
+          <HeroContent>
+            <HeroTitle>
+              Elevate Your <GradientText>Hygiene</GradientText> Standards
+            </HeroTitle>
+            <HeroTitle>Protect Your Brand</HeroTitle>
 
-          <HeroText>
-            <HighlightText>
-              Connect to redefine what’s possible for hygiene in your business.
-            </HighlightText>
-          </HeroText>
+            <HeroText>
+              <HighlightText>
+                Connect to redefine what’s possible for hygiene in your business.
+              </HighlightText>
+            </HeroText>
 
-          <HeroButton>Become a Partner</HeroButton>
-        </HeroContent>
-        </Container>
+            <HeroButton>Become a Partner</HeroButton>
+          </HeroContent>
+        
       </HeroWrapper>
-    </div>
+    </section>
   );
 };
 

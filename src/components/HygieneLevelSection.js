@@ -1,12 +1,55 @@
-// src/components/HygieneLevelSection.js
 import React from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import Section from "./layout/Section";
 import Container from "./layout/Container";
 
+/* ---------------- Animations ---------------- */
+
+const sectionFade = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 22 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const cardPop = {
+  hidden: { opacity: 0, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.5, ease: "easeOut", delay: 0.1 },
+  },
+};
+
+const stagger = {
+  visible: {
+    transition: { staggerChildren: 0.08 },
+  },
+};
+
+const statItem = {
+  hidden: { opacity: 0, y: 14 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, ease: "easeOut" },
+  },
+};
+
 /* ---------------- Content ---------------- */
 
-const Content = styled.div`
+const Content = styled(motion.div)`
   text-align: center;
 `;
 
@@ -42,14 +85,14 @@ const Subtitle = styled.p`
     theme.mode === "dark" ? "#cbd5e1" : "#4b5563"};
 `;
 
-const TextWrap = styled.div`
+const TextWrap = styled(motion.div)`
   max-width: 680px;
   margin-inline: auto;
 `;
 
 /* ---------------- Card ---------------- */
 
-const CardWrapper = styled.div`
+const CardWrapper = styled(motion.div)`
   display: flex;
   justify-content: center;
 `;
@@ -79,7 +122,7 @@ const Card = styled.div`
 
 /* ---------------- Level Strip ---------------- */
 
-const LevelStrip = styled.div`
+const LevelStrip = styled(motion.div)`
   display: flex;
   border-radius: 999px;
   overflow: hidden;
@@ -123,13 +166,13 @@ const LevelValue = styled.p`
 
 /* ---------------- Stats ---------------- */
 
-const StatsGrid = styled.div`
+const StatsGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 18px;
 `;
 
-const Stat = styled.div`
+const Stat = styled(motion.div)`
   display: flex;
   justify-content: space-between;
   padding: 12px 14px;
@@ -165,21 +208,26 @@ const HygieneLevelSection = () => {
   return (
     <Section id="hygiene-level">
       <Container size="wide">
-        <Content>
-          <TextWrap>
-          <Title>
-            Get your <Highlight>real</Highlight> Hygiene level
-          </Title>
+        <Content
+          variants={sectionFade}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-120px" }}
+        >
+          <TextWrap variants={fadeUp}>
+            <Title>
+              Get your <Highlight>real</Highlight> Hygiene level
+            </Title>
 
-          <Subtitle>
-            Get an on-site hygiene inspection by our specialists and receive a
-            detailed score for every part of your kitchen.
-          </Subtitle>
+            <Subtitle>
+              Get an on-site hygiene inspection by our specialists and receive a
+              detailed score for every part of your kitchen.
+            </Subtitle>
           </TextWrap>
 
-          <CardWrapper>
+          <CardWrapper variants={cardPop}>
             <Card>
-              <LevelStrip>
+              <LevelStrip variants={fadeUp}>
                 <LevelItem>At risk</LevelItem>
                 <LevelItem>Developing</LevelItem>
                 <LevelItem>Controlled</LevelItem>
@@ -189,33 +237,25 @@ const HygieneLevelSection = () => {
               <LevelTitle>Current sample score</LevelTitle>
               <LevelValue>Hygiene Level: Pro Kitchen (A)</LevelValue>
 
-              <StatsGrid>
-                <Stat>
-                  <StatLabel>Surface hygiene</StatLabel>
-                  <StatValue>94%</StatValue>
-                </Stat>
-                <Stat>
-                  <StatLabel>Food handling</StatLabel>
-                  <StatValue>88%</StatValue>
-                </Stat>
-
-                <Stat>
-                  <StatLabel>Storage & labeling</StatLabel>
-                  <StatValue>91%</StatValue>
-                </Stat>
-                <Stat>
-                  <StatLabel>Staff practices</StatLabel>
-                  <StatValue>86%</StatValue>
-                </Stat>
-
-                <Stat>
-                  <StatLabel>Audit readiness</StatLabel>
-                  <StatValue>93%</StatValue>
-                </Stat>
-                <Stat>
-                  <StatLabel>Overall score</StatLabel>
-                  <StatValue>90%</StatValue>
-                </Stat>
+              <StatsGrid
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                {[
+                  ["Surface hygiene", "94%"],
+                  ["Food handling", "88%"],
+                  ["Storage & labeling", "91%"],
+                  ["Staff practices", "86%"],
+                  ["Audit readiness", "93%"],
+                  ["Overall score", "90%"],
+                ].map(([label, value], i) => (
+                  <Stat key={i} variants={statItem}>
+                    <StatLabel>{label}</StatLabel>
+                    <StatValue>{value}</StatValue>
+                  </Stat>
+                ))}
               </StatsGrid>
             </Card>
           </CardWrapper>
