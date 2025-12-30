@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LuArrowLeft } from "react-icons/lu";
+import { useAuth } from "../context/AuthContext";
 
 /* ================= PAGE ================= */
 
@@ -219,6 +221,23 @@ const Helper = styled.div`
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      await login(email, password);
+      navigate("/"); // redirect to home
+    } catch {
+      setError("Invalid email or password");
+    }
+  };
 
   return (
     <PageWrapper>
@@ -230,12 +249,14 @@ const LoginPage = () => {
       <Card>
         <Title>Account Login</Title>
 
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Field>
             <Label>Email</Label>
             <GlowField>
               <Input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
               />
             </GlowField>
@@ -246,21 +267,22 @@ const LoginPage = () => {
             <GlowField>
               <Input
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
               />
             </GlowField>
           </Field>
 
-          <PrimaryButton>Login</PrimaryButton>
+          <PrimaryButton type="submit">Login</PrimaryButton>
         </Form>
 
-        <Helper>
-          <span>Forgot password?</span>
-          <span onClick={() => navigate("/register")}>
-            Create account
-          </span>
-        </Helper>
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
+        <Helper>
+          Don’t have an account?{" "}
+          <span onClick={() => navigate("/register")}>Register</span>
+        </Helper>
       </Card>
     </PageWrapper>
   );

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { LuArrowLeft } from "react-icons/lu";
+import { useState } from "react";
+import api from "../api/api";
 
 /* ================= PAGE ================= */
 
@@ -217,6 +219,28 @@ const Helper = styled.div`
 const RegisterPage = () => {
   const navigate = useNavigate();
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      await api.post("/auth/register", {
+        name,
+        email,
+        password,
+      });
+
+      navigate("/login");
+    } catch {
+      setError("Registration failed");
+    }
+  };
+
   return (
     <PageWrapper>
       <BackButton onClick={() => navigate("/")}>
@@ -227,18 +251,27 @@ const RegisterPage = () => {
       <Card>
         <Title>Create Account</Title>
 
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Field>
             <Label>Name</Label>
             <GlowField>
-              <Input placeholder="Your full name" />
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your full name"
+              />
             </GlowField>
           </Field>
 
           <Field>
             <Label>Email</Label>
             <GlowField>
-              <Input type="email" placeholder="Enter your email" />
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+              />
             </GlowField>
           </Field>
 
@@ -247,19 +280,23 @@ const RegisterPage = () => {
             <GlowField>
               <Input
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Create a password"
               />
             </GlowField>
           </Field>
 
-          <PrimaryButton>Create account</PrimaryButton>
+          <PrimaryButton type="submit">
+            Create account
+          </PrimaryButton>
         </Form>
+
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
         <Helper>
           Already have an account?{" "}
-          <span onClick={() => navigate("/login")}>
-            Login
-          </span>
+          <span onClick={() => navigate("/login")}>Login</span>
         </Helper>
       </Card>
     </PageWrapper>

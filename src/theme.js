@@ -1,3 +1,5 @@
+// src/theme.js
+
 export const lightTheme = {
   mode: "light",
   background: "#ffffff",
